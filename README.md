@@ -6,6 +6,10 @@ Built with Next.js 16 (App Router), React 19, Tailwind CSS v4, and shadcn/ui. Th
 foundation (theme system, animation primitives, UI components, showcase scaffolding)
 was harvested from the CloudGlance landing-page repo.
 
+> **New here / resuming in a fresh chat?** Read [`docs/HANDOFF.md`](docs/HANDOFF.md) first —
+> it explains how this repo was created, what to reference for upgrades, current state,
+> guardrails, and placeholders to replace before launch.
+
 ## Development
 
 ```bash
