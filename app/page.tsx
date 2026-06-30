@@ -154,7 +154,7 @@ export default function Home() {
         <CTASection
           title="Bring every matter into one AI legal workspace."
           description="See how Lexli helps your team manage cases, translate documents, and get cited answers from their own files."
-          primaryCta={{ text: "Book a Demo", href: "mailto:hello@lexli.ai" }}
+          primaryCta={{ text: "Book a Demo", href: "mailto:dev@lexli.ai" }}
         />
       </div>
     </div>

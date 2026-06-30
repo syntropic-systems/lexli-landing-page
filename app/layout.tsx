@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
+import { Manrope, Spectral, Geist_Mono } from "next/font/google";
 import "../styles/globals.css";
 import { SiteHeader } from "@/components/nav/SiteHeader";
 import { Footer } from "@/components/footer";
@@ -7,16 +7,26 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-const jakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
+// App-wide sans (Manrope — variable font). Matches the Lexli product app.
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "600", "700", "800"],
+  display: "swap",
+});
+
+// Serif (Spectral) — only renders where `font-serif` is applied. Matches the product app.
+// Spectral is not a variable font, so explicit weights are required.
+const spectral = Spectral({
+  variable: "--font-spectral",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  display: "swap",
 });
 
 const siteUrl = "https://lexli.ai";
@@ -120,7 +130,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${jakartaSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+        className={`${manrope.variable} ${spectral.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col font-sans`}
       >
         <ThemeProvider
           attribute="class"

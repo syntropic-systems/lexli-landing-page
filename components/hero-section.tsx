@@ -185,7 +185,7 @@ export function HeroSection({
                 <Aurora
                     amplitude={1.0}
                     blend={0.8}
-                    colorStops={['var(--primary)', 'var(--accent)', 'var(--primary)']}
+                    colorStops={['var(--primary)', 'var(--secondary)', 'var(--accent)']}
                     lightSettings={{
                         bias: 0.3,
                         midPoint: 0.45,
@@ -212,7 +212,7 @@ export function HeroSection({
                             </RevealOnScroll>
                         )}
                         <RevealOnScroll direction="up" delay={0.15} duration={0.7}>
-                            <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight">
+                            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight">
                                 {title}
                             </h1>
                         </RevealOnScroll>

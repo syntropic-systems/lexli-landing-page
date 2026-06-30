@@ -31,7 +31,7 @@ export function ContactForm() {
                     email: formData.email,
                     company: formData.companyName,
                     message: formData.message,
-                    to_email: 'sales@cloudglancelab.com',
+                    to_email: 'dev@lexli.ai',
                 },
                 'lY-EskTLt6cH9eKH2'
             );

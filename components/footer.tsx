@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { Linkedin } from 'lucide-react';
 import { RevealOnScroll, StaggerChildren, StaggerItem } from '@/components/animations';
+import { ThemeAwareImage } from '@/components/theme-aware-image';
 
 type FooterLink = { name: string; href: string };
 
@@ -36,9 +37,14 @@ export function Footer() {
                     <RevealOnScroll direction="up" duration={0.6}>
                         <div className="flex flex-col gap-4 mb-10">
                             <Link href="/" className="flex items-center" aria-label="Lexli home">
-                                <span className="text-2xl font-semibold tracking-tight">
-                                    Lexli
-                                </span>
+                                <ThemeAwareImage
+                                    src="/logos/light_lg.svg"
+                                    srcDark="/logos/dark_lg.svg"
+                                    alt="Lexli"
+                                    width={128}
+                                    height={28}
+                                    className="h-7 w-auto"
+                                />
                             </Link>
                             <p className="text-sm text-muted-foreground max-w-2xl">
                                 Lexli is the AI legal workspace for Indian legal teams — manage cases,

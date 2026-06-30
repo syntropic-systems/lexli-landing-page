@@ -14,6 +14,7 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { ThemeAwareImage } from "@/components/theme-aware-image";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
@@ -93,10 +94,18 @@ export function SiteHeader() {
                         {/* Logo / wordmark */}
                         <Link
                             href="/"
-                            className="flex items-center text-xl font-semibold tracking-tight transition-transform duration-200 hover:scale-[1.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
+                            className="flex items-center transition-transform duration-200 hover:scale-[1.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
                             aria-label="Lexli home"
                         >
-                            Lexli
+                            <ThemeAwareImage
+                                src="/logos/light_lg.svg"
+                                srcDark="/logos/dark_lg.svg"
+                                alt="Lexli"
+                                width={110}
+                                height={24}
+                                priority
+                                className="h-6 w-auto"
+                            />
                         </Link>
 
                         {/* Desktop nav */}

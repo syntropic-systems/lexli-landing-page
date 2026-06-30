@@ -121,6 +121,82 @@ function parseBareHsl(raw: string): [number, number, number] | null {
   return hslToRgbArray(h, s, l);
 }
 
+function parseOklch(raw: string): [number, number, number] | null {
+  const match = raw.match(/^oklch\(([^)]+)\)$/i);
+  if (!match) return null;
+  const parts = match[1]
+    .split(/[,\s/]+/)
+    .map(part => part.trim())
+    .filter(Boolean);
+  if (parts.length < 3) return null;
+  const toNumber = (value: string, scale: number) =>
+    value.endsWith('%') ? parseFloat(value) / 100 * scale : parseFloat(value);
+  const L = toNumber(parts[0], 1);
+  const C = toNumber(parts[1], 0.4);
+  const hDeg = parseFloat(parts[2]);
+  if ([L, C, hDeg].some(component => Number.isNaN(component))) return null;
+
+  const hRad = (hDeg * Math.PI) / 180;
+  const a = C * Math.cos(hRad);
+  const b = C * Math.sin(hRad);
+
+  // OKLab -> linear sRGB (Björn Ottosson's matrices)
+  const l_ = L + 0.3963377774 * a + 0.2158037573 * b;
+  const m_ = L - 0.1055613458 * a - 0.0638541728 * b;
+  const s_ = L - 0.0894841775 * a - 1.291485548 * b;
+
+  const l = l_ * l_ * l_;
+  const m = m_ * m_ * m_;
+  const s = s_ * s_ * s_;
+
+  const lr = 4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s;
+  const lg = -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s;
+  const lb = -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s;
+
+  return [linearToGamma(lr), linearToGamma(lg), linearToGamma(lb)];
+}
+
+function linearToGamma(value: number): number {
+  const v = clamp01(value);
+  return v <= 0.0031308 ? 12.92 * v : 1.055 * Math.pow(v, 1 / 2.4) - 0.055;
+}
+
+// CIE Lab (D50, the CSS lab() reference white) -> sRGB.
+// Lightning CSS / Turbopack converts authored oklch() into lab() in the
+// compiled stylesheet, so getComputedStyle returns lab() at runtime.
+function parseLab(raw: string): [number, number, number] | null {
+  const match = raw.match(/^lab\(([^)]+)\)$/i);
+  if (!match) return null;
+  const parts = match[1]
+    .split(/[,\s/]+/)
+    .map(part => part.trim())
+    .filter(Boolean);
+  if (parts.length < 3) return null;
+  const L = parts[0].endsWith('%') ? parseFloat(parts[0]) : parseFloat(parts[0]);
+  const a = parseFloat(parts[1]);
+  const b = parseFloat(parts[2]);
+  if ([L, a, b].some(component => Number.isNaN(component))) return null;
+
+  // Lab -> XYZ (D50)
+  const fy = (L + 16) / 116;
+  const fx = fy + a / 500;
+  const fz = fy - b / 200;
+  const delta = 6 / 29;
+  const finv = (t: number) => (t > delta ? t * t * t : 3 * delta * delta * (t - 4 / 29));
+  // D50 reference white
+  const Xn = 0.9642956764, Yn = 1.0, Zn = 0.8251046025;
+  const X = Xn * finv(fx);
+  const Y = Yn * finv(fy);
+  const Z = Zn * finv(fz);
+
+  // XYZ(D50) -> linear sRGB (Bradford-adapted matrix)
+  const lr = 3.1341359569 * X - 1.6173863321 * Y - 0.4906619701 * Z;
+  const lg = -0.9787684958 * X + 1.916158651 * Y + 0.0334540405 * Z;
+  const lb = 0.0719451838 * X - 0.2289914372 * Y + 1.4052427151 * Z;
+
+  return [linearToGamma(lr), linearToGamma(lg), linearToGamma(lb)];
+}
+
 function parseHex(raw: string): [number, number, number] | null {
   if (!raw.startsWith('#')) return null;
   let hex = raw.slice(1);
@@ -169,7 +245,7 @@ function colorStopToRGB(stop: string, fallback: string): [number, number, number
     stop ??
     fallback;
 
-  const parsers = [parseHex, parseRgbString, parseHslString, parseBareHsl];
+  const parsers = [parseHex, parseRgbString, parseHslString, parseOklch, parseLab, parseBareHsl];
   for (const parser of parsers) {
     const result = parser(normalized.trim());
     if (result) return result;

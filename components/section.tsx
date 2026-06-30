@@ -46,7 +46,7 @@ export function Section({
                             {header}
                             {!disableDefaultHeader && title && (
                                 <RevealOnScroll direction="up" duration={0.6}>
-                                    <h2 className={`text-3xl md:text-4xl lg:text-5xl font-semibold mb-3 max-w-3xl ${titleAlign === 'center' ? 'mx-auto' : ''}`}>
+                                    <h2 className={`font-serif text-3xl md:text-4xl lg:text-5xl font-semibold mb-3 max-w-3xl ${titleAlign === 'center' ? 'mx-auto' : ''}`}>
                                         {title}
                                     </h2>
                                 </RevealOnScroll>

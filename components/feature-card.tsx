@@ -13,7 +13,7 @@ export function FeatureCard({ icon, title, description }: FeatureCardProps) {
             <div className="flex flex-col p-6 gap-3">
                 {icon && <div className="mb-2 mx-auto flex items-center justify-center [&>svg]:w-16 [&>svg]:h-16">{icon}</div>}
                 {title && (
-                    <h3 className="text-2xl font-semibold leading-none tracking-tight text-center">
+                    <h3 className="font-serif text-2xl font-semibold leading-none tracking-tight text-center">
                         {title}
                     </h3>
                 )}
