@@ -18,7 +18,7 @@ import { ThemeAwareImage } from "@/components/theme-aware-image";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
-const APP_URL = "https://app.lexli.ai";
+const APP_URL = "https://dev-app.lexli.ai/";
 
 type NavItem = { href: string; label: string };
 

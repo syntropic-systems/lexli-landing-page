@@ -20,7 +20,7 @@ const footerSections: { title: string; links: FooterLink[] }[] = [
         title: 'Company',
         links: [
             { name: 'Book a Demo', href: '#contact' },
-            { name: 'Sign In', href: 'https://app.lexli.ai' },
+            { name: 'Sign In', href: 'https://dev-app.lexli.ai/' },
         ],
     },
 ];
