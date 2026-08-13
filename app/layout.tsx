@@ -3,6 +3,7 @@ import { Manrope, Spectral, Geist_Mono } from "next/font/google";
 import "../styles/globals.css";
 import { SiteHeader } from "@/components/nav/SiteHeader";
 import { Footer } from "@/components/footer";
+import { ScrollToSection } from "@/components/scroll-to-section";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -34,11 +35,11 @@ const siteUrl = "https://lexli.ai";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Lexli — AI Legal Workspace for Indian Legal Teams",
+    default: "Lexli - AI Legal Workspace for Indian Legal Teams",
     template: "%s | Lexli",
   },
   description:
-    "Lexli is the AI legal workspace for Indian legal teams — manage cases, translate documents across Marathi, Hindi and English, and get cited answers from your own case files, all in one secure place.",
+    "Lexli is the AI legal workspace for Indian legal teams: manage cases, translate documents across Marathi, Hindi and English, and get cited answers from your own case files, all in one secure place.",
   keywords: [
     "AI legal workspace",
     "legal case management India",
@@ -70,18 +71,26 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: siteUrl,
     siteName: "Lexli",
-    title: "Lexli — AI Legal Workspace for Indian Legal Teams",
+    title: "Lexli - AI Legal Workspace for Indian Legal Teams",
     description:
-      "Manage cases, translate documents, and get cited answers from your own case files — all in one secure place.",
+      "Manage cases, translate documents, and get cited answers from your own case files, all in one secure place.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Lexli — AI Legal Workspace for Indian Legal Teams",
+    title: "Lexli - AI Legal Workspace for Indian Legal Teams",
     description:
-      "Manage cases, translate documents, and get cited answers from your own case files — all in one secure place.",
+      "Manage cases, translate documents, and get cited answers from your own case files, all in one secure place.",
   },
   alternates: {
     canonical: siteUrl,
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-96x96.png", type: "image/png", sizes: "96x96" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
   category: "Legal Technology",
 };
@@ -93,7 +102,7 @@ const jsonLd = {
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web",
   description:
-    "AI legal workspace for Indian legal teams — case management, AI case assistant with citations, legal document translation, and document scanning.",
+    "AI legal workspace for Indian legal teams: case management, AI case assistant with citations, legal document translation, and document scanning.",
   url: siteUrl,
   author: {
     "@type": "Organization",
@@ -118,7 +127,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    // Font variables must sit on <html>, not <body>: globals.css declares
+    // --font-sans/--font-serif at :root as var(--font-manrope)/var(--font-spectral).
+    // If the next/font classes are on <body>, those references are undefined at
+    // :root, so the theme variables compute to invalid and inherit down empty —
+    // silently dropping BOTH Manrope and Spectral site-wide.
+    <html
+      lang="en"
+      className={`${manrope.variable} ${spectral.variable} ${geistMono.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <script
           type="application/ld+json"
@@ -130,7 +148,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${manrope.variable} ${spectral.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col font-sans`}
+        className="antialiased min-h-screen flex flex-col font-sans"
       >
         <ThemeProvider
           attribute="class"
@@ -138,19 +156,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div
-            className="pointer-events-none fixed inset-0 z-0 opacity-[0.15]"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle, var(--primary) 0.75px, transparent 0.75px)",
-              backgroundSize: "24px 24px",
-            }}
-          />
+          <ScrollToSection />
           <SiteHeader />
-          <main className="relative z-[1] flex-1">{children}</main>
-          <div className="relative z-[1]">
-            <Footer />
-          </div>
+          {/* `relative` kept (without a z-index) purely as the containing block
+              for any absolutely-positioned descendant that lacks a closer
+              positioned ancestor — removing it could silently reposition them. */}
+          <main className="relative flex-1">{children}</main>
+          <Footer />
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />

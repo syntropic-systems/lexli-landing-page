@@ -9,7 +9,7 @@ export default function NotFound() {
         <p className="text-sm font-medium text-primary mb-4">404</p>
       </RevealOnScroll>
       <RevealOnScroll direction="up" delay={0.15} duration={0.7}>
-        <h1 className="text-3xl lg:text-4xl font-semibold tracking-tight mb-4">
+        <h1 className="font-serif text-3xl lg:text-4xl font-semibold tracking-tight mb-4">
           Page Not Found
         </h1>
       </RevealOnScroll>

@@ -1,11 +1,10 @@
 // Reusable layout components
 export { HeroSection } from './hero-section';
+export { PageHero } from './page-hero';
 export { Section } from './section';
 export { CTASection } from './cta-section';
+export { VerdictLine } from './verdict-line';
 export { PageHeader } from './page-header';
-
-// Feature components
-export { FeatureCard, FeatureGrid } from './feature-card';
 
 // Form components
 export { ContactForm } from './contact-form';

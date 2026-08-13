@@ -3,35 +3,57 @@
 import Link from 'next/link';
 import { Linkedin } from 'lucide-react';
 import { RevealOnScroll, StaggerChildren, StaggerItem } from '@/components/animations';
+import { ScrollLink } from '@/components/scroll-link';
 import { ThemeAwareImage } from '@/components/theme-aware-image';
+import { allTools, companyLinks, platformSections, solutions } from '@/data/navigation';
+import { APP_URL, CTA, DEMO_HREF, LINKEDIN_URL } from '@/lib/site';
 
 type FooterLink = { name: string; href: string };
 
 const footerSections: { title: string; links: FooterLink[] }[] = [
     {
-        title: 'Product',
+        title: 'Platform',
         links: [
-            { name: 'Features', href: '#features' },
-            { name: 'How it works', href: '#how-it-works' },
-            { name: 'Who it’s for', href: '#who-its-for' },
+            { name: 'Overview', href: '/platform' },
+            ...platformSections.map((section) => ({ name: section.label, href: section.href })),
         ],
     },
     {
-        title: 'Company',
+        title: 'Tools',
         links: [
-            { name: 'Book a Demo', href: '#contact' },
-            { name: 'Sign In', href: 'https://dev-app.lexli.ai/' },
+            { name: 'All tools', href: '/tools' },
+            ...allTools.map((tool) => ({ name: tool.label, href: tool.href })),
+        ],
+    },
+    {
+        title: 'Solutions',
+        links: [
+            { name: 'Overview', href: '/solutions' },
+            ...solutions.map((solution) => ({ name: solution.label, href: solution.href })),
+        ],
+    },
+    {
+        // companyLinks already carries About Lexli and Contact — no manual
+        // additions, or the column doubles them.
+        title: 'Company',
+        links: companyLinks.map((link) => ({ name: link.label, href: link.href })),
+    },
+    {
+        title: 'Get started',
+        links: [
+            { name: CTA.startFree, href: APP_URL },
+            { name: CTA.signIn, href: APP_URL },
+            { name: CTA.bookDemo, href: DEMO_HREF },
+            { name: 'FAQ', href: '/faq' },
         ],
     },
 ];
 
-const socialLinks = [
-    { name: 'LinkedIn', href: 'https://www.linkedin.com/company/lexli-ai', icon: Linkedin },
-];
+const socialLinks = [{ name: 'LinkedIn', href: LINKEDIN_URL, icon: Linkedin }];
 
 export function Footer() {
     return (
-        <footer className="border-t bg-card">
+        <footer className="border-t bg-background">
             <div className="container pt-12 md:pt-16 lg:pt-20">
                 <div className="max-w-7xl mx-auto">
                     <RevealOnScroll direction="up" duration={0.6}>
@@ -47,27 +69,41 @@ export function Footer() {
                                 />
                             </Link>
                             <p className="text-sm text-muted-foreground max-w-2xl">
-                                Lexli is the AI legal workspace for Indian legal teams — manage cases,
-                                translate documents, and get cited answers from your case files, all in
-                                one secure place.
+                                The AI workspace for Indian legal practice. Cases, files, hearings, and
+                                research in one place, with every Lexli tool working from the same record.
                             </p>
                         </div>
                     </RevealOnScroll>
 
-                    <StaggerChildren className="grid grid-cols-2 gap-8 mb-8" stagger={0.08}>
+                    <StaggerChildren
+                        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-8"
+                        stagger={0.08}
+                    >
                         {footerSections.map((group) => (
                             <StaggerItem key={group.title}>
                                 <div>
                                     <span className="font-semibold mb-3 block">{group.title}</span>
                                     <ul className="space-y-2">
                                         {group.links.map((link) => (
-                                            <li key={link.name}>
-                                                <a
-                                                    href={link.href}
-                                                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                                                >
-                                                    {link.name}
-                                                </a>
+                                            <li key={`${group.title}-${link.name}`}>
+                                                {/* Internal links go through ScrollLink so section
+                                                    anchors scroll under the header without a # in
+                                                    the URL; external ones stay plain anchors. */}
+                                                {link.href.startsWith('/') ? (
+                                                    <ScrollLink
+                                                        href={link.href}
+                                                        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                                                    >
+                                                        {link.name}
+                                                    </ScrollLink>
+                                                ) : (
+                                                    <a
+                                                        href={link.href}
+                                                        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                                                    >
+                                                        {link.name}
+                                                    </a>
+                                                )}
                                             </li>
                                         ))}
                                     </ul>

@@ -390,6 +390,17 @@
   }
 
   /* Floating card drift animations */
+  /* Marching dashes along the platform hub's active connection line. */
+  @keyframes dash-flow {
+    to {
+      stroke-dashoffset: -16;
+    }
+  }
+
+  .animate-dash-flow {
+    animation: dash-flow 1.6s linear infinite;
+  }
+
   @keyframes drift-up {
     0%, 100% { transform: rotate(var(--panel-rotate, -3deg)) translateY(0); }
     50% { transform: rotate(var(--panel-rotate, -3deg)) translateY(-12px); }

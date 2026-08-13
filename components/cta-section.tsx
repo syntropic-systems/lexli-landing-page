@@ -21,12 +21,12 @@ export function CTASection({
     secondaryCta,
 }: CTASectionProps) {
     return (
-        <section className="py-20 md:py-24 bg-secondary shadow-inner">
+        <section className="py-20 md:py-24 bg-accent/70 shadow-inner">
             <div className="container">
                 <div className="max-w-7xl mx-auto">
                     <div className="max-w-3xl mx-auto text-center">
                         <RevealOnScroll direction="up" duration={0.6}>
-                            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold mb-4">
+                            <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl font-semibold mb-4">
                                 {title}
                             </h2>
                         </RevealOnScroll>

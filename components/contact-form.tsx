@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Card, CardContent } from './ui/card';
+import { CONTACT_EMAIL, emailjsConfig } from '@/lib/site';
 
 export function ContactForm() {
     const [formData, setFormData] = useState({
@@ -15,25 +16,33 @@ export function ContactForm() {
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
+    const [hasFailed, setHasFailed] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
+        setHasFailed(false);
 
         try {
+            // No fallback credentials by design. The values this repo inherited
+            // belonged to the CloudGlance emailjs account, which would have sent
+            // Lexli's enquiries through someone else's inbox. If the config is
+            // absent the form is not rendered at all (see ContactForm's caller).
+            if (!emailjsConfig) throw new Error('emailjs is not configured');
+
             const emailjs = (await import('@emailjs/browser')).default;
             await emailjs.send(
-                'service_viny1ap',
-                'template_khm1fhv',
+                emailjsConfig.serviceId,
+                emailjsConfig.templateId,
                 {
                     firstName: formData.firstName,
                     lastName: formData.lastName,
                     email: formData.email,
                     company: formData.companyName,
                     message: formData.message,
-                    to_email: 'dev@lexli.ai',
+                    to_email: CONTACT_EMAIL,
                 },
-                'lY-EskTLt6cH9eKH2'
+                emailjsConfig.publicKey
             );
 
             setShowSuccess(true);
@@ -49,7 +58,10 @@ export function ContactForm() {
                 setShowSuccess(false);
             }, 5000);
         } catch (error) {
+            // A silently dropped message is worse than a visible failure: the
+            // sender walks away believing they have been in touch.
             console.error('Failed to send email:', error);
+            setHasFailed(true);
         } finally {
             setIsSubmitting(false);
         }
@@ -82,9 +94,9 @@ export function ContactForm() {
                                 />
                             </svg>
                         </div>
-                        <h3 className="text-xl font-semibold mb-2">Thank You!</h3>
+                        <h3 className="font-serif text-xl font-semibold mb-2">Message received</h3>
                         <p className="text-muted-foreground">
-                            We&apos;ve received your message and will get back to you soon.
+                            We have it, and we will come back to you.
                         </p>
                     </div>
                 </CardContent>
@@ -144,13 +156,15 @@ export function ContactForm() {
 
                     <div>
                         <label htmlFor="companyName" className="block text-sm font-medium mb-2">
-                            Company Name
+                            Firm or practice <span className="text-muted-foreground">(optional)</span>
                         </label>
+                        {/* Field name stays `companyName` / template var `company`:
+                            the emailjs template is not ours to change yet. */}
                         <Input
                             id="companyName"
                             name="companyName"
                             type="text"
-                            placeholder="Company Name"
+                            placeholder="Firm or practice"
                             value={formData.companyName}
                             onChange={handleChange}
                         />
@@ -172,8 +186,18 @@ export function ContactForm() {
                         />
                     </div>
 
+                    {hasFailed && (
+                        <p className="rounded-md border border-destructive-foreground/30 bg-destructive px-3 py-2 text-sm text-destructive-foreground">
+                            The message did not send. Try again, or write to us directly at{' '}
+                            <a href={`mailto:${CONTACT_EMAIL}`} className="underline">
+                                {CONTACT_EMAIL}
+                            </a>
+                            .
+                        </p>
+                    )}
+
                     <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-                        {isSubmitting ? 'Sending...' : 'Send Message'}
+                        {isSubmitting ? 'Sending…' : 'Send message'}
                     </Button>
                 </form>
             </CardContent>

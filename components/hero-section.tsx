@@ -1,14 +1,17 @@
 'use client';
 
-import { ReactNode, useRef, useEffect } from 'react';
-import Aurora from './Aurora';
+import { ReactNode } from 'react';
+import { motion } from 'framer-motion';
+import { Check } from 'lucide-react';
 import { Button } from './ui/button';
 import { RevealOnScroll } from '@/components/animations';
 
 interface HeroSectionProps {
-    title: string;
+    title: ReactNode;
     description?: string;
     badge?: string;
+    /** Short proof points under the description — keep to three, a few words each. */
+    pointers?: string[];
     children?: ReactNode;
     primaryCta?: {
         text: string;
@@ -20,212 +23,61 @@ interface HeroSectionProps {
     };
 }
 
+/**
+ * The front-door hero. Same surface language as PageHero — static gradient,
+ * card edge, brand wash — but a size louder: taller stage, bigger serif, a
+ * radial bloom instead of a flat wash. Copy-only by design.
+ */
 export function HeroSection({
     title,
     description,
     badge,
+    pointers,
     children,
     primaryCta,
     secondaryCta,
 }: HeroSectionProps) {
-    const sectionRef = useRef<HTMLElement>(null);
-    const hasForcedScroll = useRef(false);
-    const isAutoScrolling = useRef(false);
-    const touchStartY = useRef<number | null>(null);
-    const timeoutRef = useRef<number | null>(null);
-
-    useEffect(() => {
-        const hero = sectionRef.current;
-        if (!hero) return;
-
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-        // Skip on touch-first / mobile devices
-        const isMobile = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 768;
-        if (isMobile) return;
-
-        const scrollToNext = () => {
-            const next = hero.nextElementSibling as HTMLElement | null;
-            if (!next) {
-                hasForcedScroll.current = false;
-                return;
-            }
-
-            const header = document.querySelector('header') as HTMLElement | null;
-            const headerHeight = header?.offsetHeight ?? 0;
-
-            isAutoScrolling.current = true;
-            touchStartY.current = null;
-
-            // Stop where hero bottom aligns with header bottom
-            const heroRect = hero.getBoundingClientRect();
-            const heroBottom = heroRect.bottom + window.scrollY;
-            const targetTop = heroBottom - headerHeight;
-
-            window.scrollTo({
-                top: Math.max(targetTop, 0),
-                behavior: 'smooth',
-            });
-
-            if (timeoutRef.current !== null) {
-                window.clearTimeout(timeoutRef.current);
-            }
-
-            timeoutRef.current = window.setTimeout(() => {
-                isAutoScrolling.current = false;
-            }, 900);
-        };
-
-        const isWithinHero = () => {
-            const heroRect = hero.getBoundingClientRect();
-            const heroTop = heroRect.top + window.scrollY;
-            const heroBottom = heroTop + heroRect.height;
-            const scrollY = window.scrollY;
-            return scrollY >= heroTop - 2 && scrollY < heroBottom - 2;
-        };
-
-        const handleWheel = (event: WheelEvent) => {
-            if (event.deltaY <= 0) return;
-
-            if (isAutoScrolling.current) {
-                if (event.cancelable) event.preventDefault();
-                return;
-            }
-
-            if (hasForcedScroll.current) return;
-            if (!isWithinHero()) return;
-
-            if (event.cancelable) event.preventDefault();
-
-            hasForcedScroll.current = true;
-            scrollToNext();
-        };
-
-        const handleKeyDown = (event: KeyboardEvent) => {
-            if (!['Space', 'PageDown', 'ArrowDown'].includes(event.code)) return;
-
-            const target = event.target as HTMLElement | null;
-            if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) {
-                return;
-            }
-
-            if (isAutoScrolling.current) {
-                event.preventDefault();
-                return;
-            }
-
-            if (hasForcedScroll.current) return;
-            if (!isWithinHero()) return;
-
-            event.preventDefault();
-            hasForcedScroll.current = true;
-            scrollToNext();
-        };
-
-        const handleTouchStart = (event: TouchEvent) => {
-            touchStartY.current = event.touches[0]?.clientY ?? null;
-        };
-
-        const handleTouchMove = (event: TouchEvent) => {
-            if (isAutoScrolling.current) {
-                if (event.cancelable) event.preventDefault();
-                return;
-            }
-
-            if (hasForcedScroll.current) return;
-            if (touchStartY.current === null) return;
-
-            const currentY = event.touches[0]?.clientY ?? null;
-            if (currentY === null) return;
-
-            const delta = touchStartY.current - currentY;
-            if (delta <= 32) return;
-            if (!isWithinHero()) return;
-
-            if (event.cancelable) event.preventDefault();
-
-            hasForcedScroll.current = true;
-            scrollToNext();
-        };
-
-        const handleTouchEnd = () => {
-            touchStartY.current = null;
-        };
-
-        const handleScroll = () => {
-            // Reset forced scroll flag when user scrolls back near top
-            if (window.scrollY <= hero.offsetHeight * 0.25) {
-                hasForcedScroll.current = false;
-            }
-        };
-
-        hero.addEventListener('wheel', handleWheel, { passive: false });
-        hero.addEventListener('touchstart', handleTouchStart, { passive: true });
-        hero.addEventListener('touchmove', handleTouchMove, { passive: false });
-        hero.addEventListener('touchend', handleTouchEnd);
-        window.addEventListener('keydown', handleKeyDown);
-        window.addEventListener('scroll', handleScroll, { passive: true });
-
-        return () => {
-            hero.removeEventListener('wheel', handleWheel);
-            hero.removeEventListener('touchstart', handleTouchStart);
-            hero.removeEventListener('touchmove', handleTouchMove);
-            hero.removeEventListener('touchend', handleTouchEnd);
-            window.removeEventListener('keydown', handleKeyDown);
-            window.removeEventListener('scroll', handleScroll);
-            if (timeoutRef.current !== null) {
-                window.clearTimeout(timeoutRef.current);
-            }
-        };
-    }, []);
-
     return (
-        <section ref={sectionRef} className="relative h-[100vh] flex items-center -mt-14 pt-14 mb-20 md:mb-28 lg:mb-32 overflow-hidden rounded-b-3xl shadow-primary/30 shadow-2xl bg-background bg-gradient-to-t from-card to-transparent">
-            <div className="absolute inset-0">
-                <Aurora
-                    amplitude={1.0}
-                    blend={0.8}
-                    colorStops={['var(--primary)', 'var(--secondary)', 'var(--accent)']}
-                    lightSettings={{
-                        bias: 0.3,
-                        midPoint: 0.45,
-                        intensityScale: 0.5,
-                        baseColor: '#ffffff',
-                        baseStrength: 1.0
-                    }}
-                    darkSettings={{
-                        bias: 0,
-                        midPoint: 0.2,
-                        intensityScale: 0.6,
-                        baseStrength: 0
-                    }}
-                />
-            </div>
+        <motion.section
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+            // -mt-14/pt-14 cancels the sticky header so the stage starts under
+            // it. Full-viewport stage, copy vertically centered — the front
+            // door owns the fold. The [&+section] trim keeps the hero's mb
+            // from stacking with the next Section's full top padding.
+            // Same surface as PageHero: a clean fall from background to the
+            // accent/70 tonal floor — no radial bloom.
+            className="relative -mt-14 pt-14 h-[100vh] flex items-center mb-20 md:mb-28 lg:mb-32 [&+section]:pt-8 md:[&+section]:pt-12 lg:[&+section]:pt-16 overflow-hidden rounded-b-xl shadow-primary/20 shadow-xl bg-gradient-to-b from-background via-background to-accent/70"
+        >
             <div className="container relative z-10">
                 <div className="max-w-7xl mx-auto">
-                    <div className="max-w-4xl text-left space-y-6 lg:space-y-10">
+                    <div className="max-w-3xl text-left space-y-5 md:space-y-6 xl:space-y-7">
                         {badge && (
                             <RevealOnScroll direction="up" duration={0.6}>
-                                <span className="inline-flex items-center px-3 py-1 rounded-full border border-primary/70 bg-accent/60 text-accent-foreground text-[11px] md:text-sm font-semibold tracking-wider backdrop-blur uppercase">
+                                <span className="inline-flex items-center px-3 py-1 rounded-full border border-primary/40 bg-primary/5 text-primary font-semibold tracking-wider uppercase text-[11px] md:text-xs">
                                     {badge}
                                 </span>
                             </RevealOnScroll>
                         )}
+
                         <RevealOnScroll direction="up" delay={0.15} duration={0.7}>
-                            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight">
+                            <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.08]">
                                 {title}
                             </h1>
                         </RevealOnScroll>
+
                         {description && (
                             <RevealOnScroll direction="up" delay={0.3} duration={0.7}>
-                                <p className="text-lg md:text-xl text-foreground/70">
+                                <p className="text-base md:text-lg text-foreground/70 leading-relaxed max-w-2xl">
                                     {description}
                                 </p>
                             </RevealOnScroll>
                         )}
+
                         {(primaryCta || secondaryCta) && (
                             <RevealOnScroll direction="up" delay={0.45} duration={0.5}>
-                                <div className="flex flex-wrap gap-4">
+                                <div className="flex flex-wrap items-center gap-3">
                                     {primaryCta && (
                                         <Button size="lg" variant="default" asChild>
                                             <a href={primaryCta.href}>{primaryCta.text}</a>
@@ -239,10 +91,29 @@ export function HeroSection({
                                 </div>
                             </RevealOnScroll>
                         )}
+
+                        {pointers && pointers.length > 0 && (
+                            <RevealOnScroll direction="up" delay={0.55} duration={0.6}>
+                                <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
+                                    {pointers.map((pointer) => (
+                                        <li
+                                            key={pointer}
+                                            className="flex items-center gap-2 text-sm font-medium text-foreground/75"
+                                        >
+                                            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                                                <Check className="h-3 w-3 text-primary" />
+                                            </span>
+                                            {pointer}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </RevealOnScroll>
+                        )}
+
                         {children}
                     </div>
                 </div>
             </div>
-        </section>
+        </motion.section>
     );
 }
