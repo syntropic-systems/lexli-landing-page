@@ -1,0 +1,3 @@
+Threshold rule,threshold,precision,recall,f1
+Default 0.50,0.5,0.5326,0.8463,0.6538
+F1-optimal (argmax over PR curve),0.5869,0.579,0.7817,0.6653

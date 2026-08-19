@@ -1,0 +1,6 @@
+Model,Accuracy,Precision (class 0),Recall (class 0),F1 (class 0),ROC-AUC
+Baseline (majority class),0.8189,0.0,0.0,0.0,0.5
+Logistic Regression (balanced),0.8377,0.5326,0.8463,0.6538,0.9082
+Logistic Regression (default),0.8757,0.7282,0.5,0.5929,0.9065
+Random Forest (balanced),0.8662,0.643,0.5866,0.6135,0.891
+Random Forest (default),0.8567,0.7552,0.3085,0.4381,0.8882

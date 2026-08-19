@@ -1,0 +1,677 @@
+{
+  "task1": {
+    "rows_before": 23486,
+    "rows_dropped_missing_review_text": 845,
+    "rows_after": 22641,
+    "recommend_pct": 81.89,
+    "not_recommend_pct": 18.11,
+    "recommend_count": 18540,
+    "not_recommend_count": 4101,
+    "imbalance_ratio": 4.52,
+    "crosstab": {
+      "rating_1_3_not_recommended": 3914,
+      "rating_1_3_recommended": 1279,
+      "rating_4_5_not_recommended": 187,
+      "rating_4_5_recommended": 17261
+    },
+    "disagreers_rating_breakdown": {
+      "1": 15,
+      "2": 94,
+      "3": 1170
+    },
+    "reviews_per_department": {
+      "Tops": 10048,
+      "Dresses": 6145,
+      "Bottoms": 3662,
+      "Intimate": 1653,
+      "Jackets": 1002,
+      "Trend": 118
+    }
+  },
+  "task2": {
+    "polarity_mean_by_recommend": {
+      "0": 0.1293,
+      "1": 0.2765
+    },
+    "polarity_mean_by_rating": {
+      "1": 0.0799,
+      "2": 0.1231,
+      "3": 0.1672,
+      "4": 0.2273,
+      "5": 0.304
+    },
+    "disagreement_case_a": {
+      "rating": 5,
+      "recommended_ind": 1,
+      "review_length": 51,
+      "sentiment_polarity": -0.7,
+      "sentiment_subjectivity": 0.6667,
+      "class_name": "Sweaters",
+      "text": "I would have bought this had it not been for the way the pockets are sewn in. they are attached on the inside by a string. if the string broke the pockets would dangle. for the price you would think they would have sewn pockets in to the vest. too bad."
+    },
+    "disagreement_case_b": {
+      "rating": 1,
+      "recommended_ind": 0,
+      "review_length": 22,
+      "sentiment_polarity": 0.8,
+      "sentiment_subjectivity": 0.75,
+      "class_name": "Lounge",
+      "text": "This is a great dress if you don't want to leave the house or you want the world to see your nipples."
+    },
+    "polarity_rating_disagreement_count": 718,
+    "polarity_rating_disagreement_pct": 3.17
+  },
+  "task3": {
+    "n_train": 18112,
+    "n_val": 4529,
+    "train_pos_rate": 0.8188,
+    "val_pos_rate": 0.8189,
+    "n_features_total": 333,
+    "n_structured_numeric": 2,
+    "n_nlp_numeric": 5,
+    "n_onehot": 26,
+    "n_tfidf": 300,
+    "age_median_filled": 41.0,
+    "age_missing": 0
+  },
+  "task4": {
+    "table": {
+      "Baseline (majority class)": {
+        "Accuracy": 0.8189,
+        "Precision (class 0)": 0.0,
+        "Recall (class 0)": 0.0,
+        "F1 (class 0)": 0.0,
+        "ROC-AUC": 0.5
+      },
+      "Logistic Regression (balanced)": {
+        "Accuracy": 0.8377,
+        "Precision (class 0)": 0.5326,
+        "Recall (class 0)": 0.8463,
+        "F1 (class 0)": 0.6538,
+        "ROC-AUC": 0.9082
+      },
+      "Logistic Regression (default)": {
+        "Accuracy": 0.8757,
+        "Precision (class 0)": 0.7282,
+        "Recall (class 0)": 0.5,
+        "F1 (class 0)": 0.5929,
+        "ROC-AUC": 0.9065
+      },
+      "Random Forest (balanced)": {
+        "Accuracy": 0.8662,
+        "Precision (class 0)": 0.643,
+        "Recall (class 0)": 0.5866,
+        "F1 (class 0)": 0.6135,
+        "ROC-AUC": 0.891
+      },
+      "Random Forest (default)": {
+        "Accuracy": 0.8567,
+        "Precision (class 0)": 0.7552,
+        "Recall (class 0)": 0.3085,
+        "F1 (class 0)": 0.4381,
+        "ROC-AUC": 0.8882
+      }
+    },
+    "baseline_accuracy": 0.8189,
+    "best_model_name": "Logistic Regression (balanced)"
+  },
+  "task5": {
+    "best_model_name": "Logistic Regression (balanced)",
+    "roc_auc": 0.9082,
+    "default": {
+      "threshold": 0.5,
+      "precision": 0.5326,
+      "recall": 0.8463,
+      "f1": 0.6538
+    },
+    "f1_optimal": {
+      "threshold": 0.5869,
+      "precision": 0.579,
+      "recall": 0.7817,
+      "f1": 0.6653
+    },
+    "confusion_at_optimal": {
+      "tp": 641,
+      "fn": 179,
+      "fp": 466,
+      "tn": 3243
+    }
+  },
+  "task6": {
+    "top10": [
+      {
+        "rank": 1,
+        "feature": "sentiment_polarity",
+        "importance": 0.0899,
+        "importance_pct": 8.99
+      },
+      {
+        "rank": 2,
+        "feature": "exclam_count",
+        "importance": 0.02596,
+        "importance_pct": 2.596
+      },
+      {
+        "rank": 3,
+        "feature": "tfidf__love",
+        "importance": 0.02078,
+        "importance_pct": 2.078
+      },
+      {
+        "rank": 4,
+        "feature": "sentiment_subjectivity",
+        "importance": 0.01987,
+        "importance_pct": 1.987
+      },
+      {
+        "rank": 5,
+        "feature": "tfidf__perfect",
+        "importance": 0.01985,
+        "importance_pct": 1.985
+      },
+      {
+        "rank": 6,
+        "feature": "tfidf__comfortable",
+        "importance": 0.01834,
+        "importance_pct": 1.834
+      },
+      {
+        "rank": 7,
+        "feature": "review_length",
+        "importance": 0.01752,
+        "importance_pct": 1.752
+      },
+      {
+        "rank": 8,
+        "feature": "tfidf__great",
+        "importance": 0.01518,
+        "importance_pct": 1.518
+      },
+      {
+        "rank": 9,
+        "feature": "Age",
+        "importance": 0.01414,
+        "importance_pct": 1.414
+      },
+      {
+        "rank": 10,
+        "feature": "tfidf__looked",
+        "importance": 0.01401,
+        "importance_pct": 1.401
+      }
+    ],
+    "structured_pct": 4.5,
+    "text_derived_pct": 95.5,
+    "structured_n": 28,
+    "text_derived_n": 305,
+    "higher_family": "Text-derived",
+    "avg_per_feature": {
+      "Structured": 0.1608,
+      "Text-derived": 0.3131
+    }
+  },
+  "task7": {
+    "silhouette_table": {
+      "2": 0.6263,
+      "3": 0.4415,
+      "4": 0.4644,
+      "5": 0.4882,
+      "6": 0.256,
+      "7": 0.255,
+      "8": 0.2412
+    },
+    "best_k": 2,
+    "best_silhouette": 0.6263,
+    "n_classes": 20,
+    "cluster_means": {
+      "0": {
+        "n_classes": 18.0,
+        "avg_rating": 4.2154,
+        "recommend_rate": 0.8304,
+        "review_count": 1257.0,
+        "avg_sentiment": 0.2481,
+        "avg_age": 42.7871,
+        "total_reviews": 22626.0
+      },
+      "1": {
+        "n_classes": 2.0,
+        "avg_rating": 4.0,
+        "recommend_rate": 1.0,
+        "review_count": 1.0,
+        "avg_sentiment": 0.465,
+        "avg_age": 32.0,
+        "total_reviews": 2.0
+      }
+    },
+    "cluster_members": {
+      "0": [
+        "Blouses",
+        "Dresses",
+        "Fine gauge",
+        "Intimates",
+        "Jackets",
+        "Jeans",
+        "Knits",
+        "Layering",
+        "Legwear",
+        "Lounge",
+        "Outerwear",
+        "Pants",
+        "Shorts",
+        "Skirts",
+        "Sleep",
+        "Sweaters",
+        "Swim",
+        "Trend"
+      ],
+      "1": [
+        "Casual bottoms",
+        "Chemises"
+      ]
+    },
+    "robust": {
+      "min_reviews": 30,
+      "dropped_classes": [
+        "Casual bottoms",
+        "Chemises"
+      ],
+      "n_classes": 18,
+      "silhouette_table": {
+        "2": 0.3555,
+        "3": 0.3051,
+        "4": 0.3084,
+        "5": 0.3208,
+        "6": 0.2412,
+        "7": 0.2448,
+        "8": 0.2518
+      },
+      "best_k": 2,
+      "best_silhouette": 0.3555,
+      "cluster_means": {
+        "0": {
+          "n_classes": 12.0,
+          "avg_rating": 4.2717,
+          "recommend_rate": 0.8473,
+          "review_count": 587.9167,
+          "avg_sentiment": 0.2533,
+          "avg_age": 42.2002,
+          "total_reviews": 7055.0
+        },
+        "1": {
+          "n_classes": 6.0,
+          "avg_rating": 4.1028,
+          "recommend_rate": 0.7965,
+          "review_count": 2595.1667,
+          "avg_sentiment": 0.2379,
+          "avg_age": 43.9609,
+          "total_reviews": 15571.0
+        }
+      },
+      "cluster_members": {
+        "0": [
+          "Fine gauge",
+          "Intimates",
+          "Jackets",
+          "Jeans",
+          "Layering",
+          "Legwear",
+          "Lounge",
+          "Pants",
+          "Shorts",
+          "Skirts",
+          "Sleep",
+          "Swim"
+        ],
+        "1": [
+          "Blouses",
+          "Dresses",
+          "Knits",
+          "Outerwear",
+          "Sweaters",
+          "Trend"
+        ]
+      }
+    }
+  },
+  "task8": {
+    "top10_terms": [
+      {
+        "rank": 1,
+        "term": "looked",
+        "mean_weight_negative": 0.03499,
+        "mean_weight_positive": 0.008292,
+        "difference": 0.026698
+      },
+      {
+        "rank": 2,
+        "term": "disappointed",
+        "mean_weight_negative": 0.027487,
+        "mean_weight_positive": 0.003015,
+        "difference": 0.024472
+      },
+      {
+        "rank": 3,
+        "term": "like",
+        "mean_weight_negative": 0.06154,
+        "mean_weight_positive": 0.039289,
+        "difference": 0.022251
+      },
+      {
+        "rank": 4,
+        "term": "wanted",
+        "mean_weight_negative": 0.02868,
+        "mean_weight_positive": 0.007325,
+        "difference": 0.021356
+      },
+      {
+        "rank": 5,
+        "term": "fabric",
+        "mean_weight_negative": 0.052275,
+        "mean_weight_positive": 0.031097,
+        "difference": 0.021178
+      },
+      {
+        "rank": 6,
+        "term": "way",
+        "mean_weight_negative": 0.034125,
+        "mean_weight_positive": 0.013533,
+        "difference": 0.020593
+      },
+      {
+        "rank": 7,
+        "term": "returned",
+        "mean_weight_negative": 0.023786,
+        "mean_weight_positive": 0.003474,
+        "difference": 0.020313
+      },
+      {
+        "rank": 8,
+        "term": "return",
+        "mean_weight_negative": 0.025491,
+        "mean_weight_positive": 0.006294,
+        "difference": 0.019196
+      },
+      {
+        "rank": 9,
+        "term": "unfortunately",
+        "mean_weight_negative": 0.023292,
+        "mean_weight_positive": 0.00421,
+        "difference": 0.019082
+      },
+      {
+        "rank": 10,
+        "term": "returning",
+        "mean_weight_negative": 0.021227,
+        "mean_weight_positive": 0.002959,
+        "difference": 0.018268
+      }
+    ],
+    "n_negative": 4101,
+    "n_positive": 18540,
+    "document_frequency": {
+      "looked": {
+        "% of negative reviews": 12.9,
+        "% of positive reviews": 3.6,
+        "lift (x)": 3.59
+      },
+      "disappointed": {
+        "% of negative reviews": 9.02,
+        "% of positive reviews": 1.11,
+        "lift (x)": 8.16
+      },
+      "like": {
+        "% of negative reviews": 33.87,
+        "% of positive reviews": 23.39,
+        "lift (x)": 1.45
+      },
+      "wanted": {
+        "% of negative reviews": 10.92,
+        "% of positive reviews": 3.06,
+        "lift (x)": 3.57
+      },
+      "fabric": {
+        "% of negative reviews": 24.68,
+        "% of positive reviews": 16.76,
+        "lift (x)": 1.47
+      },
+      "way": {
+        "% of negative reviews": 13.85,
+        "% of positive reviews": 6.14,
+        "lift (x)": 2.25
+      },
+      "returned": {
+        "% of negative reviews": 6.95,
+        "% of positive reviews": 1.24,
+        "lift (x)": 5.63
+      },
+      "return": {
+        "% of negative reviews": 8.34,
+        "% of positive reviews": 2.3,
+        "lift (x)": 3.62
+      },
+      "unfortunately": {
+        "% of negative reviews": 8.1,
+        "% of positive reviews": 1.53,
+        "lift (x)": 5.28
+      },
+      "returning": {
+        "% of negative reviews": 6.22,
+        "% of positive reviews": 0.97,
+        "lift (x)": 6.4
+      }
+    }
+  },
+  "task9": {
+    "focus_cluster": 1,
+    "focus_cluster_name": "High-Traffic Underperformers",
+    "focus_classes": [
+      "Blouses",
+      "Dresses",
+      "Knits",
+      "Outerwear",
+      "Sweaters",
+      "Trend"
+    ],
+    "tier_names": {
+      "0": "Quiet Favourites",
+      "1": "High-Traffic Underperformers"
+    },
+    "recommend_rate_gap_pp": 5.08,
+    "focus_metrics": {
+      "n_val_reviews": 3061,
+      "n_dissatisfied": 584,
+      "recall": 0.8065,
+      "precision": 0.591,
+      "f1": 0.6821
+    },
+    "per_tier": {
+      "Quiet Favourites": {
+        "val_reviews": 1464.0,
+        "dissatisfied": 236.0,
+        "dissatisfied_rate": 0.1612,
+        "recall": 0.7203,
+        "precision": 0.5484
+      },
+      "High-Traffic Underperformers": {
+        "val_reviews": 3061.0,
+        "dissatisfied": 584.0,
+        "dissatisfied_rate": 0.1908,
+        "recall": 0.8065,
+        "precision": 0.591
+      }
+    },
+    "theme_concentration": {
+      "looked": {
+        "% of 'High-Traffic Underperformers' negatives": 13.31,
+        "% of other-tier negatives": 11.75,
+        "lift in focus tier": 1.13
+      },
+      "disappointed": {
+        "% of 'High-Traffic Underperformers' negatives": 9.46,
+        "% of other-tier negatives": 7.81,
+        "lift in focus tier": 1.21
+      },
+      "like": {
+        "% of 'High-Traffic Underperformers' negatives": 34.33,
+        "% of other-tier negatives": 32.6,
+        "lift in focus tier": 1.05
+      },
+      "wanted": {
+        "% of 'High-Traffic Underperformers' negatives": 11.42,
+        "% of other-tier negatives": 9.55,
+        "lift in focus tier": 1.2
+      },
+      "fabric": {
+        "% of 'High-Traffic Underperformers' negatives": 26.39,
+        "% of other-tier negatives": 19.93,
+        "lift in focus tier": 1.32
+      },
+      "way": {
+        "% of 'High-Traffic Underperformers' negatives": 13.45,
+        "% of other-tier negatives": 14.97,
+        "lift in focus tier": 0.9
+      },
+      "returned": {
+        "% of 'High-Traffic Underperformers' negatives": 6.71,
+        "% of other-tier negatives": 7.62,
+        "lift in focus tier": 0.88
+      },
+      "return": {
+        "% of 'High-Traffic Underperformers' negatives": 8.3,
+        "% of other-tier negatives": 8.45,
+        "lift in focus tier": 0.98
+      },
+      "unfortunately": {
+        "% of 'High-Traffic Underperformers' negatives": 7.93,
+        "% of other-tier negatives": 8.54,
+        "lift in focus tier": 0.93
+      },
+      "returning": {
+        "% of 'High-Traffic Underperformers' negatives": 6.71,
+        "% of other-tier negatives": 4.87,
+        "lift in focus tier": 1.38
+      }
+    },
+    "themes": {
+      "definitions": {
+        "Expectation mismatch": [
+          "looked",
+          "looks",
+          "wanted",
+          "expected",
+          "picture",
+          "photo",
+          "online",
+          "model",
+          "way"
+        ],
+        "Fabric & quality": [
+          "fabric",
+          "material",
+          "cheap",
+          "thin",
+          "quality",
+          "sheer"
+        ],
+        "Return intent": [
+          "return",
+          "returned",
+          "returning",
+          "sending"
+        ],
+        "Stated disappointment": [
+          "disappointed",
+          "disappointing",
+          "unfortunately",
+          "sadly"
+        ],
+        "Fit & sizing": [
+          "small",
+          "large",
+          "tight",
+          "size",
+          "sizing",
+          "fit",
+          "big",
+          "petite"
+        ]
+      },
+      "top_theme": "Stated disappointment",
+      "sizing_lift": 0.95,
+      "table": {
+        "Stated disappointment": {
+          "% of all negatives": 21.7,
+          "% of all positives": 3.48,
+          "% of 'High-Traffic Underperformers' negatives": 22.01,
+          "% of other-tier negatives": 20.84,
+          "negative lift (x)": 6.23
+        },
+        "Return intent": {
+          "% of all negatives": 22.34,
+          "% of all positives": 4.68,
+          "% of 'High-Traffic Underperformers' negatives": 22.74,
+          "% of other-tier negatives": 21.21,
+          "negative lift (x)": 4.78
+        },
+        "Expectation mismatch": {
+          "% of all negatives": 53.28,
+          "% of all positives": 31.86,
+          "% of 'High-Traffic Underperformers' negatives": 54.91,
+          "% of other-tier negatives": 48.76,
+          "negative lift (x)": 1.67
+        },
+        "Fabric & quality": {
+          "% of all negatives": 49.67,
+          "% of all positives": 34.84,
+          "% of 'High-Traffic Underperformers' negatives": 50.4,
+          "% of other-tier negatives": 47.66,
+          "negative lift (x)": 1.43
+        },
+        "Fit & sizing": {
+          "% of all negatives": 58.5,
+          "% of all positives": 61.35,
+          "% of 'High-Traffic Underperformers' negatives": 57.9,
+          "% of other-tier negatives": 60.15,
+          "negative lift (x)": 0.95
+        }
+      }
+    },
+    "collocations": {
+      "wanted": {
+        "i wanted to love": 131,
+        "really wanted to love": 69,
+        "really wanted to like": 39,
+        "so wanted to love": 17,
+        "i wanted to like": 16
+      },
+      "looked": {
+        "it looked like a": 28,
+        "it looked like i": 15,
+        "i looked like a": 11,
+        "it looked more like": 8,
+        "i looked like i": 8
+      },
+      "like": {
+        "felt like i was": 23,
+        "looked like i was": 18,
+        "to like this top": 15,
+        "looked like a maternity": 10,
+        "to like this dress": 10
+      },
+      "way": {
+        "was way too big": 16,
+        "is way too much": 8,
+        "was way too short": 7,
+        "no way i could": 7,
+        "is way too short": 5
+      }
+    },
+    "narrative": "EXECUTIVE SYNTHESIS - every figure below is produced by this notebook\n======================================================================\n\n1. WHAT WE BUILT (Task 4/5)\n   A 'Logistic Regression (balanced)' classifier reads a review and flags whether\n   the customer would NOT recommend the product. On held-out data it scores\n   ROC-AUC 0.908; at the F1-optimal threshold of\n   0.587 it catches 78.2% of dissatisfied customers\n   at 57.9% precision. The do-nothing baseline - assume every\n   customer is happy - scores 81.9% accuracy and catches ZERO of them.\n\n2. WHERE THE PROBLEM SITS (Task 7)\n   Clustering 18 product classes on five behavioural averages yields two\n   tiers. 'High-Traffic Underperformers' (6 classes:\n   Blouses, Dresses, Knits, Outerwear, Sweaters, Trend) carries\n   69%\n   of all review volume yet has the LOWEST recommend rate -\n   79.6% against\n   84.7% for 'Quiet Favourites'.\n   That is a 5.1-point gap on the products customers touch most.\n\n3. WHAT CUSTOMERS ARE ACTUALLY SAYING (Task 8)\n   The sharpest separator is 'Stated disappointment' - 21.7% of negative\n   reviews vs 3.5% of positive ones, a lift of\n   6.23x. That theme is a superb SYMPTOM marker but it is not\n   something merchandising can fix; it tells the model what dissatisfaction sounds like.\n\n   The most actionable theme is 'Expectation mismatch' at\n   1.67x, present in 53.3%\n   of negative reviews. The single most common phrase in the entire negative corpus is\n   \"i wanted to love\" (131 occurrences), followed by \"really wanted to love\" (69) - customers\n   who chose the product deliberately and found the arriving garment was not the one they\n   thought they were buying.\n\n   THE NON-FINDING THAT MATTERS: 'Fit & sizing' language appears in\n   58% of negative reviews and\n   61% of POSITIVE ones - a lift of\n   0.95x. Sizing is how this customer base writes about\n   clothing in general, not how it expresses dissatisfaction. Auditing size charts first,\n   the instinctive move, would be chasing an artefact.\n\n4. THE CONNECTED ACTION (Task 9)\n   The model reaches 80.7% recall inside 'High-Traffic Underperformers' - better\n   than the 72.0% it reaches\n   on the other tier - so we can monitor precisely the tier that needs it. The highest-leverage\n   fix is not the size chart: it is closing the gap between what the product looks like online\n   and what actually arrives. For the 6 'High-Traffic Underperformers' classes, invest first\n   in on-body photography across a range of sizes, fabric drape and weight detail on the product\n   page, and an explicit fabric-composition callout - the three levers that 'Expectation\n   mismatch' (1.67x) and 'Fabric & quality'\n   (1.43x) language points at.\n   'Fit & sizing' stays on the watchlist, not the workplan."
+  },
+  "meta": {
+    "random_state": 42,
+    "dataset_file": "Womens Clothing E-Commerce Reviews.csv",
+    "n_rows_raw": 23486,
+    "n_rows_modelled": 22641
+  }
+}

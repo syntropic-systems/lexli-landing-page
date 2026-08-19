@@ -1,0 +1,3 @@
+cluster,n_classes,avg_rating,recommend_rate,review_count,avg_sentiment,avg_age,total_reviews
+0,18,4.215413461357471,0.8303541178603826,1257.0,0.2481485412677188,42.78712693580566,22626
+1,2,4.0,1.0,1.0,0.465,32.0,2

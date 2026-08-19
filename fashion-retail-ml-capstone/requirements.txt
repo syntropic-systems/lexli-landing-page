@@ -1,0 +1,16 @@
+# Fashion Retail ML Capstone - pinned to the versions this notebook was executed with.
+pandas==3.0.5
+numpy==2.4.6
+scikit-learn==1.9.0
+scipy==1.17.1
+matplotlib==3.11.1
+textblob==0.20.1
+
+# Notebook build / execution
+nbformat==5.11.1
+nbconvert==7.17.1
+ipykernel==7.3.0
+jupyter==1.1.1
+
+# Optional: only needed for scripts/capture_screenshots.py
+playwright==1.62.0
