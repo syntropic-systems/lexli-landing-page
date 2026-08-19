@@ -1,0 +1,500 @@
+<title>Fashion Retail Capstone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+
+<style>
+/* ── Tokens: complete light palette on bare :root ─────────────────────── */
+:root {
+  --paper:      #faf7f8;
+  --raised:     #ffffff;
+  --recessed:   #f2edef;
+  --ink:        #1b1418;
+  --ink-soft:   #6b5f65;
+  --ink-faint:  #96878e;
+  --rule:       #e6dde1;
+  --rule-soft:  #f0e8eb;
+  --accent:     #8e3b5e;
+  --accent-dim: #b9748e;
+  --accent-wash:#f7ecf1;
+  --on-accent:  #fffdfe;
+
+  --t-kw:    #8e3b5e;
+  --t-str:   #3f6b52;
+  --t-com:   #96878e;
+  --t-num:   #a35a2b;
+  --t-fn:    #2f5580;
+  --t-bi:    #6b4a86;
+  --t-op:    #6b5f65;
+  --t-magic: #a35a2b;
+
+  --shadow: 0 1px 2px rgb(27 20 24 / .05), 0 8px 24px -12px rgb(27 20 24 / .10);
+
+  --step--1: .8125rem;
+  --step-0:  1rem;
+  --step-1:  1.1875rem;
+  --step-2:  1.5rem;
+  --step-3:  2rem;
+  --step-4:  2.75rem;
+  --gutter:  4.75rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:      #161215;
+    --raised:     #1c171b;
+    --recessed:   #1f1a1e;
+    --ink:        #f1ebee;
+    --ink-soft:   #a2929a;
+    --ink-faint:  #7c6d75;
+    --rule:       #312a2e;
+    --rule-soft:  #262024;
+    --accent:     #db8ca9;
+    --accent-dim: #a85b7a;
+    --accent-wash:#2a1e25;
+  --on-accent:  #20141a;
+    --on-accent:  #20141a;
+
+    --t-kw:    #e59bb6;
+    --t-str:   #8ec3a3;
+    --t-com:   #7c6d75;
+    --t-num:   #e0a173;
+    --t-fn:    #8fb6de;
+    --t-bi:    #bfa2dc;
+    --t-op:    #a2929a;
+    --t-magic: #e0a173;
+
+    --shadow: 0 1px 2px rgb(0 0 0 / .4), 0 8px 24px -12px rgb(0 0 0 / .6);
+  }
+}
+:root[data-theme="dark"] {
+  --paper:      #161215;
+  --raised:     #1c171b;
+  --recessed:   #1f1a1e;
+  --ink:        #f1ebee;
+  --ink-soft:   #a2929a;
+  --ink-faint:  #7c6d75;
+  --rule:       #312a2e;
+  --rule-soft:  #262024;
+  --accent:     #db8ca9;
+  --accent-dim: #a85b7a;
+  --accent-wash:#2a1e25;
+  --on-accent:  #20141a;
+
+  --t-kw:    #e59bb6;
+  --t-str:   #8ec3a3;
+  --t-com:   #7c6d75;
+  --t-num:   #e0a173;
+  --t-fn:    #8fb6de;
+  --t-bi:    #bfa2dc;
+  --t-op:    #a2929a;
+  --t-magic: #e0a173;
+
+  --shadow: 0 1px 2px rgb(0 0 0 / .4), 0 8px 24px -12px rgb(0 0 0 / .6);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Karla, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: var(--step-0);
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-underline-offset: .18em; text-decoration-thickness: 1px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+/* ── Masthead ─────────────────────────────────────────────────────────── */
+.masthead {
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper);
+}
+.masthead-inner {
+  max-width: 76rem; margin: 0 auto; padding: 3.25rem 1.5rem 2.25rem;
+  display: flex; flex-direction: column; gap: 1.5rem;
+}
+.eyebrow {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .6875rem; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--accent); font-weight: 500;
+}
+h1.title {
+  font-family: Newsreader, ui-serif, Georgia, serif;
+  font-weight: 500; font-size: var(--step-4); line-height: 1.08;
+  letter-spacing: -.015em; margin: 0; text-wrap: balance; max-width: 20ch;
+}
+.standfirst {
+  margin: 0; max-width: 62ch; color: var(--ink-soft); font-size: var(--step-1);
+  line-height: 1.55;
+}
+.facts { display: flex; flex-wrap: wrap; gap: 0 2.25rem; margin: 0; padding: 0; }
+.facts div { display: flex; flex-direction: column; gap: .1rem; padding: .35rem 0; }
+.facts dt {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: .6875rem; letter-spacing: .11em; text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.facts dd {
+  margin: 0; font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: .9375rem; font-weight: 500; font-variant-numeric: tabular-nums;
+}
+
+/* ── Sticky action bar ────────────────────────────────────────────────── */
+.actionbar {
+  position: sticky; top: 0; z-index: 20;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--rule);
+}
+.actionbar-inner {
+  max-width: 76rem; margin: 0 auto; padding: .6rem 1.5rem;
+  display: flex; align-items: center; gap: .6rem; flex-wrap: wrap;
+}
+.bar-label {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: .6875rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-faint); margin-right: auto;
+}
+.btn {
+  font: inherit; font-size: .875rem; font-weight: 600;
+  display: inline-flex; align-items: baseline; gap: .5rem;
+  padding: .44rem .85rem; border-radius: 3px; cursor: pointer;
+  border: 1px solid var(--rule); background: var(--raised); color: var(--ink);
+  transition: border-color .14s ease, background-color .14s ease;
+}
+.btn:hover { border-color: var(--accent-dim); }
+.btn .hint {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: .6875rem; font-weight: 400; color: var(--ink-faint);
+}
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.btn.primary .hint { color: color-mix(in srgb, var(--on-accent) 70%, transparent); }
+.btn.primary:hover { background: var(--accent-dim); border-color: var(--accent-dim); }
+.btn.done { border-color: var(--accent); color: var(--accent); }
+.btn.primary.done { background: var(--accent-dim); color: var(--on-accent); }
+
+/* ── Page frame ───────────────────────────────────────────────────────── */
+.frame {
+  max-width: 76rem; margin: 0 auto; padding: 2.75rem 1.5rem 6rem;
+  display: grid; grid-template-columns: 1fr; gap: 3rem;
+}
+@media (min-width: 68rem) {
+  .frame { grid-template-columns: 12.5rem minmax(0, 1fr); gap: 3.5rem; }
+}
+
+/* ── Task index rail ──────────────────────────────────────────────────── */
+.rail { display: none; }
+@media (min-width: 68rem) {
+  .rail {
+    display: block; position: sticky; top: 4rem; align-self: start;
+    max-height: calc(100vh - 6rem); overflow-y: auto;
+  }
+}
+.rail h2 {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: .6875rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-faint); margin: 0 0 .75rem; font-weight: 500;
+}
+.toc { display: flex; flex-direction: column; }
+.toc-link {
+  display: block; padding: .3rem 0 .3rem .75rem;
+  border-left: 1px solid var(--rule);
+  color: var(--ink-soft); text-decoration: none;
+  font-size: .8125rem; line-height: 1.35;
+  transition: color .14s ease, border-color .14s ease;
+}
+.toc-link:hover { color: var(--ink); border-left-color: var(--accent-dim); }
+.toc-link.active { color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
+
+/* ── Notebook column ──────────────────────────────────────────────────── */
+.notebook { min-width: 0; display: flex; flex-direction: column; gap: 1.75rem; }
+
+/* Prose (markdown cells) */
+.prose { max-width: 68ch; }
+.prose > :first-child { margin-top: 0; }
+.prose > :last-child { margin-bottom: 0; }
+.prose h1, .prose h2, .prose h3, .prose h4 {
+  font-family: Newsreader, ui-serif, Georgia, serif;
+  font-weight: 500; letter-spacing: -.01em; text-wrap: balance;
+  margin: 2.25rem 0 .75rem;
+}
+.prose h1 { font-size: var(--step-3); line-height: 1.14; }
+.prose h2 {
+  font-size: var(--step-2); line-height: 1.2;
+  padding-top: 1.5rem; border-top: 1px solid var(--rule);
+  scroll-margin-top: 4.5rem;
+}
+.prose h3 { font-size: var(--step-1); }
+.prose h4 { font-size: var(--step-0); font-family: Karla, sans-serif; font-weight: 700; }
+.prose p { margin: 0 0 1rem; }
+.prose ul, .prose ol { margin: 0 0 1rem; padding-left: 1.35rem; }
+.prose li { margin-bottom: .35rem; }
+.prose blockquote {
+  margin: 1.25rem 0; padding: .9rem 1.15rem;
+  background: var(--accent-wash); border-left: 2px solid var(--accent-dim);
+  border-radius: 0 3px 3px 0; color: var(--ink-soft);
+}
+.prose blockquote p:last-child { margin-bottom: 0; }
+.prose code {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: .85em; background: var(--recessed);
+  padding: .1em .35em; border-radius: 2px;
+}
+.prose strong { font-weight: 700; }
+.prose table {
+  border-collapse: collapse; font-size: var(--step--1);
+  font-variant-numeric: tabular-nums; margin: 0 0 1rem; min-width: 100%;
+}
+.prose table th, .prose table td {
+  padding: .42rem .8rem; text-align: left; border-bottom: 1px solid var(--rule-soft);
+}
+.prose table th {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: .6875rem; letter-spacing: .07em; text-transform: uppercase;
+  color: var(--ink-faint); font-weight: 500; border-bottom: 1px solid var(--rule);
+}
+.prose table { display: block; overflow-x: auto; }
+
+/* Code cells */
+.cell { display: grid; gap: 0; }
+.cell-head {
+  display: flex; align-items: center; gap: .75rem;
+  padding-bottom: .3rem;
+}
+.prompt {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: .6875rem; letter-spacing: .06em; color: var(--ink-faint);
+  font-variant-numeric: tabular-nums; min-width: var(--gutter);
+}
+.copy {
+  margin-left: auto; font: inherit; font-size: .75rem; font-weight: 600;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: .04em;
+  padding: .2rem .6rem; border-radius: 2px; cursor: pointer;
+  border: 1px solid transparent; background: transparent; color: var(--ink-faint);
+  border-color: var(--rule-soft);
+  transition: color .14s ease, border-color .14s ease, background-color .14s ease;
+}
+.cell:hover .copy, .copy:focus-visible { color: var(--ink-soft); border-color: var(--rule); }
+.copy:hover { color: var(--accent); border-color: var(--accent-dim); background: var(--accent-wash); }
+.copy.done { color: var(--accent); border-color: var(--accent); background: var(--accent-wash); }
+
+.code-wrap {
+  overflow-x: auto;
+  background: var(--recessed);
+  border: 1px solid var(--rule-soft);
+  border-left: 2px solid var(--rule);
+  border-radius: 0 3px 3px 0;
+}
+pre.code {
+  margin: 0; padding: .9rem 1.1rem;
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .8125rem; line-height: 1.68; tab-size: 4;
+}
+pre.code code { font: inherit; }
+.t-kw    { color: var(--t-kw); font-weight: 500; }
+.t-str   { color: var(--t-str); }
+.t-com   { color: var(--t-com); font-style: italic; }
+.t-num   { color: var(--t-num); }
+.t-fn    { color: var(--t-fn); }
+.t-bi    { color: var(--t-bi); }
+.t-op    { color: var(--t-op); }
+.t-magic { color: var(--t-magic); font-weight: 500; }
+.t-name  { color: var(--ink); }
+
+/* Outputs — machine voice, set apart from the author's */
+.outputs {
+  margin-top: .55rem; margin-left: 0;
+  border-left: 2px solid var(--accent-dim);
+  padding-left: 1rem;
+  display: flex; flex-direction: column; gap: .8rem;
+}
+.out-text {
+  margin: 0; overflow-x: auto;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: .75rem; line-height: 1.6; color: var(--ink-soft);
+  white-space: pre;
+}
+.out-error { color: #c0392b; }
+.out-fig { margin: 0; }
+.out-fig img {
+  max-width: 100%; height: auto; display: block;
+  border: 1px solid var(--rule-soft); border-radius: 3px;
+  background: #fcfcfb;
+}
+.out-html { overflow-x: auto; }
+.out-html table {
+  border-collapse: collapse; font-size: .75rem;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums; color: var(--ink-soft);
+}
+.out-html th, .out-html td {
+  padding: .3rem .7rem; text-align: right; border-bottom: 1px solid var(--rule-soft);
+  white-space: nowrap;
+}
+.out-html thead th {
+  color: var(--ink-faint); font-weight: 500; border-bottom: 1px solid var(--rule);
+}
+.out-html tbody th { text-align: left; color: var(--ink); font-weight: 500; }
+
+/* ── Toast ────────────────────────────────────────────────────────────── */
+.toast {
+  position: fixed; left: 50%; bottom: 1.75rem; transform: translate(-50%, 1rem);
+  background: var(--ink); color: var(--paper);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: .75rem; letter-spacing: .04em;
+  padding: .55rem 1rem; border-radius: 3px; box-shadow: var(--shadow);
+  opacity: 0; pointer-events: none; transition: opacity .18s ease, transform .18s ease;
+  z-index: 50;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+footer.colophon {
+  border-top: 1px solid var(--rule);
+  max-width: 76rem; margin: 0 auto; padding: 2rem 1.5rem 4rem;
+  color: var(--ink-faint); font-size: var(--step--1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+</style>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">Executed notebook · random_state = 42</p>
+    <h1 class="title">Fashion Retail Capstone</h1>
+    <p class="standfirst">
+      Classification on imbalanced data, unsupervised clustering, and NLP theme
+      extraction across 22,641 customer reviews — Tasks 1&ndash;9, every cell run,
+      every output kept. Copy any cell, or take the whole notebook.
+    </p>
+    <dl class="facts">
+      <div><dt>Cells</dt><dd>__N_CELLS__</dd></div>
+      <div><dt>Code cells</dt><dd>__N_CODE__</dd></div>
+      <div><dt>Best model F1</dt><dd>0.6538</dd></div>
+      <div><dt>ROC-AUC</dt><dd>0.9082</dd></div>
+      <div><dt>Threshold</dt><dd>0.5869</dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="actionbar">
+  <div class="actionbar-inner">
+    <span class="bar-label">Take the notebook</span>
+    <button class="btn primary" type="button" id="copy-nb">
+      Copy .ipynb <span class="hint">outputs stripped</span>
+    </button>
+    <button class="btn" type="button" id="copy-py">
+      Copy all Python <span class="hint">__N_CODE__ cells</span>
+    </button>
+  </div>
+</div>
+
+<div class="frame">
+  <nav class="rail" aria-label="Task index">
+    <h2>Tasks</h2>
+    <div class="toc">__TOC__</div>
+  </nav>
+  <main class="notebook">
+__BODY__
+  </main>
+</div>
+
+<footer class="colophon">
+  Generated from <code>notebooks/fashion_retail_capstone.ipynb</code>. Paste the copied
+  <code>.ipynb</code> into a file and open it in Jupyter — cells are in order and ready to run.
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script type="application/json" id="clean-nb">__CLEAN_NB__</script>
+<script type="application/json" id="all-code">__ALL_CODE__</script>
+
+<script>
+(function () {
+  const toast = document.getElementById("toast");
+  let toastTimer;
+
+  function say(message) {
+    toast.textContent = message;
+    toast.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
+  }
+
+  async function copy(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (err) {
+      // Clipboard API is unavailable in some sandboxes; fall back to a selection copy.
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "");
+      ta.style.cssText = "position:fixed;top:0;left:0;opacity:0;";
+      document.body.appendChild(ta);
+      ta.select();
+      let ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+      document.body.removeChild(ta);
+      return ok;
+    }
+  }
+
+  function flash(button, label) {
+    const target = button.querySelector(".copy-label") || button;
+    const original = target.textContent;
+    button.classList.add("done");
+    target.textContent = label;
+    setTimeout(() => {
+      button.classList.remove("done");
+      target.textContent = original;
+    }, 1600);
+  }
+
+  document.querySelectorAll(".copy").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const ok = await copy(button.dataset.code);
+      if (ok) { flash(button, "Copied"); say("Cell copied"); }
+      else { say("Copy blocked — select the cell text instead"); }
+    });
+  });
+
+  function wire(id, sourceId, message) {
+    const button = document.getElementById(id);
+    const payload = JSON.parse(document.getElementById(sourceId).textContent);
+    button.addEventListener("click", async () => {
+      const ok = await copy(payload);
+      if (ok) {
+        button.classList.add("done");
+        setTimeout(() => button.classList.remove("done"), 1600);
+        say(message);
+      } else {
+        say("Copy blocked by the browser — try the download in the zip");
+      }
+    });
+  }
+  wire("copy-nb", "clean-nb", "Notebook copied — paste into a .ipynb file");
+  wire("copy-py", "all-code", "All Python copied");
+
+  // Task index follows the reader.
+  const links = [...document.querySelectorAll(".toc-link")];
+  const targets = links
+    .map((a) => document.getElementById(a.getAttribute("href").slice(1)))
+    .filter(Boolean);
+  if (targets.length && "IntersectionObserver" in window) {
+    const seen = new Set();
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e) => e.isIntersecting ? seen.add(e.target.id) : seen.delete(e.target.id));
+      const first = targets.find((t) => seen.has(t.id));
+      links.forEach((a) => a.classList.toggle(
+        "active", !!first && a.getAttribute("href") === "#" + first.id));
+    }, { rootMargin: "-70px 0px -70% 0px" });
+    targets.forEach((t) => observer.observe(t));
+  }
+})();
+</script>
