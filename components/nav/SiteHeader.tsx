@@ -57,11 +57,18 @@ const navItems: NavItem[] = [
         href: "/platform",
         label: "Platform",
         dropdown: {
+            // One page, eight sections: Overview leads the list (the footer's
+            // Platform column does the same) and there is no bottom link, since
+            // it would only repeat the trigger. Columns split 5+4, fuller first.
             sections: [
-                { links: platformSections.slice(0, 4).map(({ label, href }) => ({ label, href })) },
+                {
+                    links: [
+                        { label: "Overview", href: "/platform" },
+                        ...platformSections.slice(0, 4).map(({ label, href }) => ({ label, href })),
+                    ],
+                },
                 { links: platformSections.slice(4).map(({ label, href }) => ({ label, href })) },
             ],
-            footer: { label: CTA.explorePlatform, href: "/platform" },
         },
     },
     {
@@ -89,8 +96,8 @@ const navItems: NavItem[] = [
         href: "/company",
         label: "Company",
         dropdown: {
+            // companyLinks already opens with About Lexli, so no footer link.
             sections: [{ links: companyLinks.map(({ label, href }) => ({ label, href })) }],
-            footer: { label: "About Lexli", href: "/company" },
         },
     },
     // Top-level, not nested under Company: the FAQ answers buying questions,
@@ -129,6 +136,12 @@ function DropdownContent({
                     return;
                 }
                 setScrollTarget(sectionId);
+            } else if (pathname === cleanHref) {
+                // A page link clicked on its own page (Overview, About Lexli):
+                // Next treats same-route navigation as a no-op, so scroll to
+                // the top instead — the link still visibly does something.
+                window.scrollTo({ top: 0, behavior: "smooth" });
+                return;
             }
             router.push(cleanHref || "/");
         },
@@ -166,8 +179,11 @@ function DropdownContent({
                             ) : null}
                             <div className="flex flex-col gap-1">
                                 {section.links.map((link) => {
-                                    const { sectionId } = parseScrollHref(link.href);
-                                    return sectionId ? (
+                                    const { cleanHref, sectionId } = parseScrollHref(link.href);
+                                    // Buttons, not links, for anything the handler must
+                                    // drive itself: section anchors, and a page link
+                                    // clicked on its own page (scroll-to-top).
+                                    return sectionId || pathname === cleanHref ? (
                                         <button
                                             key={link.href}
                                             type="button"
@@ -238,13 +254,20 @@ export function SiteHeader() {
         (href: string) => () => {
             closeMobile();
             const { cleanHref, sectionId } = parseScrollHref(href);
-            if (!sectionId) return;
             if (pathname === cleanHref) {
-                // Wait for the sheet's close animation before scrolling.
-                setTimeout(() => scrollToId(sectionId), 300);
+                // Wait for the sheet's close animation before scrolling. A
+                // page link on its own page scrolls to the top (same-route
+                // navigation is otherwise a no-op).
+                setTimeout(
+                    () =>
+                        sectionId
+                            ? scrollToId(sectionId)
+                            : window.scrollTo({ top: 0, behavior: "smooth" }),
+                    300
+                );
                 return;
             }
-            setScrollTarget(sectionId);
+            if (sectionId) setScrollTarget(sectionId);
         },
         [closeMobile, pathname]
     );

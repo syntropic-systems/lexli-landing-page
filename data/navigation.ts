@@ -12,10 +12,10 @@ import {
   CalendarClock,
   ClipboardList,
   FileUp,
+  Landmark,
   Languages,
   PenLine,
   ScanLine,
-  Search,
   UserRound,
   type LucideIcon,
 } from 'lucide-react';
@@ -83,7 +83,7 @@ export const allTools: NavLink[] = [
   },
   {
     label: "Case Finder",
-    icon: Search,
+    icon: Landmark,
     href: "/tools/case-finder",
     description: "Any case, by number or advocate name. Found once, kept for good.",
   },

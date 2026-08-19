@@ -33,7 +33,15 @@ export function ScrollLink({
       href={cleanHref}
       className={className}
       onClick={(event) => {
-        if (!sectionId) return;
+        if (!sectionId) {
+          // A page link clicked on its own page: Next treats same-route
+          // navigation as a no-op, so scroll to the top instead.
+          if (pathname === cleanHref) {
+            event.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }
+          return;
+        }
         event.preventDefault();
         if (pathname === cleanHref) {
           scrollToId(sectionId);

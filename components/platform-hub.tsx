@@ -11,9 +11,9 @@ import { allTools } from '@/data/navigation';
  * lines running into the frame. The active node keeps the marching-dash line;
  * the other five link across — the tool pages' only cross-navigation.
  *
- * Screenshots: drop light/dark captures into /public/product and register
- * them in TOOL_IMAGES; any tool without an entry renders the abstract
- * skeleton instead. No entries exist yet — the skeleton claims nothing.
+ * Screenshots: light/dark 16:9 captures live in /public/tools and are
+ * registered in TOOL_IMAGES (per tool) and PLATFORM_IMAGE (homepage, no
+ * active tool); a tool without an entry renders the abstract skeleton.
  */
 
 type HubTool = {
@@ -35,8 +35,20 @@ const HUB_TOOLS: HubTool[] = allTools.map((tool) => ({
   icon: tool.icon ?? Wrench,
 }));
 
-/** slug → light/dark screenshot paths under /public. Filled as captures land. */
-const TOOL_IMAGES: Record<string, { light: string; dark: string }> = {};
+/**
+ * slug → light/dark screenshot paths under /public/tools. Drafting and eFiling
+ * have no captures yet and fall back to the skeleton. (case_finder2_* is an
+ * alternate Case Finder capture, kept on disk, not wired.)
+ */
+const TOOL_IMAGES: Record<string, { light: string; dark: string }> = {
+  'daily-board': { light: '/tools/daily_board_light.png', dark: '/tools/daily_board_dark.png' },
+  'case-finder': { light: '/tools/case_finder_light.png', dark: '/tools/case_finder_dark.png' },
+  'legal-translator': { light: '/tools/translator_light.png', dark: '/tools/translator_dark.png' },
+  'document-scanner': { light: '/tools/scanner_light.png', dark: '/tools/scanner_dark.png' },
+};
+
+/** The frame's capture when no tool is active (the homepage hub): the workspace itself. */
+const PLATFORM_IMAGE = { light: '/tools/homepage_light.png', dark: '/tools/homepage_dark.png' };
 
 /** Node centres and frame attach points, in % of the connector strip width. */
 const NODE_X = [16.66, 50, 83.33];
@@ -150,8 +162,14 @@ function FrameSkeleton() {
 export function PlatformHub({ activeSlug }: { activeSlug: string }) {
   const topTools = HUB_TOOLS.slice(0, 3);
   const bottomTools = HUB_TOOLS.slice(3);
-  const image = TOOL_IMAGES[activeSlug];
-  const activeLabel = HUB_TOOLS.find((tool) => tool.slug === activeSlug)?.label ?? 'Lexli';
+  // No active tool → the platform capture; a tool without a capture → skeleton.
+  const image = activeSlug ? TOOL_IMAGES[activeSlug] : PLATFORM_IMAGE;
+  const activeTool = HUB_TOOLS.find((tool) => tool.slug === activeSlug);
+  const activeLabel = activeTool?.label ?? 'Lexli';
+  const frameTitle = activeTool ? `${activeLabel} on Lexli` : 'The Lexli workspace';
+  const frameAlt = activeTool
+    ? `${activeLabel} inside the Lexli platform`
+    : 'The Lexli workspace: cases, files, and tools on one record';
 
   return (
     <div aria-label="Every Lexli tool works from the same case record">
@@ -181,12 +199,12 @@ export function PlatformHub({ activeSlug }: { activeSlug: string }) {
           <div className="relative">
             {/* Modest shadow — just enough depth to lift the frame off the
                 ghost cards. */}
-            <ShowcaseFrame title={`${activeLabel} on Lexli`} className="shadow-md">
+            <ShowcaseFrame title={frameTitle} className="shadow-md">
               {image ? (
                 <ThemeAwareImage
                   src={image.light}
                   srcDark={image.dark}
-                  alt={`${activeLabel} inside the Lexli platform`}
+                  alt={frameAlt}
                   width={1600}
                   height={900}
                   className="aspect-video w-full object-cover"
@@ -206,12 +224,12 @@ export function PlatformHub({ activeSlug }: { activeSlug: string }) {
           so no node tiles: just the frame, and one quiet route to the rest.
           Cross-navigation already exists in the nav sheet and footer. */}
       <div className="flex flex-col gap-4 sm:hidden">
-        <ShowcaseFrame title={`${activeLabel} on Lexli`}>
+        <ShowcaseFrame title={frameTitle}>
           {image ? (
             <ThemeAwareImage
               src={image.light}
               srcDark={image.dark}
-              alt={`${activeLabel} inside the Lexli platform`}
+              alt={frameAlt}
               width={1600}
               height={900}
               className="aspect-video w-full object-cover"
