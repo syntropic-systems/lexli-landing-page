@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 import { Button } from './ui/button';
 import { RevealOnScroll } from '@/components/animations';
+import { BrandGrainient } from '@/components/backgrounds/brand-grainient';
 
 interface HeroSectionProps {
     title: ReactNode;
@@ -46,10 +47,22 @@ export function HeroSection({
             // it. Full-viewport stage, copy vertically centered — the front
             // door owns the fold. The [&+section] trim keeps the hero's mb
             // from stacking with the next Section's full top padding.
-            // Same surface as PageHero: a clean fall from background to the
-            // accent/70 tonal floor — no radial bloom.
-            className="relative -mt-14 pt-14 h-[100vh] flex items-center mb-20 md:mb-28 lg:mb-32 [&+section]:pt-8 md:[&+section]:pt-12 lg:[&+section]:pt-16 overflow-hidden rounded-b-xl shadow-primary/20 shadow-xl bg-gradient-to-b from-background via-background to-accent/70"
+            // Surface: the product app's Grainient shader under a background
+            // scrim, so the brand colour reads as a wash the copy sits on.
+            className="relative -mt-14 pt-14 h-[100vh] flex items-center mb-20 md:mb-28 lg:mb-32 [&+section]:pt-8 md:[&+section]:pt-12 lg:[&+section]:pt-16 overflow-hidden rounded-b-xl shadow-primary/20 shadow-xl bg-background"
         >
+            <div aria-hidden className="absolute inset-0">
+                <BrandGrainient />
+            </div>
+            {/* Scrim: pulls the shader toward the page ground so the colour
+                reads as a wash, not a poster — same move as the login panel. */}
+            <div aria-hidden className="bg-background/30 pointer-events-none absolute inset-0" />
+            {/* Directional scrim: the copy column gets a calmer ground on the
+                left while the shader stays vivid on the right. */}
+            <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background/40 via-background/20 to-transparent"
+            />
             <div className="container relative z-10">
                 <div className="max-w-7xl mx-auto">
                     <div className="max-w-3xl text-left space-y-5 md:space-y-6 xl:space-y-7">

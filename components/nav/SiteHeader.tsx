@@ -312,8 +312,8 @@ export function SiteHeader() {
     );
 
     const headerClassName = cn(
-        "sticky top-0 z-50 w-full backdrop-blur-md supports-[backdrop-filter]:bg-card/50 transition-all duration-300 border-b",
-        !isNearTop ? "border-border shadow-sm" : "border-transparent"
+        "sticky top-0 z-50 w-full backdrop-blur-md transition-all duration-300",
+        !isNearTop ? "shadow-sm supports-[backdrop-filter]:bg-card/50" : ""
     );
 
     return (
