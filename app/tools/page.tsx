@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
+import { ArrowRight } from 'lucide-react';
 import { PageHero } from '@/components/page-hero';
+import { ScrollLink } from '@/components/scroll-link';
 import { Section } from '@/components/section';
 import { CTASection } from '@/components/cta-section';
 import { VerdictLine } from '@/components/verdict-line';
@@ -47,6 +49,19 @@ export default function ToolsPage() {
             Every tool is also available through the AI Assistant. Ask, and it runs the tool
             for you.
           </VerdictLine>
+        </RevealOnScroll>
+        {/* The verdict's hand-off: the full assistant argument lives on the
+            platform page, so the line points instead of repeating it. */}
+        <RevealOnScroll direction="up" delay={0.15} duration={0.6}>
+          <div className="mt-8">
+            <ScrollLink
+              href="/platform#ai-assistant"
+              className="group inline-flex items-center gap-2 text-sm font-semibold text-primary"
+            >
+              Meet the AI Assistant
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </ScrollLink>
+          </div>
         </RevealOnScroll>
       </Section>
 

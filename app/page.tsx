@@ -6,7 +6,9 @@ import { Section } from "@/components/section";
 import { CTASection } from "@/components/cta-section";
 import { PlatformHub } from "@/components/platform-hub";
 import { PlatformBento } from "@/components/platform-bento";
-import { RoutingPill } from "@/components/routing-pill";
+import { GlowCard } from "@/components/feature-glow-grid";
+import { VerdictLine } from "@/components/verdict-line";
+import { RoutingPillGroups, toolRoutingGroups } from "@/components/routing-pill";
 import { SolutionCards } from "@/components/solution-cards";
 import {
   Accordion,
@@ -15,9 +17,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { homepageFaqs } from "@/data/faqs";
+import { commitments } from "@/data/company";
 import { StaggerChildren, StaggerItem, RevealOnScroll } from "@/components/animations";
-import { allTools } from "@/data/navigation";
-import { getTool } from "@/data/tools";
 import { APP_URL, CTA, DEMO_HREF } from "@/lib/site";
 
 /** The interior pages' eyebrow register, verbatim. */
@@ -71,7 +72,7 @@ export default function Home() {
         description="The platform holds the cases, files, hearings, and context. Every tool draws from it, which is why the board knows your day, drafts arrive filled in, and a scan is ready for filing before filing comes up."
       >
         <RevealOnScroll direction="up" delay={0.1} duration={0.7}>
-          <PlatformHub activeSlug="" />
+          <PlatformHub activeSlug="" frameOnly />
         </RevealOnScroll>
       </Section>
 
@@ -104,39 +105,14 @@ export default function Home() {
         title="Six tools. Start with the one you need."
         description="Drafting and eFiling run on the platform's record. The other four are free: a free account and the tool you needed anyway."
       >
-        <StaggerChildren className="flex flex-col items-start gap-4" stagger={0.06}>
-          <div className="flex flex-wrap gap-3">
-            {allTools
-              .filter((tool) => {
-                const slug = tool.href.split("/").pop() ?? "";
-                return getTool(slug)?.kind !== "front-door";
-              })
-              .map((tool) => (
-                <StaggerItem key={tool.href}>
-                  <RoutingPill link={{ label: tool.label, href: tool.href }} />
-                </StaggerItem>
-              ))}
-          </div>
-          <div className="flex flex-wrap gap-3">
-            {allTools
-              .filter((tool) => {
-                const slug = tool.href.split("/").pop() ?? "";
-                return getTool(slug)?.kind === "front-door";
-              })
-              .map((tool) => (
-                <StaggerItem key={tool.href}>
-                  <RoutingPill link={{ label: tool.label, href: tool.href, free: true }} />
-                </StaggerItem>
-              ))}
-          </div>
-        </StaggerChildren>
+        <RoutingPillGroups groups={toolRoutingGroups()} />
         <RevealOnScroll direction="up" delay={0.15} duration={0.6}>
-          <div className="mt-10 md:mt-12">
+          <div className="mt-8">
             <Link
               href="/tools"
               className="group inline-flex items-center gap-2 text-sm font-semibold text-primary"
             >
-              See all tools
+              {CTA.seeAllTools}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
@@ -151,6 +127,63 @@ export default function Home() {
         description="A solo litigator, a firm, and the staff who keep both moving. Pick the day that looks like yours."
       >
         <SolutionCards />
+        <RevealOnScroll direction="up" delay={0.15} duration={0.6}>
+          <div className="mt-10 md:mt-12">
+            <Link
+              href="/solutions"
+              className="group inline-flex items-center gap-2 text-sm font-semibold text-primary"
+            >
+              See who Lexli is for
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
+        </RevealOnScroll>
+      </Section>
+
+      {/* The trust beat — the company page's two commitments, verbatim, so a
+          sceptical first visit meets the promise before the FAQ. The company
+          page keeps the full argument around them. */}
+      <Section
+        header={<Eyebrow>{commitments.eyebrow}</Eyebrow>}
+        title={commitments.headline}
+        description={commitments.lead}
+      >
+        <StaggerChildren className="grid grid-cols-1 gap-4 md:grid-cols-2" stagger={0.1}>
+          {commitments.items.map((item) => (
+            <StaggerItem key={item.title} className="h-full">
+              <GlowCard className="gap-3">
+                <item.icon className="h-6 w-6 text-primary" strokeWidth={1.75} />
+                <div className="space-y-1.5">
+                  <p className="text-base font-semibold text-foreground">{item.title}</p>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {item.description}
+                  </p>
+                </div>
+              </GlowCard>
+            </StaggerItem>
+          ))}
+        </StaggerChildren>
+        <RevealOnScroll direction="up" delay={0.15} duration={0.6}>
+          <VerdictLine className="mt-8 max-w-3xl">
+            {commitments.closer.split("\n").map((line, index, lines) => (
+              <span key={line}>
+                {line}
+                {index < lines.length - 1 && <br />}
+              </span>
+            ))}
+          </VerdictLine>
+        </RevealOnScroll>
+        <RevealOnScroll direction="up" delay={0.15} duration={0.6}>
+          <div className="mt-10 md:mt-12">
+            <Link
+              href="/company"
+              className="group inline-flex items-center gap-2 text-sm font-semibold text-primary"
+            >
+              More about Lexli
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
+        </RevealOnScroll>
       </Section>
 
       {/* The first five questions — answers single-sourced from the FAQ data,
