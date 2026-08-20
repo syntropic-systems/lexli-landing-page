@@ -5,9 +5,10 @@ import { PageHero } from '@/components/page-hero';
 import { Section } from '@/components/section';
 import { CTASection } from '@/components/cta-section';
 import { PlatformSection } from '@/components/platform-section';
+import { RoutingPillGroups, toolRoutingGroups } from '@/components/routing-pill';
 import { VerdictLine } from '@/components/verdict-line';
 import { FeatureGlowGrid } from '@/components/feature-glow-grid';
-import { StaggerChildren, StaggerItem, RevealOnScroll } from '@/components/animations';
+import { RevealOnScroll } from '@/components/animations';
 import {
   AdvancedSearchShowcase,
   AssistantShowcase,
@@ -15,7 +16,6 @@ import {
   DocumentIntelligenceShowcase,
 } from '@/components/showcases';
 import {
-  accounts,
   integrations,
   intelligenceLayer,
   intelligenceTransition,
@@ -25,7 +25,6 @@ import {
   security,
   spine,
 } from '@/data/platform';
-import { allTools } from '@/data/navigation';
 import { APP_URL, CTA, DEMO_HREF, SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
@@ -41,7 +40,8 @@ export const metadata: Metadata = {
   },
 };
 
-const [assistant, documentIntelligence, legalResearch, advancedSearch] = intelligenceLayer;
+const [assistant, documentIntelligence, legalResearch, advancedSearch] =
+  intelligenceLayer;
 
 export default function PlatformPage() {
   return (
@@ -61,12 +61,20 @@ export default function PlatformPage() {
         <div className="max-w-3xl space-y-5">
           {platformThesis.map((paragraph, index) =>
             index === platformThesis.length - 1 ? (
-              <RevealOnScroll key={paragraph.slice(0, 40)} direction="up" duration={0.6}>
+              <RevealOnScroll
+                key={paragraph.slice(0, 40)}
+                direction="up"
+                duration={0.6}
+              >
                 <VerdictLine className="pt-2">{paragraph}</VerdictLine>
               </RevealOnScroll>
             ) : (
-              <RevealOnScroll key={paragraph.slice(0, 40)} direction="up" duration={0.6}>
-                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+              <RevealOnScroll
+                key={paragraph.slice(0, 40)}
+                direction="up"
+                duration={0.6}
+              >
+                <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
                   {paragraph}
                 </p>
               </RevealOnScroll>
@@ -76,14 +84,20 @@ export default function PlatformPage() {
       </Section>
 
       {/* Group 1 — the spine */}
-      <PlatformSection section={spine} variant="muted" visual={<CaseRecordShowcase />} />
+      <PlatformSection
+        section={spine}
+        variant="muted"
+        visual={<CaseRecordShowcase />}
+      />
 
       {/* Group 2 — the intelligence layer. The transition line is an intro to
           the group that follows, so its section drops the bottom padding and
           hands straight into the AI Assistant section. */}
       <Section className="pb-0 md:pb-0 lg:pb-0">
         <RevealOnScroll direction="up" duration={0.6}>
-          <VerdictLine className="max-w-3xl">{intelligenceTransition}</VerdictLine>
+          <VerdictLine className="max-w-3xl">
+            {intelligenceTransition}
+          </VerdictLine>
         </RevealOnScroll>
       </Section>
 
@@ -102,15 +116,8 @@ export default function PlatformPage() {
         visual={<AdvancedSearchShowcase />}
       />
 
-      {/* Group 3 — built for how you work */}
-      <PlatformSection section={accounts} />
-
-      {/* Group 4 — trust. Flat register from here to the end of Integrations. */}
-      <Section
-        id={security.id}
-        variant="muted"
-        disableDefaultHeader
-      >
+      {/* Group 3 — trust. Flat register from here to the end of Integrations. */}
+      <Section id={security.id} variant="muted" disableDefaultHeader>
         <RevealOnScroll direction="up" duration={0.6}>
           <p className="text-[11px] md:text-xs font-semibold uppercase tracking-wider text-primary mb-3">
             {security.eyebrow}
@@ -146,7 +153,10 @@ export default function PlatformPage() {
                     <span className="text-primary/70">{badge.status}</span>
                   </span>
                 ))}
-                <span aria-hidden className="mx-1 hidden h-4 w-px bg-border sm:block" />
+                <span
+                  aria-hidden
+                  className="mx-1 hidden h-4 w-px bg-border sm:block"
+                />
                 {security.infrastructure.map((vendor) => (
                   <span
                     key={vendor}
@@ -165,31 +175,41 @@ export default function PlatformPage() {
       </Section>
 
       <Section id={integrations.id} disableDefaultHeader>
-        <RevealOnScroll direction="up" duration={0.6}>
-          <p className="text-[11px] md:text-xs font-semibold uppercase tracking-wider text-primary mb-3">
-            {integrations.eyebrow}
-          </p>
-          <h2 className="font-serif text-3xl md:text-4xl font-semibold tracking-tight mb-5 max-w-2xl">
-            {integrations.headline}
-          </h2>
-        </RevealOnScroll>
+        {/* Two-column split, as on the company page: claim left, prose right. */}
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-16">
+          <RevealOnScroll direction="up" duration={0.6}>
+            <p className="text-[11px] md:text-xs font-semibold uppercase tracking-wider text-primary mb-3">
+              {integrations.eyebrow}
+            </p>
+            <h2 className="font-serif text-3xl md:text-4xl font-semibold tracking-tight max-w-2xl">
+              {integrations.headline}
+            </h2>
+          </RevealOnScroll>
 
-        <div className="max-w-3xl space-y-4">
-          {integrations.body.map((paragraph) => (
-            <RevealOnScroll key={paragraph.slice(0, 40)} direction="up" delay={0.1} duration={0.6}>
-              <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                {paragraph}
+          <div className="max-w-2xl space-y-4">
+            {integrations.body.map((paragraph) => (
+              <RevealOnScroll
+                key={paragraph.slice(0, 40)}
+                direction="up"
+                delay={0.1}
+                duration={0.6}
+              >
+                <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                  {paragraph}
+                </p>
+              </RevealOnScroll>
+            ))}
+            <RevealOnScroll direction="up" delay={0.15} duration={0.6}>
+              <VerdictLine className="py-1">
+                {integrations.consentLine}
+              </VerdictLine>
+            </RevealOnScroll>
+            <RevealOnScroll direction="up" delay={0.2} duration={0.6}>
+              <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                {integrations.close}
               </p>
             </RevealOnScroll>
-          ))}
-          <RevealOnScroll direction="up" delay={0.15} duration={0.6}>
-            <VerdictLine className="py-1">{integrations.consentLine}</VerdictLine>
-          </RevealOnScroll>
-          <RevealOnScroll direction="up" delay={0.2} duration={0.6}>
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-              {integrations.close}
-            </p>
-          </RevealOnScroll>
+          </div>
         </div>
       </Section>
 
@@ -207,27 +227,17 @@ export default function PlatformPage() {
           </RevealOnScroll>
         }
       >
-        <StaggerChildren className="flex flex-wrap gap-3" stagger={0.06}>
-          {allTools.map((tool) => (
-            <StaggerItem key={tool.href}>
-              <Link
-                href={tool.href}
-                className="flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-2.5 text-sm font-medium text-foreground shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/50 hover:text-primary hover:shadow-md"
-              >
-                {tool.icon && <tool.icon className="h-4 w-4 text-primary" />}
-                {tool.label}
-              </Link>
-            </StaggerItem>
-          ))}
-        </StaggerChildren>
+        <RoutingPillGroups groups={toolRoutingGroups()} />
         <RevealOnScroll direction="up" delay={0.15} duration={0.6}>
-          <Link
-            href="/tools"
-            className="mt-8 inline-flex items-center gap-1 text-sm font-semibold text-primary"
-          >
-            See all six tools
-            <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
+          <div className="mt-8">
+            <Link
+              href="/tools"
+              className="group inline-flex items-center gap-2 text-sm font-semibold text-primary"
+            >
+              {CTA.seeAllTools}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
         </RevealOnScroll>
       </Section>
 

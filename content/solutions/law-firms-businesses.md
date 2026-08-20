@@ -61,7 +61,7 @@ Lexli works alongside how the firm already runs. Existing files, diaries, templa
 
 ### Legal teams inside companies
 
-Disputes, notices, recoveries, compliance matters — an in-house team runs cases the way a firm does, and Lexli works the same way for them: every case a record, every document filed to it, research and drafting grounded in it, access controlled by the team's admin.
+Disputes, notices, recoveries — an in-house team runs cases the way a firm does, and Lexli works the same way for them: every case a record, every document filed to it, research and drafting grounded in it, access controlled by the team's admin.
 
 ### Businesses with cases, without lawyers on staff
 

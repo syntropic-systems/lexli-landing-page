@@ -19,6 +19,7 @@ import {
   Sunrise,
   type LucideIcon,
 } from 'lucide-react';
+import type { PlatformSection } from '@/data/platform';
 
 export type SolutionBlock =
   | { kind: 'scenes'; eyebrow?: string; title: string; scenes: string[]; closer?: string }
@@ -45,15 +46,16 @@ export type SolutionBlock =
       /** Wayfinding eyebrow over the headline (the site's section pattern). */
       eyebrow?: string;
       title: string;
-      /** 'sequence' (default): the advocates on-ramp — free/platform rows,
-       * kickers, arrows. 'references': a plain pill row, wayfinding only. */
+      /** 'sequence' (default): the advocates on-ramp — free/platform rows
+       * with kickers. 'references': a plain "Explore" pill row, wayfinding
+       * only. */
       style?: 'sequence' | 'references';
+      /** Body paragraph — rides as the section description above the strip,
+       * same slot the home/platform pill sections use. */
       intro?: string;
       /** Rendered as an ordered pill strip — sequence is the content.
        * Descriptions are kept in the data but no longer rendered. */
       links: { label: string; description?: string; href: string; free?: boolean }[];
-      /** Closing paragraph under the strip (e.g. the plans note). */
-      outro?: string;
     };
 
 export type SolutionPage = {
@@ -177,9 +179,9 @@ export const solutionPages: SolutionPage[] = [
             href: '/platform#legal-research',
           },
         ],
-        // The former "Plans" prose block, folded in as the strip's closer —
+        // The former "Plans" prose block, folded in as the section's lead-in —
         // it answers the question the two rows raise.
-        outro:
+        intro:
           'Start free, alone: the front-door tools and your first cases. When a junior or a clerk joins the practice, add them to the same workspace with their own role. Nothing migrates; the record just gains readers.',
       },
     ],
@@ -248,7 +250,7 @@ export const solutionPages: SolutionPage[] = [
           {
             icon: Briefcase,
             label: 'Legal teams inside companies.',
-            text: 'Disputes, notices, recoveries, compliance matters: an in-house team runs cases the way a firm does, and Lexli works the same way for them: every case a record, every document filed to it, research and drafting grounded in it, access controlled by the team’s admin.',
+            text: 'Disputes, notices, recoveries: an in-house team runs cases the way a firm does, and Lexli works the same way for them: every case a record, every document filed to it, research and drafting grounded in it, access controlled by the team’s admin.',
           },
           {
             icon: FolderSearch,
@@ -274,9 +276,9 @@ export const solutionPages: SolutionPage[] = [
         title: 'What your IT reviewer will ask',
         links: [
           { label: 'Security', href: '/platform#security' },
-          { label: 'Accounts and profiles', href: '/platform#accounts' },
+          { label: 'Accounts and profiles', href: '/solutions#accounts' },
         ],
-        outro:
+        intro:
           'Lexli is hosted on Azure, encrypted with AES-256 at rest and TLS 1.3 in transit, behind Cloudflare’s WAF, with least-privilege, logged production access. It is built to SOC 2 Type II and ISO 27001 controls, not yet audited against them, and we say it that way deliberately. The full detail is on the platform’s security section.',
       },
     ],
@@ -346,12 +348,12 @@ export const solutionPages: SolutionPage[] = [
         style: 'references',
         eyebrow: 'On the platform',
         title: 'Access, decided by you',
-        outro:
+        intro:
           'Profiles are role-based: advocate, clerk, litigant. You decide who reads and who writes, per team. Every account is its own login on its own device: no shared passwords, no shared phone.',
         // References, not a sequence — the proof-paths for the access and
         // security claims this page makes.
         links: [
-          { label: 'Accounts and profiles', href: '/platform#accounts' },
+          { label: 'Accounts and profiles', href: '/solutions#accounts' },
           { label: 'Security', href: '/platform#security' },
           { label: 'Case Management', href: '/platform#case-management' },
         ],
@@ -363,6 +365,44 @@ export const solutionPages: SolutionPage[] = [
     },
   },
 ];
+
+/**
+ * Accounts and profiles — the one platform movement that lives on the
+ * solutions index, because its subject (who you are, how the team is shaped)
+ * is the solutions question, not a capability. The feature rows list the
+ * shapes; the hub diagram below them shows the one record they all share.
+ */
+export const accounts: PlatformSection = {
+  id: 'accounts',
+  eyebrow: 'Individuals, teams, and firms',
+  headline: 'From single practice to full firm.',
+  body: [
+    'Lexli works for one advocate on one phone, and for a firm where clerks, juniors, and partners touch the same cases, each seeing what their role needs, and no more.',
+  ],
+  features: [
+    {
+      title: 'Single-user or teams',
+      description: 'Start alone; add the team when the team is ready.',
+    },
+    { title: 'Role-based profiles', description: 'Advocate, clerk, litigant.' },
+    {
+      title: 'Admin and access management',
+      description: 'Who reads and who writes, decided per team.',
+    },
+    {
+      title: 'Multi-device login',
+      description: 'Desk, court, and phone, same workspace.',
+    },
+    {
+      title: 'Free and paid plans',
+      description: 'Sign in with Google or email; start free.',
+    },
+    {
+      title: 'Seat-based accounts',
+      description: 'For larger firms and businesses.',
+    },
+  ],
+};
 
 export function getSolution(slug: string): SolutionPage | undefined {
   return solutionPages.find((page) => page.slug === slug);

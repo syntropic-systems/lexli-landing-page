@@ -10,17 +10,23 @@ import { cn } from '@/lib/utils';
 export function VerdictLine({
   children,
   className,
+  textClassName,
 }: {
   children: ReactNode;
   className?: string;
+  /** Overrides the text size, e.g. 'text-2xl md:text-3xl' to match the
+   * platform line under the hub on tool pages. */
+  textClassName?: string;
 }) {
   return (
     <div className={cn('flex items-center gap-5', className)}>
       <span
         aria-hidden
-        className="w-1 self-stretch rounded-full bg-gradient-to-b from-primary to-primary/30"
+        className="w-[3px] self-stretch rounded-full bg-gradient-to-b from-primary to-primary/30"
       />
-      <p className="font-serif text-xl font-semibold text-foreground md:text-2xl">{children}</p>
+      <p className={cn('font-serif font-semibold text-foreground', textClassName ?? 'text-xl md:text-2xl')}>
+        {children}
+      </p>
     </div>
   );
 }

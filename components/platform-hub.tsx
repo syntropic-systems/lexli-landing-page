@@ -159,7 +159,15 @@ function FrameSkeleton() {
   );
 }
 
-export function PlatformHub({ activeSlug }: { activeSlug: string }) {
+export function PlatformHub({
+  activeSlug,
+  frameOnly = false,
+}: {
+  activeSlug: string;
+  /** Just the centre frame (ghosts and glow included) — no tool nodes or
+   * connectors. For pages where the tools roll-call lives elsewhere. */
+  frameOnly?: boolean;
+}) {
   const topTools = HUB_TOOLS.slice(0, 3);
   const bottomTools = HUB_TOOLS.slice(3);
   // No active tool → the platform capture; a tool without a capture → skeleton.
@@ -175,8 +183,12 @@ export function PlatformHub({ activeSlug }: { activeSlug: string }) {
     <div aria-label="Every Lexli tool works from the same case record">
       {/* Full composition — needs vertical room, so sm+ only. */}
       <div className="mx-auto hidden w-full max-w-4xl sm:block">
-        <NodeRow tools={topTools} activeSlug={activeSlug} />
-        <ConnectorStrip tools={topTools} activeSlug={activeSlug} />
+        {!frameOnly && (
+          <>
+            <NodeRow tools={topTools} activeSlug={activeSlug} />
+            <ConnectorStrip tools={topTools} activeSlug={activeSlug} />
+          </>
+        )}
 
         {/* Centre frame with the record-stack ghosts behind it. Hovering the
             frame fans the ghosts out — the record showing its layers. */}
@@ -216,8 +228,12 @@ export function PlatformHub({ activeSlug }: { activeSlug: string }) {
           </div>
         </div>
 
-        <ConnectorStrip tools={bottomTools} activeSlug={activeSlug} flip />
-        <NodeRow tools={bottomTools} activeSlug={activeSlug} />
+        {!frameOnly && (
+          <>
+            <ConnectorStrip tools={bottomTools} activeSlug={activeSlug} flip />
+            <NodeRow tools={bottomTools} activeSlug={activeSlug} />
+          </>
+        )}
       </div>
 
       {/* Below sm the diagram's story lives in geometry that has no room —
@@ -238,13 +254,15 @@ export function PlatformHub({ activeSlug }: { activeSlug: string }) {
             <FrameSkeleton />
           )}
         </ShowcaseFrame>
-        <Link
-          href="/tools"
-          className="inline-flex items-center gap-1 text-sm font-semibold text-primary"
-        >
-          One record, six tools. See the rest
-          <ArrowRight className="h-3.5 w-3.5" />
-        </Link>
+        {!frameOnly && (
+          <Link
+            href="/tools"
+            className="inline-flex items-center gap-1 text-sm font-semibold text-primary"
+          >
+            One record, six tools. See the rest
+            <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
+        )}
       </div>
     </div>
   );

@@ -1,7 +1,5 @@
-import { Fragment } from 'react';
-import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { RoutingPill } from '@/components/routing-pill';
+import { RoutingPillGroups } from '@/components/routing-pill';
 import { PageHero } from '@/components/page-hero';
 import { Section } from '@/components/section';
 import { CTASection } from '@/components/cta-section';
@@ -65,15 +63,21 @@ function BlockSection({
   block: SolutionBlock;
   variant: 'default' | 'muted';
 }) {
+  // Scenes sections run as a two-column split (claim left, scenes right), so
+  // their heading lives in the content area rather than the Section header.
+  const splitLayout = block.kind === 'scenes';
+
   return (
     <Section
-      title={block.title}
-      // A bullets intro is the section's lead-in, so it rides as the header's
-      // description instead of as loose text in the content area.
-      description={block.kind === 'bullets' ? block.intro : undefined}
+      title={splitLayout ? undefined : block.title}
+      // A bullets or routing intro is the section's lead-in, so it rides as
+      // the header's description instead of as loose text in the content area.
+      description={
+        block.kind === 'bullets' || block.kind === 'routing' ? block.intro : undefined
+      }
       variant={variant}
       header={
-        'eyebrow' in block && block.eyebrow ? (
+        !splitLayout && 'eyebrow' in block && block.eyebrow ? (
           <RevealOnScroll direction="up" duration={0.6}>
             <p className="text-[11px] md:text-xs font-semibold uppercase tracking-wider text-primary mb-3">
               {block.eyebrow}
@@ -83,25 +87,37 @@ function BlockSection({
       }
     >
       {block.kind === 'scenes' && (
-        <div className="max-w-3xl">
-          <StaggerChildren className="space-y-6" stagger={0.12}>
-            {block.scenes.map((scene) => (
-              <StaggerItem key={scene.slice(0, 40)}>
-                {/* Scenes carry no commentary — the reader supplies the
-                    feeling. The rail stays grey on purpose (quieter than a
-                    verdict line), but on the muted-foreground stroke so it
-                    survives light mode — the `border` token vanishes there. */}
-                <p className="border-l-2 border-muted-foreground/25 pl-5 text-base md:text-lg text-muted-foreground leading-relaxed">
-                  {scene}
-                </p>
-              </StaggerItem>
-            ))}
-          </StaggerChildren>
-          {block.closer && (
-            <RevealOnScroll direction="up" delay={0.15} duration={0.6}>
-              <VerdictLine className="mt-8">{block.closer}</VerdictLine>
-            </RevealOnScroll>
-          )}
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-16">
+          <RevealOnScroll direction="up" duration={0.6}>
+            {block.eyebrow && (
+              <p className="text-[11px] md:text-xs font-semibold uppercase tracking-wider text-primary mb-3">
+                {block.eyebrow}
+              </p>
+            )}
+            <h2 className="font-serif text-3xl md:text-4xl font-semibold tracking-tight max-w-2xl">
+              {block.title}
+            </h2>
+          </RevealOnScroll>
+          <div className="max-w-2xl">
+            <StaggerChildren className="space-y-6" stagger={0.12}>
+              {block.scenes.map((scene) => (
+                <StaggerItem key={scene.slice(0, 40)}>
+                  {/* Scenes carry no commentary — the reader supplies the
+                      feeling. The rail stays grey on purpose (quieter than a
+                      verdict line), but on the muted-foreground stroke so it
+                      survives light mode — the `border` token vanishes there. */}
+                  <p className="border-l-2 border-muted-foreground/25 pl-5 text-base md:text-lg text-muted-foreground leading-relaxed">
+                    {scene}
+                  </p>
+                </StaggerItem>
+              ))}
+            </StaggerChildren>
+            {block.closer && (
+              <RevealOnScroll direction="up" delay={0.15} duration={0.6}>
+                <VerdictLine className="mt-8">{block.closer}</VerdictLine>
+              </RevealOnScroll>
+            )}
+          </div>
         </div>
       )}
 
@@ -183,75 +199,24 @@ function BlockSection({
         </>
       )}
 
-      {block.kind === 'routing' && block.style === 'references' && (
-        // Wayfinding only: no arrows between pills — arrows mean "do this,
-        // then this", which references don't claim. The kicker invites.
-        <StaggerChildren className="flex flex-col items-start gap-2.5" stagger={0.06}>
-          <StaggerItem>
-            <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-              Explore
-            </p>
-          </StaggerItem>
-          <div className="flex flex-wrap gap-3">
-            {block.links.map((link) => (
-              <StaggerItem key={link.href}>
-                <RoutingPill link={link} />
-              </StaggerItem>
-            ))}
-          </div>
-        </StaggerChildren>
-      )}
-
-      {block.kind === 'routing' && block.style !== 'references' && (
-        // The platform closing's node-tile language: by this point the page
-        // has done the persuading, so the strip is pure wayfinding — and its
-        // order is the recommendation. Two rows, each led by a guiding
-        // kicker: the free doors first, the platform depth under them.
-        <StaggerChildren className="flex flex-col items-start gap-6" stagger={0.06}>
-          {[
-            block.links.filter((link) => link.free),
-            block.links.filter((link) => !link.free),
-          ].map((row, rowIndex) =>
-            row.length > 0 ? (
-              <Fragment key={`row-${rowIndex}`}>
-                <div className="flex flex-col items-start gap-2.5">
-                <StaggerItem>
-                  <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                    {rowIndex === 0 ? 'Start here' : 'Then, the platform'}
-                  </p>
-                </StaggerItem>
-                <div className="flex flex-wrap items-center gap-3">
-                  {row.map((link, linkIndex) => (
-                      <div key={link.href} className="flex items-center gap-3">
-                        {/* Sequence arrow — inside the stagger flow so it fades
-                            in with its pills instead of floating in early. */}
-                        {linkIndex > 0 && (
-                          <StaggerItem>
-                            <ArrowRight
-                              aria-hidden
-                              className="h-4 w-4 text-muted-foreground/50"
-                            />
-                          </StaggerItem>
-                        )}
-                        <StaggerItem>
-                          <RoutingPill link={link} />
-                        </StaggerItem>
-                      </div>
-                  ))}
-                </div>
-                </div>
-              </Fragment>
-            ) : null
-          )}
-        </StaggerChildren>
-      )}
-
-      {block.kind === 'routing' && block.outro && (
-        <RevealOnScroll direction="up" delay={0.15} duration={0.6}>
-          <p className="mt-8 max-w-3xl text-base md:text-lg text-muted-foreground leading-relaxed">
-            {block.outro}
-          </p>
-        </RevealOnScroll>
+      {block.kind === 'routing' && (
+        // One wayfinding language for every routing strip: labelled pill
+        // rows, no arrows. References get an inviting "Explore" kicker; the
+        // sequence style keeps its two guiding rows — the free doors first,
+        // the platform depth under them — with order as the recommendation.
+        <RoutingPillGroups
+          groups={
+            block.style === 'references'
+              ? [{ label: 'Explore', links: block.links }]
+              : [
+                  { label: 'Start here', links: block.links.filter((link) => link.free) },
+                  {
+                    label: 'Then, the platform',
+                    links: block.links.filter((link) => !link.free),
+                  },
+                ]
+          }
+        />
       )}
     </Section>
   );

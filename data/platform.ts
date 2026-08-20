@@ -162,38 +162,6 @@ export const intelligenceLayer: PlatformSection[] = [
   },
 ];
 
-export const accounts: PlatformSection = {
-  id: 'accounts',
-  eyebrow: 'Individuals, teams, and firms',
-  headline: 'From single practice to full firm.',
-  body: [
-    'Lexli works for one advocate on one phone, and for a firm where clerks, juniors, and partners touch the same cases, each seeing what their role needs, and no more.',
-  ],
-  features: [
-    {
-      title: 'Single-user or teams',
-      description: 'Start alone; add the team when the team is ready.',
-    },
-    { title: 'Role-based profiles', description: 'Advocate, clerk, litigant.' },
-    {
-      title: 'Admin and access management',
-      description: 'Who reads and who writes, decided per team.',
-    },
-    {
-      title: 'Multi-device login',
-      description: 'Desk, court, and phone, same workspace.',
-    },
-    {
-      title: 'Free and paid plans',
-      description: 'Sign in with Google or email; start free.',
-    },
-    {
-      title: 'Seat-based accounts',
-      description: 'For larger firms and businesses.',
-    },
-  ],
-};
-
 export const security = {
   id: 'security',
   eyebrow: 'Security',

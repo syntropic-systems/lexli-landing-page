@@ -4,7 +4,10 @@ import { Section } from '@/components/section';
 import { CTASection } from '@/components/cta-section';
 import { VerdictLine } from '@/components/verdict-line';
 import { SolutionCards } from '@/components/solution-cards';
+import { PlatformSection } from '@/components/platform-section';
+import { PlatformHub } from '@/components/platform-hub';
 import { RevealOnScroll } from '@/components/animations';
+import { accounts } from '@/data/solutions';
 import { APP_URL, CTA, DEMO_HREF, SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
@@ -50,6 +53,19 @@ export default function SolutionsPage() {
           </VerdictLine>
         </RevealOnScroll>
       </Section>
+
+      {/* Accounts and profiles — how the workspace is shaped around who you
+          are. Moved here from /platform; `/solutions#accounts` is the anchor
+          the solution pages' routing strips point at. The workspace frame follows the
+          feature rows — frame only, no tool nodes; the roll-call lives on
+          /platform and /tools. */}
+      <PlatformSection section={accounts} variant="muted">
+        <RevealOnScroll direction="up" delay={0.15} duration={0.7}>
+          <div className="mt-12 md:mt-16">
+            <PlatformHub activeSlug="" frameOnly />
+          </div>
+        </RevealOnScroll>
+      </PlatformSection>
 
       <CTASection
         title="Start with your own day."

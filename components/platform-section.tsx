@@ -15,12 +15,15 @@ export function PlatformSection({
   variant,
   visual,
   reverse,
+  children,
 }: {
   section: PlatformSectionContent;
   variant?: 'default' | 'muted' | 'accent';
   visual?: ReactNode;
   /** Puts the visual on the left, so consecutive sections alternate. */
   reverse?: boolean;
+  /** Full-width content below the copy/visual grid (e.g. the hub diagram). */
+  children?: ReactNode;
 }) {
   const hasSideContent = Boolean(visual);
 
@@ -72,6 +75,7 @@ export function PlatformSection({
       {section.features && hasSideContent && (
         <FeatureList features={section.features} className="mt-12" />
       )}
+      {children}
     </Section>
   );
 }
