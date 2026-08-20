@@ -89,11 +89,14 @@ export const allTools: NavLink[] = [
   },
 ];
 
-/** Company group — the About page's own sections, plus the standalone pages. */
+/** Company group — the About page's own sections in page order, plus the
+ * standalone pages. Section labels echo their on-page eyebrows. */
 export const companyLinks: NavLink[] = [
   { label: 'About Lexli', href: '/company' },
   { label: 'Why we exist', href: '/company#why' },
   { label: 'Vision and mission', href: '/company#vision' },
+  { label: 'Why now', href: '/company#why-now' },
+  { label: 'Where Lexli stops', href: '/company#commitments' },
   { label: 'The team', href: '/company#team' },
   { label: 'Contact', href: '/contact' },
 ];
