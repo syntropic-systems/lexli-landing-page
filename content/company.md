@@ -46,42 +46,67 @@ None of it requires judgement. All of it costs the hours where judgement happens
 
 Lexli exists to take that layer off the desk — and to leave everything that genuinely requires an advocate exactly where it is. **Lexli prepares. You decide.**
 
-`[VERIFY-STORY: this is inferred from the product, not from the founders. If the real reason is
-different — a specific case, a specific frustration, a specific person — that version will always
-beat this one. Replace it.]`
+Behind that are two larger reasons. The first is paper. Most of a practice still lives in physical files, and every file that exists only on paper has to be found, copied, carried, and retyped. Lexli is built so the case record can be digital from the day the case opens, without the practice giving up anything it relies on.
+
+The second is access. Most people who need the law cannot easily reach it. A litigant with one case and no idea where it stands. A clerk with a question and no one free to answer it. Lexli is built so the answer is easier to find, in the language they ask it, and easier to act on once found.
+
+`[SOURCE: the team's "Why Lexli exists" board — ease and convenience, digitisation of paper-heavy
+workflows, easy access to law and justice. The board also lists "to revolutionise the legal
+ecosystem of India" and "to maintain the decorum of the Indian legal system". The first is carried
+in the vision below at a lower volume; the second is omitted pending a clearer meaning.]`
+`[DECIDE: "decorum" — if it means the dignity and order of the courts, a line can be added; confirm.]`
 
 ---
 
 ## Vision and mission `#vision`
 
-**Vision:** Legal intelligence, made accessible — to the advocate with forty cases, and to the litigant who only ever has one.
-`[VERIFY: "Legal intelligence, made accessible." is the board's tagline candidate. Confirm it is the
-vision statement and not just a strapline.]`
+*Section headline: "Legal intelligence, made accessible." — the strapline, used here as the header, with the vision and mission below it.*
 
-**Mission:** Put every case — its files, its history, its next date — in one place that the whole practice can work from, in the languages the work actually happens in.
-`[VERIFY-STORY]`
+**Vision:** To be the name people in India associate with the law, and to power the future of the country's legal ecosystem through trusted legal intelligence.
 
-**What we will not do:** *(a values section that only lists virtues is worth nothing. These are
-commitments a reader can hold us to.)*
+**Mission:** Strengthen every hand the law passes through. To give advocates, legal professionals, businesses, and citizens accurate, multilingual legal intelligence they can act on, so the work is easier to do and the law easier to reach.
 
-- **We do not file, send, or submit anything on our own authority.** Preparation is ours; approval is yours, every time.
-- **We do not claim certifications we have not earned.** We are built to SOC 2 Type II and ISO 27001 controls and say plainly that we have not been audited against them.
-- **We do not replace the advocate's judgement.** Every translation, draft, and packet is handed back for review, and flagged where it needs a second look.
-`[VERIFY: the team must be willing to be held to all three in public. The first and second are
-already load-bearing elsewhere on the site.]`
+`[SOURCE: the team's Vision/Mission board, edited into the site voice. Board wording: "to make LEXLI
+the name people associate with legal and to power the future legal ecosystem through trusted legal
+intelligence"; "to empower advocates, legal professionals, businesses, and citizens with accurate,
+multilingual, AI-driven legal intelligence"; "to give ease in performance and convenience in
+access". "Empower" and "AI-driven" are on the banned list and were rewritten; the rest is intact.]`
+
 
 ---
 
-## Why now `#why-now`
+## Why now — merged with the moat `#why-now`
 
-*Board note reads: "Why this? — Sustainability?, Modernisation?"*
+*Board note reads: "Why this? — Sustainability?, Modernisation?" One argument in two movements:
+the record existed and had nowhere to land; where it landed is the part a point tool cannot copy.
+Closes on the board's verbatim moat line as the section's verdict.*
 
 Court records went online. Cause lists are published. Orders are digital before they are paper. The record an advocate needs is, increasingly, already in a machine — just scattered across a dozen of them, in formats built for publication rather than for work.
 
-What was missing was not the data. It was somewhere for it to land.
+So Lexli gave it somewhere to land: the case record. Each tool exists somewhere as a separate product — what does not exist separately is the case they all share, and a point tool cannot copy that, because it does not have the record.
+
+**Closer (board verbatim):** "Integration is the moat a point solution can't copy."
 
 `[VERIFY-STORY: if the real "why now" is different — a funding window, a regulatory change, a
 specific court's digitisation deadline — use that instead. This version is defensible but generic.]`
+
+---
+
+## Where Lexli stops `#commitments`
+
+**Where Lexli stops** — *"Two lines, drawn in public."*
+
+**Lead:** Every promise on this page rests on one thing: what happens when the platform acts. A values list is not verifiable, so here are two commitments that are.
+
+- **We do not file on our own authority.** Nothing leaves Lexli for a court, a client, or a portal without your explicit approval, through your own credentials. Preparation is ours; the act is always yours.
+- **We do not replace the advocate's judgement.** Every translation, draft, and packet comes back for review, with the original beside it and the doubtful passages flagged. Output is a starting point that expects to be checked.
+
+**Closer (verdict line):** Features will change. Coverage will grow. These two lines do not move.
+
+*(Dropped from this page: "we do not claim certifications we have not earned" — it is a security
+claim, load-bearing on the Security surface, and off-theme between these two.)*
+`[VERIFY: the team must be willing to be held to both in public — including the closer, which is
+itself a commitment.]`
 
 ---
 
@@ -141,18 +166,6 @@ than three monograms; three monograms read better than three stock silhouettes.]
 
 ---
 
-## The moat `#moat`
-
-*Board statement, verbatim: "Integration is the moat a point solution can't copy."*
-
-Any one of these tools could be bought on its own. The board, the translator, the scanner, the drafting — each exists somewhere as a separate product.
-
-What does not exist separately is the case that all of them share. The board knows your cases because the platform tracks them. The draft arrives filled in because the platform read the file. The eFiling packet assembles because the scan was prepared when it arrived. Cases, files, and context move between the core and the tools — and that is the part a point tool cannot copy, because it does not have the record.
-
-*(This section is safe: it restates what the platform page already demonstrates.)*
-
----
-
 ## Final CTA
 
 **Headline:** Come and test the claim.
@@ -170,9 +183,9 @@ What does not exist separately is the case that all of them share. The board kno
 |---|---|---|
 | 1 | Founder's story — the whole section | VERIFY-STORY — blocks section |
 | 2 | Why Nagpur / MH first — pick the true reason | VERIFY-STORY — blocks section |
-| 3 | "Why Lexli exists" — replace inferred reason with the real one | VERIFY-STORY |
+| 3 | "Why Lexli exists" — reasons now sourced from the board; "decorum" line still open | DECIDE |
 | 4 | Team: full list, roles, bios, photographs | VERIFY |
-| 5 | Vision statement vs strapline — is "Legal intelligence, made accessible." both? | VERIFY |
+| 5 | Vision and mission — sourced from the board; confirm the edited wording | VERIFY |
 | 6 | The three "what we will not do" commitments — team willing to be held to them publicly | VERIFY |
 | 7 | Expansion beyond Maharashtra — actually intended | VERIFY |
 | 8 | Hero headline (three options) | DECIDE |
