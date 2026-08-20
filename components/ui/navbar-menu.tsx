@@ -130,10 +130,12 @@ export const MenuItem = ({
       onMouseLeave={handleMouseLeave}
     >
       {hasDropdown ? (
+        // Deliberately no onClick: hover (and focus, for keyboard) opens and
+        // closes the dropdown; a click toggle on top of that fought the hover
+        // state and closed the menu the moment it was clicked.
         <button
           type="button"
           className="inline-flex rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-          onClick={isHovering ? clearMenu : activate}
         >
           {label}
         </button>

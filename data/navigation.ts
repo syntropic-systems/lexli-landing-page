@@ -29,14 +29,14 @@ export type NavLink = {
   icon?: LucideIcon;
 };
 
-/** Platform page sections, in page order. Doubles as the Platform dropdown. */
+/** Platform page sections, in page order. Doubles as the Platform dropdown.
+ * Accounts and profiles lives on /solutions#accounts, not here. */
 export const platformSections: NavLink[] = [
   { label: "Case management", href: "/platform#case-management" },
   { label: "AI Assistant", href: "/platform#ai-assistant" },
   { label: "Document intelligence", href: "/platform#document-intelligence" },
   { label: "Legal research", href: "/platform#legal-research" },
   { label: "Advanced search", href: "/platform#advanced-search" },
-  { label: "Accounts and profiles", href: "/platform#accounts" },
   { label: "Security", href: "/platform#security" },
   { label: "Integrations", href: "/platform#integrations" },
 ];
@@ -106,15 +106,15 @@ export const solutions: NavLink[] = [
     icon: UserRound,
   },
   {
-    label: "Law firms & businesses",
-    href: "/solutions/law-firms-businesses",
-    description: "One record for the whole team, under your admin control.",
-    icon: Building2,
-  },
-  {
     label: "Clerks & legal staff",
     href: "/solutions/clerks-legal-staff",
     description: "The people who keep a practice moving, on the same record.",
     icon: ClipboardList,
+  },
+  {
+    label: "Law firms & businesses",
+    href: "/solutions/law-firms-businesses",
+    description: "One record for the whole team, under your admin control.",
+    icon: Building2,
   },
 ];

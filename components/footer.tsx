@@ -30,6 +30,7 @@ const footerSections: { title: string; links: FooterLink[] }[] = [
         links: [
             { name: 'Overview', href: '/solutions' },
             ...solutions.map((solution) => ({ name: solution.label, href: solution.href })),
+            { name: 'Accounts and profiles', href: '/solutions#accounts' },
         ],
     },
     {

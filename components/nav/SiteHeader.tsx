@@ -41,6 +41,11 @@ type DropdownSection = { title?: string; links: DropdownLink[] };
 
 type NavDropdown = {
     highlights?: DropdownHighlight[];
+    /** Highlight-card columns; defaults to 2 (the Tools grid). */
+    highlightColumns?: 1 | 2;
+    /** Kicker over the highlight cards (only Solutions needs one — its
+     * cards sit under a plain link list, so the group earns a label). */
+    highlightsTitle?: string;
     sections?: DropdownSection[];
     footer?: { label: string; href: string };
 };
@@ -57,17 +62,17 @@ const navItems: NavItem[] = [
         href: "/platform",
         label: "Platform",
         dropdown: {
-            // One page, eight sections: Overview leads the list (the footer's
+            // One page, seven sections: Overview leads the list (the footer's
             // Platform column does the same) and there is no bottom link, since
-            // it would only repeat the trigger. Columns split 5+4, fuller first.
+            // it would only repeat the trigger. Columns split 4+4, even.
             sections: [
                 {
                     links: [
                         { label: "Overview", href: "/platform" },
-                        ...platformSections.slice(0, 4).map(({ label, href }) => ({ label, href })),
+                        ...platformSections.slice(0, 3).map(({ label, href }) => ({ label, href })),
                     ],
                 },
-                { links: platformSections.slice(4).map(({ label, href }) => ({ label, href })) },
+                { links: platformSections.slice(3).map(({ label, href }) => ({ label, href })) },
             ],
         },
     },
@@ -88,8 +93,29 @@ const navItems: NavItem[] = [
         href: "/solutions",
         label: "Solutions",
         dropdown: {
-            sections: [{ links: solutions.map(({ label, href }) => ({ label, href })) }],
-            footer: { label: "All solutions", href: "/solutions" },
+            // Mixed on purpose: the index page's own items lead as a plain
+            // Platform-style list (Overview stands in for a footer link),
+            // then the three persona pages get the Tools treatment — cards
+            // with descriptions, in one column so the doors read as a list,
+            // under the group's own kicker.
+            sections: [
+                {
+                    links: [
+                        { label: "Overview", href: "/solutions" },
+                        { label: "Accounts and profiles", href: "/solutions#accounts" },
+                    ],
+                },
+            ],
+            highlightsTitle: "Who you are",
+            highlightColumns: 1,
+            highlights: solutions.map((solution) => ({
+                title: solution.label,
+                description: solution.description,
+                href: solution.href,
+                icon: solution.icon ? (
+                    <solution.icon className="h-7 w-7 text-primary" />
+                ) : undefined,
+            })),
         },
     },
     {
@@ -150,21 +176,6 @@ function DropdownContent({
 
     return (
         <div className="flex flex-col gap-3">
-            {dropdown.highlights?.length ? (
-                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2" style={{ maxWidth: "640px" }}>
-                    {dropdown.highlights.map((highlight) => (
-                        <ProductItem
-                            key={highlight.href}
-                            title={highlight.title}
-                            description={highlight.description}
-                            href={highlight.href}
-                            icon={highlight.icon}
-                            onClick={onNavigate}
-                            showArrow
-                        />
-                    ))}
-                </div>
-            ) : null}
             {sectionCount > 0 ? (
                 <div
                     className={cn("grid gap-4", sectionCount === 1 ? "grid-cols-1" : "grid-cols-2")}
@@ -206,6 +217,34 @@ function DropdownContent({
                             </div>
                         </div>
                     ))}
+                </div>
+            ) : null}
+            {dropdown.highlights?.length ? (
+                <div className="flex flex-col gap-2">
+                    {dropdown.highlightsTitle ? (
+                        <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground pt-1 pl-3">
+                            {dropdown.highlightsTitle}
+                        </p>
+                    ) : null}
+                    <div
+                        className={cn(
+                            "grid grid-cols-1 gap-2",
+                            dropdown.highlightColumns !== 1 && "sm:grid-cols-2"
+                        )}
+                        style={{ maxWidth: dropdown.highlightColumns === 1 ? "360px" : "640px" }}
+                    >
+                        {dropdown.highlights.map((highlight) => (
+                            <ProductItem
+                                key={highlight.href}
+                                title={highlight.title}
+                                description={highlight.description}
+                                href={highlight.href}
+                                icon={highlight.icon}
+                                onClick={onNavigate}
+                                showArrow
+                            />
+                        ))}
+                    </div>
                 </div>
             ) : null}
             {dropdown.footer ? (
@@ -397,16 +436,6 @@ export function SiteHeader() {
                                                 {item.label}
                                             </Link>
                                             <div className="pl-3 pb-2 flex flex-col">
-                                                {item.dropdown?.highlights?.map((highlight) => (
-                                                    <Link
-                                                        key={highlight.href}
-                                                        href={highlight.href}
-                                                        onClick={closeMobile}
-                                                        className="px-4 py-2 text-sm rounded-md text-muted-foreground transition-colors hover:bg-accent/50 hover:text-foreground"
-                                                    >
-                                                        {highlight.title}
-                                                    </Link>
-                                                ))}
                                                 {item.dropdown?.sections?.flatMap((section) =>
                                                     section.links.map((link) => {
                                                         const { cleanHref, sectionId } = parseScrollHref(link.href);
@@ -422,6 +451,16 @@ export function SiteHeader() {
                                                         );
                                                     })
                                                 )}
+                                                {item.dropdown?.highlights?.map((highlight) => (
+                                                    <Link
+                                                        key={highlight.href}
+                                                        href={highlight.href}
+                                                        onClick={closeMobile}
+                                                        className="px-4 py-2 text-sm rounded-md text-muted-foreground transition-colors hover:bg-accent/50 hover:text-foreground"
+                                                    >
+                                                        {highlight.title}
+                                                    </Link>
+                                                ))}
                                             </div>
                                         </div>
                                     ))}
