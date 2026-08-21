@@ -127,6 +127,8 @@ export type TeamMember = {
   role?: string;
   bio?: string;
   photo?: string;
+  /** Full profile URL, e.g. 'https://www.linkedin.com/in/…'. */
+  linkedin?: string;
 };
 
 /**
@@ -143,18 +145,21 @@ export const team = {
       role: 'Co-founder & CEO',
       bio: 'A lawyer by training. Lexli is built for the day he knows first-hand, and he keeps the product honest to how the courts actually work.',
       photo: '/company/ayush_talmale.png',
+      linkedin: 'https://www.linkedin.com/in/ayushtalmale/',
     },
     {
       name: 'Yash Tiwari',
       role: 'Co-founder & CTO',
       bio: 'IIT-trained engineer. Builds the backend and the AI that reads, searches, and drafts: the machinery underneath the case record.',
       photo: '/company/yash_tiwari.png',
+      linkedin: 'https://www.linkedin.com/in/yash-tiwari-565044190/',
     },
     {
       name: 'Swapnish Sahare',
       role: 'Co-founder & CPO',
       bio: 'IIT-trained engineer, designer at heart. Shapes how Lexli looks, feels, and works, from the design system to the front end.',
       photo: '/company/swapnish_sahare.png',
+      linkedin: 'https://www.linkedin.com/in/swapnishsahare/',
     },
   ] as TeamMember[],
 };

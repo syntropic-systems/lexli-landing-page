@@ -24,6 +24,15 @@ export const metadata: Metadata = {
   alternates: { canonical: `${SITE_URL}/company` },
 };
 
+/** LinkedIn brand mark; lucide's outline glyph doesn't read as the logo. */
+function LinkedInIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
+      <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z" />
+    </svg>
+  );
+}
+
 /** Shared heading block so every section on this page opens the same way. */
 function SectionHead({ eyebrow, headline }: { eyebrow: string; headline: string }) {
   return (
@@ -265,7 +274,20 @@ export default function CompanyPage() {
                 </div>
 
                 <div className="p-5">
-                  <p className="text-base font-semibold text-foreground">{member.name}</p>
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="text-base font-semibold text-foreground">{member.name}</p>
+                    {member.linkedin && (
+                      <a
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${member.name} on LinkedIn`}
+                        className="shrink-0 text-muted-foreground transition-colors hover:text-primary"
+                      >
+                        <LinkedInIcon className="h-4 w-4" />
+                      </a>
+                    )}
+                  </div>
                   {member.role && (
                     <p className="mt-0.5 text-sm font-medium text-primary">{member.role}</p>
                   )}
