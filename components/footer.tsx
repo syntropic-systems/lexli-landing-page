@@ -26,11 +26,12 @@ const footerSections: { title: string; links: FooterLink[] }[] = [
         ],
     },
     {
+        // Same order as the header dropdown: index items first, then personas.
         title: 'Solutions',
         links: [
             { name: 'Overview', href: '/solutions' },
-            ...solutions.map((solution) => ({ name: solution.label, href: solution.href })),
             { name: 'Accounts and profiles', href: '/solutions#accounts' },
+            ...solutions.map((solution) => ({ name: solution.label, href: solution.href })),
         ],
     },
     {
