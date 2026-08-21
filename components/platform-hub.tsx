@@ -48,7 +48,7 @@ const TOOL_IMAGES: Record<string, { light: string; dark: string }> = {
 };
 
 /** The frame's capture when no tool is active (the homepage hub): the workspace itself. */
-const PLATFORM_IMAGE = { light: '/tools/homepage_light.png', dark: '/tools/homepage_dark.png' };
+const PLATFORM_IMAGE = { light: '/pages/home_light.png', dark: '/pages/home_dark.png' };
 
 /** Node centres and frame attach points, in % of the connector strip width. */
 const NODE_X = [16.66, 50, 83.33];
@@ -162,22 +162,29 @@ function FrameSkeleton() {
 export function PlatformHub({
   activeSlug,
   frameOnly = false,
+  imageOverride,
 }: {
   activeSlug: string;
   /** Just the centre frame (ghosts and glow included) — no tool nodes or
    * connectors. For pages where the tools roll-call lives elsewhere. */
   frameOnly?: boolean;
+  /** Replace the frame's capture (and its title/alt) — for pages whose frame
+   * should show something other than the workspace hub or a tool. */
+  imageOverride?: { light: string; dark: string; title: string; alt: string };
 }) {
   const topTools = HUB_TOOLS.slice(0, 3);
   const bottomTools = HUB_TOOLS.slice(3);
   // No active tool → the platform capture; a tool without a capture → skeleton.
-  const image = activeSlug ? TOOL_IMAGES[activeSlug] : PLATFORM_IMAGE;
+  const image = imageOverride ?? (activeSlug ? TOOL_IMAGES[activeSlug] : PLATFORM_IMAGE);
   const activeTool = HUB_TOOLS.find((tool) => tool.slug === activeSlug);
   const activeLabel = activeTool?.label ?? 'Lexli';
-  const frameTitle = activeTool ? `${activeLabel} on Lexli` : 'The Lexli workspace';
-  const frameAlt = activeTool
-    ? `${activeLabel} inside the Lexli platform`
-    : 'The Lexli workspace: cases, files, and tools on one record';
+  const frameTitle =
+    imageOverride?.title ?? (activeTool ? `${activeLabel} on Lexli` : 'The Lexli workspace');
+  const frameAlt =
+    imageOverride?.alt ??
+    (activeTool
+      ? `${activeLabel} inside the Lexli platform`
+      : 'The Lexli workspace: cases, files, and tools on one record');
 
   return (
     <div aria-label="Every Lexli tool works from the same case record">

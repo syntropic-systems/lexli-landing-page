@@ -62,7 +62,16 @@ export default function SolutionsPage() {
       <PlatformSection section={accounts} variant="muted">
         <RevealOnScroll direction="up" delay={0.15} duration={0.7}>
           <div className="mt-12 md:mt-16">
-            <PlatformHub activeSlug="" frameOnly />
+            <PlatformHub
+              activeSlug=""
+              frameOnly
+              imageOverride={{
+                light: '/pages/solutions_light.png',
+                dark: '/pages/solutions_dark.png',
+                title: 'A case on Lexli',
+                alt: 'A case record on Lexli: parties, acts, and hearing history on one page',
+              }}
+            />
           </div>
         </RevealOnScroll>
       </PlatformSection>
