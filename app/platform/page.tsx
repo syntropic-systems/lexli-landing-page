@@ -116,8 +116,9 @@ export default function PlatformPage() {
         visual={<AdvancedSearchShowcase />}
       />
 
-      {/* Group 3 — trust. Flat register from here to the end of Integrations. */}
-      <Section id={security.id} variant="muted" disableDefaultHeader>
+      {/* Group 3 — trust. Security flat, Integrations muted, keeping the
+          alternation after Advanced Search's muted band. */}
+      <Section id={security.id} disableDefaultHeader>
         <RevealOnScroll direction="up" duration={0.6}>
           <p className="text-[11px] md:text-xs font-semibold uppercase tracking-wider text-primary mb-3">
             {security.eyebrow}
@@ -174,7 +175,7 @@ export default function PlatformPage() {
         />
       </Section>
 
-      <Section id={integrations.id} disableDefaultHeader>
+      <Section id={integrations.id} variant="muted" disableDefaultHeader>
         {/* Two-column split, as on the company page: claim left, prose right. */}
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-16">
           <RevealOnScroll direction="up" duration={0.6}>
