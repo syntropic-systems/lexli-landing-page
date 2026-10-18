@@ -112,11 +112,10 @@ export const tools: ToolPage[] = [
         image: '/tools/steps/daily_board_02.png',
       },
       {
-        // No illustration fits yet (daily_board_04 is an export) — the
-        // numeral vignette stands in until one is made.
         title: 'Follow the court, and get called',
         description:
           'The display board refreshes every few seconds. When your case comes up, Lexli tells you.',
+        image: '/tools/steps/daily_board_04.png',
       },
     ],
     features: [
