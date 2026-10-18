@@ -9,10 +9,12 @@
 
 import {
   Building2,
+  CalendarClock,
   ClipboardList,
   FileUp,
   Landmark,
   Languages,
+  PenLine,
   ScanLine,
   UserRound,
   type LucideIcon,
@@ -31,7 +33,6 @@ export type NavLink = {
  * Accounts and profiles lives on /solutions#accounts, not here. */
 export const platformSections: NavLink[] = [
   { label: "Case management", href: "/platform#case-management" },
-  { label: "Calendar", href: "/platform#calendar" },
   { label: "AI Assistant", href: "/platform#ai-assistant" },
   { label: "Document intelligence", href: "/platform#document-intelligence" },
   { label: "Legal research", href: "/platform#legal-research" },
@@ -41,13 +42,12 @@ export const platformSections: NavLink[] = [
 ];
 
 /**
- * All four tools: the deepest platform work first, the citizen-grade front
+ * All six tools: the deepest platform work first, the citizen-grade front
  * doors last.
  *
- * Calendar (which absorbed the Daily Board) and Drafting (now asked for in the
- * AI Assistant's chat) were tools here until October 2026 and are platform
- * sections now, matching the product's own navigation. Their old /tools URLs
- * redirect in next.config.ts.
+ * Calendar is what the Daily Board grew into (October 2026), and Drafting is
+ * the chat's drafting flow given its own page — in the product it is asked
+ * for in the AI Assistant.
  *
  * Presented as one list, not split by tier. The free/paid distinction still
  * exists — it drives each tool page's CTA through `kind` in `data/tools.ts` —
@@ -60,6 +60,18 @@ export const allTools: NavLink[] = [
     icon: FileUp,
     href: "/tools/efiling-assembly",
     description: "The packet assembled, indexed, and reviewed by you before it goes.",
+  },
+  {
+    label: "Drafting",
+    icon: PenLine,
+    href: "/tools/drafting",
+    description: "Asked for in chat, written from the case papers, revised by you.",
+  },
+  {
+    label: "Calendar",
+    icon: CalendarClock,
+    href: "/tools/calendar",
+    description: "Your cases, the cause list, and the display board, for any day.",
   },
   {
     label: "Legal Translator",

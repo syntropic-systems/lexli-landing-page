@@ -82,7 +82,7 @@ export function AssistantShowcase({ frozen }: { frozen?: number } = {}) {
             </div>
           </AnimatedItem>
 
-          {/* Follow-up that asks for a draft */}
+          {/* Follow-up that triggers a tool */}
           <AnimatedItem visible={step >= 4}>
             <div className="flex justify-end">
               <div className="max-w-[80%] rounded-lg bg-accent px-3 py-2 text-xs leading-relaxed text-accent-foreground">
@@ -94,7 +94,7 @@ export function AssistantShowcase({ frozen }: { frozen?: number } = {}) {
           <AnimatedItem visible={step >= 5}>
             <div className="inline-flex items-center gap-1.5 rounded-md border border-primary/30 bg-primary/5 px-2 py-1 text-[10px] font-medium text-primary">
               <PenLine className="h-2.5 w-2.5" />
-              Drafting from the case record
+              Running Drafting
             </div>
           </AnimatedItem>
 

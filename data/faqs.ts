@@ -41,9 +41,9 @@ export const faqGroups: FaqGroup[] = [
         // "Front-door tools" was internal jargon that no longer appears
         // anywhere on the site now the tools grid is one list.
         answer: byMode({
-          open: 'There is a free account, and it is where everyone starts. It covers Case Status, Legal Translator, and Document Scanner. Paid plans add the rest of the workspace and team access.',
+          open: 'There is a free account, and it is where everyone starts. It covers Calendar, Case Status, Legal Translator, and Document Scanner. Paid plans add the rest of the workspace and team access.',
           waitlist:
-            'There will be a free account when access opens, and it is where everyone starts. It covers Case Status, Legal Translator, and Document Scanner. Paid plans add the rest of the workspace and team access.',
+            'There will be a free account when access opens, and it is where everyone starts. It covers Calendar, Case Status, Legal Translator, and Document Scanner. Paid plans add the rest of the workspace and team access.',
         }),
       },
       {

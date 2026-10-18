@@ -13,8 +13,7 @@ import { byMode } from '@/lib/site';
 export function ToolGrid({ items }: { items: NavLink[] }) {
   return (
     <StaggerChildren
-      // Four tools: a 2×2 at every width that has room, never a 3+1.
-      className="grid grid-cols-1 gap-4 md:grid-cols-2"
+      className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"
       stagger={0.08}
     >
       {items.map((tool) => {

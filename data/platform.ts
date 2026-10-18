@@ -69,46 +69,6 @@ export const spine: PlatformSection = {
   ],
 };
 
-/**
- * Calendar — what the Daily Board grew into (October 2026): the cases, the
- * cause list, and the court's display board for a day, in one view. Sits
- * beside the spine because it reads the same case record.
- */
-export const calendar: PlatformSection = {
-  id: 'calendar',
-  eyebrow: 'Calendar — the day before the court',
-  headline: 'Everything before the court, for any day.',
-  body: [
-    'The Daily Board used to be a list you opened. It is now the Calendar: your own cases by their court date, the cause list for every advocate you follow, and, on the day itself, the court’s display board, all in one place. It reads the same case record as everything else, so a case you add today shows up on its next date.',
-  ],
-  features: [
-    {
-      title: 'Your cases, by court date',
-      description: 'Every case on its next date, across the week or the month.',
-    },
-    {
-      title: 'The cause list, built nightly',
-      description:
-        'From the lists courts publish, for every advocate you add: High Courts, District Courts, and the MAT, CAT, and DRT.',
-    },
-    {
-      // conservative: display boards are read for the Bombay High Court's
-      // benches only, so the claim names them.
-      title: 'The display board, live',
-      description:
-        'On the day, which item each court room is hearing now, read from the court’s own board. Bombay High Court benches today.',
-    },
-    {
-      title: 'Court holidays, marked',
-      description: 'Closed days are greyed out, with the reason the court gave.',
-    },
-    {
-      title: 'Pins and notes on the day',
-      description: 'Pin a case and note it on its card; the note stays with the case.',
-    },
-  ],
-};
-
 export const intelligenceTransition =
   'A record is only useful if you can ask it questions. This is the layer that reads and answers.';
 
@@ -118,7 +78,7 @@ export const intelligenceLayer: PlatformSection[] = [
     eyebrow: 'AI Assistant — the orchestrator',
     headline: 'One assistant that can use every tool.',
     body: [
-      'The AI Assistant is where daily work happens. Ask about a case and it answers from that case’s actual files. Ask for a draft and it writes one from the record, beside the chat. Ask for a translation and it runs the right Lexli tool itself, inside the same conversation. You ask once; it brings the tool to you.',
+      'The AI Assistant is where daily work happens. Ask about a case and it answers from that case’s actual files. Ask for a draft or a translation and it runs the right Lexli tool itself, inside the same conversation. You ask once; it brings the tool to you.',
     ],
     features: [
       {
@@ -127,16 +87,9 @@ export const intelligenceLayer: PlatformSection[] = [
           'Point it at a case and it works from the record: files, orders, hearing history.',
       },
       {
-        // Drafting was a tool page until October 2026; in the product it is
-        // asked for in chat, so it lives here now.
-        title: 'Drafts from the record',
-        description:
-          'Ask for the application or the reply and it arrives with the parties, the court, and the case details already in it, open beside the chat for you to edit.',
-      },
-      {
         title: 'Runs the tools for you',
         description:
-          'Legal Translator, Document Scanner, Case Status, and the rest, called from inside your chat, output handed back to you.',
+          'Drafting, Legal Translator, Case Status, and the rest, called from inside your chat, output handed back to you.',
       },
       {
         title: 'Upload and ask',

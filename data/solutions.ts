@@ -140,6 +140,12 @@ export const solutionPages: SolutionPage[] = [
         // the Assistant last as the "or just ask" exit.
         links: [
           {
+            label: 'Calendar',
+            description: 'Tomorrow’s hearings, built for you.',
+            href: '/tools/calendar',
+            free: true,
+          },
+          {
             label: 'Case Status',
             description: 'Any case, found and kept.',
             href: '/tools/case-status',
@@ -163,17 +169,17 @@ export const solutionPages: SolutionPage[] = [
             href: '/platform#case-management',
           },
           {
-            label: 'Calendar',
-            description: 'Tomorrow’s hearings, built for you.',
-            href: '/platform#calendar',
-          },
-          {
             label: 'eFiling Assembly',
             href: '/tools/efiling-assembly',
           },
           {
+            label: 'Drafting',
+            description: 'Written from the case papers, revised by you.',
+            href: '/tools/drafting',
+          },
+          {
             label: 'AI Assistant',
-            description: 'The whole platform, asked a question. Drafts included.',
+            description: 'The whole platform, asked a question.',
             href: '/platform#ai-assistant',
           },
           {

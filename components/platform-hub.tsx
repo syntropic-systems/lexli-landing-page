@@ -36,8 +36,8 @@ const HUB_TOOLS: HubTool[] = allTools.map((tool) => ({
 }));
 
 /**
- * slug → light/dark screenshot paths under /public/tools. eFiling Assembly has
- * no capture yet and falls back to the skeleton. The Case Status captures
+ * slug → light/dark screenshot paths under /public/tools. Drafting, Calendar,
+ * and eFiling Assembly have no captures yet and fall back to the skeleton. The Case Status captures
  * predate its rename from Case Finder (the files keep the old name; case_finder2_*
  * is an alternate, kept on disk, not wired) — retake them.
  */
@@ -272,7 +272,7 @@ export function PlatformHub({
             href="/tools"
             className="inline-flex items-center gap-1 text-sm font-semibold text-primary"
           >
-            One record, four tools. See the rest
+            One record, six tools. See the rest
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         )}

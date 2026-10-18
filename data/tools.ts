@@ -8,6 +8,8 @@
 
 import type { ComponentType } from 'react';
 import {
+  CalendarDays,
+  CalendarOff,
   Clock,
   Columns2,
   FileCheck,
@@ -16,18 +18,26 @@ import {
   FilePenLine,
   FileStack,
   FileText,
+  Fingerprint,
   FolderInput,
   FolderOpen,
   FolderPlus,
   History,
   KeyRound,
   Landmark,
-  Layers,
   Languages,
+  Layers,
+  LayoutTemplate,
   MessagesSquare,
+  Pin,
+  Radio,
+  ScrollText,
   Search,
   Smartphone,
+  Table2,
   Upload,
+  Users,
+  Zap,
 } from 'lucide-react';
 import { byMode } from '@/lib/site';
 
@@ -61,6 +71,107 @@ export type ToolPage = {
 };
 
 export const tools: ToolPage[] = [
+  {
+    slug: 'calendar',
+    name: 'Calendar',
+    kind: 'front-door',
+    eyebrow: 'Calendar · A Lexli tool',
+    seo: {
+      title: 'Calendar - your cases, the cause list, and the display board',
+      description:
+        'Your cases by court date, the cause list built nightly from what courts publish, and the Bombay High Court display board on the day: everything before the court, in one place.',
+    },
+    hero: {
+      headline: 'Everything before the court, for any day.',
+      // conservative: display boards are read for the Bombay High Court's
+      // benches only, so the hero says "on the day" and the features name them.
+      subhead:
+        'Your own cases by their court date, the cause list for every advocate you follow, and, on the day itself, the court’s display board. One view, built from what the courts publish.',
+    },
+    // Step images retired with the Daily Board's captures — the numeral
+    // vignettes stand in until Calendar is captured.
+    steps: [
+      {
+        title: 'Add names and courts',
+        description:
+          'One advocate or the whole office: every court any of you appears in, on one calendar.',
+      },
+      {
+        title: 'The cause list builds itself',
+        description:
+          'Nightly, from the lists courts publish, so you are not rebuilding tomorrow each evening.',
+      },
+      {
+        title: 'Read the day',
+        description:
+          'Your cases by court date, where each sits on the cause list, and the last orders attached.',
+      },
+      {
+        title: 'Watch the court',
+        description:
+          'On the day, the display board shows which item each court room is hearing now, against yours.',
+      },
+    ],
+    features: [
+      {
+        icon: CalendarDays,
+        title: 'Your cases, by court date',
+        description: 'Every case on its next date, across the week or the month.',
+      },
+      {
+        icon: ScrollText,
+        title: 'The cause list, built nightly',
+        description:
+          'From the lists courts publish: High Courts, District Courts, and the MAT, CAT, and DRT.',
+      },
+      {
+        icon: Users,
+        title: 'Multiple advocates, multiple courts',
+        description: "One calendar for the whole office's appearances.",
+      },
+      {
+        icon: Radio,
+        title: 'The display board, live',
+        description:
+          'Which item each court room is hearing now, read from the court’s own board. Bombay High Court benches today.',
+      },
+      {
+        icon: CalendarOff,
+        title: 'Court holidays, marked',
+        description: 'Closed days are greyed out, with the reason the court gave.',
+      },
+      {
+        icon: Pin,
+        title: 'Pins and notes',
+        description: 'Pin a case and note it on its card; the note stays with the case.',
+      },
+      {
+        icon: FileDown,
+        title: 'Download the day',
+        description: 'The day’s board as a file, ready to print or forward.',
+      },
+      {
+        icon: MessagesSquare,
+        title: 'Available through the AI Assistant',
+        description: '"What is on for tomorrow" is a question, not a task.',
+      },
+    ],
+    platform: {
+      paragraphs: [
+        'On its own, a cause list tells you where to be. Inside Lexli, every entry is a door: tap a case and you are in its record: files, hearing history, notes from the last date. A case you do not have yet can be found in Case Status and added, court record attached, before tomorrow’s hearing.',
+        'Your evening prep and tomorrow’s list stop being two separate documents.',
+      ],
+      line: 'The calendar knows your cases because the platform already does.',
+    },
+    finalCta: {
+      headline: "Tomorrow is already forming.",
+      subhead: byMode({
+        open: 'Create a free account, add your name, and see it.',
+        waitlist: 'Join the waitlist, and see your first day built when your access opens.',
+      }),
+    },
+  },
+
   {
     slug: 'case-status',
     name: 'Case Status',
@@ -339,6 +450,107 @@ export const tools: ToolPage[] = [
         open: 'Create a free account and scan the first page.',
         waitlist: 'Join the waitlist, and scan the first page when your access opens.',
       }),
+    },
+  },
+
+  {
+    slug: 'drafting',
+    name: 'Drafting',
+    kind: 'inside',
+    eyebrow: 'Drafting · A Lexli platform tool',
+    seo: {
+      title: 'Drafting - the first draft, from the case papers',
+      description:
+        'Ask for a draft in chat and Lexli writes it from the case papers, opens it as a Word document beside the conversation, and revises it through tracked changes you accept or reject.',
+    },
+    // Drafting runs through the AI Assistant's chat (the product's /draft
+    // command); the standalone drafting screens are not shipped. Everything
+    // below describes the chat flow.
+    // conservative: no Hindi/Marathi drafting, no legal-dictionary
+    // auto-correct, no compare view, and no citations inside chat drafts —
+    // none is confirmed in the shipped product.
+    hero: {
+      headline: 'Drafts that start from the case papers.',
+      subhead:
+        'Ask in chat for the draft you need. Lexli writes it from the case papers and opens it as a Word document beside the conversation. Ask for changes in plain words; they arrive as tracked changes you accept or reject.',
+    },
+    steps: [
+      {
+        title: 'Ask for the draft',
+        description:
+          'In chat, with the case in focus: say what you need, the way you would brief a junior.',
+      },
+      {
+        title: 'It drafts from the case papers',
+        description:
+          "Written from the case's own files, not a blank template, and opened as a Word document beside the chat.",
+      },
+      {
+        title: 'Revise it in conversation',
+        description:
+          '"Make paragraph 4 firmer." "Put the hearing dates in a table." Each change arrives as a tracked suggestion: accept it, reject it, or switch on Auto edits.',
+      },
+      {
+        title: 'Download it',
+        description:
+          'Every version is kept and any one can be restored. Download the .docx when it is ready.',
+      },
+    ],
+    features: [
+      {
+        icon: FileText,
+        title: 'Drafts from the case papers',
+        description: "The case's files are the starting point, so the draft begins with what the record says.",
+      },
+      {
+        icon: LayoutTemplate,
+        title: 'Templates from your own drafts',
+        description:
+          'Turn a past filing into a reusable template: the case details blanked, your structure kept.',
+      },
+      {
+        icon: Fingerprint,
+        title: 'Your drafting rules, applied',
+        description:
+          'Save how you draft in Memory. Each draft shows which of your preferences it applied.',
+      },
+      {
+        icon: FilePenLine,
+        title: 'Tracked changes, your call',
+        description: 'Every edit the assistant proposes stays a suggestion until you accept it.',
+      },
+      {
+        icon: Zap,
+        title: 'Auto edits, when you want them',
+        description: 'Turn on Auto edits for a chat and changes apply and save without asking.',
+      },
+      {
+        icon: Table2,
+        title: 'Tables and formatting',
+        description: 'Rows, columns, whole tables, paragraph formatting: asked for in plain words.',
+      },
+      {
+        icon: History,
+        title: 'Version history',
+        description: 'Original, edited, restored: every version kept, any one restorable.',
+      },
+      {
+        icon: FileDown,
+        title: 'Word download',
+        description: 'The .docx, ready to finish in the format your court expects.',
+      },
+    ],
+    platform: {
+      paragraphs: [
+        'Drafting alone saves typing. Drafting inside Lexli saves the part before the typing: the assistant already has the case papers, so the draft starts from them instead of asking for them. If it is headed for a portal, eFiling Assembly takes it from there.',
+        'Nothing is filed until you have read it and said yes.',
+      ],
+      line: 'Lexli prepares. You decide.',
+    },
+    finalCta: {
+      headline: 'The next draft starts from the file.',
+      subhead:
+        "Bring a case onto Lexli and ask for a draft, or talk to us about your team's templates.",
     },
   },
 

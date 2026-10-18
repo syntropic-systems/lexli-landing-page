@@ -86,7 +86,7 @@ const navItems: NavItem[] = [
                 href: tool.href,
                 icon: tool.icon ? <tool.icon className="h-7 w-7 text-primary" /> : undefined,
             })),
-            footer: { label: "All four tools", href: "/tools" },
+            footer: { label: "All six tools", href: "/tools" },
         },
     },
     {

@@ -103,12 +103,12 @@ export default function Home() {
         </RevealOnScroll>
       </Section>
 
-      {/* The lineup in two rows: the platform tool first, the front doors
-          under it. */}
+      {/* The lineup in two rows: the platform tools first, the front doors
+          under them. */}
       <Section
         header={<Eyebrow>The tools</Eyebrow>}
-        title="Four tools. Start with the one you need."
-        description="Each works on its own, and each works from the same case record. Drafting lives in the AI Assistant: ask for it in chat."
+        title="Six tools. Start with the one you need."
+        description="Each works on its own, and each works from the same case record. Drafting and eFiling go deepest; the other four are where most people start."
       >
         <RoutingPillGroups groups={toolRoutingGroups()} />
         <RevealOnScroll direction="up" delay={0.15} duration={0.6}>

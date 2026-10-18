@@ -11,9 +11,9 @@ import { allTools } from '@/data/navigation';
 import { byMode, CTA, PRIMARY_HREF, SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Tools - four ways into one workspace',
+  title: 'Tools - six ways into one workspace',
   description:
-    'eFiling Assembly, Legal Translator, Document Scanner, and Case Status: each works on its own, and all of them share one case record.',
+    'eFiling Assembly, Drafting, Calendar, Legal Translator, Document Scanner, and Case Status: each works on its own, and all of them share one case record.',
   alternates: { canonical: `${SITE_URL}/tools` },
 };
 
@@ -22,8 +22,8 @@ export default function ToolsPage() {
     <div>
       <PageHero
         eyebrow="Lexli tools"
-        title="Four tools. One case record."
-        description="Each of these works on its own. All of them share the platform's cases, files, and context, which is why a case you look up joins your calendar, a translation lands beside its original, and a scan is ready for filing before filing comes up."
+        title="Six tools. One case record."
+        description="Each of these works on its own. All of them share the platform's cases, files, and context, which is why a case you look up joins your calendar, a draft starts from the case papers, and a scan is ready for filing before filing comes up."
         primaryCta={{ text: CTA.startFree, href: PRIMARY_HREF }}
         secondaryCta={{ text: CTA.explorePlatform, href: '/platform' }}
       />
@@ -34,7 +34,7 @@ export default function ToolsPage() {
           closes the grid as a verdict (the tool pages' pattern) rather than
           floating in a section of its own. */}
       <Section
-        title="The four tools"
+        title="The six tools"
         header={
           <RevealOnScroll direction="up" duration={0.6}>
             <p className="text-[11px] md:text-xs font-semibold uppercase tracking-wider text-primary mb-3">

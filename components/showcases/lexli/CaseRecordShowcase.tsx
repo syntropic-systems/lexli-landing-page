@@ -25,7 +25,7 @@ const RESET_DELAY = 4200;
 const CASE_FILES = [
   { name: "order_14-Jul_certified.pdf", source: "via Case Status" },
   { name: "annexure-A_scan.pdf", source: "via Scanner" },
-  { name: "reply-draft.docx", source: "via AI Assistant" },
+  { name: "reply-draft.docx", source: "via Drafting" },
 ];
 
 export function CaseRecordShowcase({ frozen }: { frozen?: number } = {}) {
