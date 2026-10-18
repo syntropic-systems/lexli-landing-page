@@ -88,7 +88,7 @@ export const tools: ToolPage[] = [
         "Every case you have before the court on a given day, from the official cause list, with the court's display board followed live.",
     },
     hero: {
-      headline: 'What is listed, where it is listed, and what is being called now.',
+      headline: 'Which case. Which court. When to walk in.',
       subhead:
         "Lexli puts your cases on their court dates, reads the cause list for every advocate in your office, and follows the court's display board through the day. You are told when your item is near.",
     },
