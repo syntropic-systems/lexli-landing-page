@@ -8,7 +8,7 @@
 
 import {
   Briefcase,
-  CalendarDays,
+  CalendarClock,
   FolderKanban,
   FolderSearch,
   Handshake,
@@ -336,7 +336,7 @@ export const solutionPages: SolutionPage[] = [
         title: 'The same duties, on Lexli',
         moments: [
           {
-            icon: CalendarDays,
+            icon: CalendarClock,
             label: 'Keeping the board',
             text: 'The Calendar builds tomorrow from the published cause lists; your clerk confirms it instead of assembling it.',
           },

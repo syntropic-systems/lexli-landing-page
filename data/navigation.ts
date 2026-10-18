@@ -9,7 +9,7 @@
 
 import {
   Building2,
-  CalendarDays,
+  CalendarClock,
   ClipboardList,
   FilePen,
   Landmark,
@@ -57,7 +57,7 @@ export const platformSections: NavLink[] = [
 export const allTools: NavLink[] = [
   {
     label: "Calendar",
-    icon: CalendarDays,
+    icon: CalendarClock,
     href: "/tools/calendar",
     description: "Your cases, the cause list, and the display board, for any day.",
   },
