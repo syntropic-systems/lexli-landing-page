@@ -341,8 +341,9 @@ export function SiteHeader() {
                                 src="/logos/light_lg.svg"
                                 srcDark="/logos/dark_lg.svg"
                                 alt="Lexli"
-                                width={110}
-                                height={24}
+                                // Intrinsic SVG size; h-6 scales both axes.
+                                width={200}
+                                height={44}
                                 priority
                                 className="h-6 w-auto"
                             />

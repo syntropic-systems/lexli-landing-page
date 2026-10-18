@@ -65,8 +65,9 @@ export function Footer() {
                                     src="/logos/light_lg.svg"
                                     srcDark="/logos/dark_lg.svg"
                                     alt="Lexli"
-                                    width={128}
-                                    height={28}
+                                    // Intrinsic SVG size; h-7 scales both axes.
+                                    width={200}
+                                    height={44}
                                     className="h-7 w-auto"
                                 />
                             </Link>

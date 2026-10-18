@@ -244,6 +244,7 @@ export function PlatformHub({
                   alt={frameAlt}
                   width={1600}
                   height={900}
+                  loading="eager"
                   className="aspect-video w-full object-cover"
                 />
               ) : (
@@ -273,6 +274,7 @@ export function PlatformHub({
               alt={frameAlt}
               width={1600}
               height={900}
+              loading="eager"
               className="aspect-video w-full object-cover"
             />
           ) : (
