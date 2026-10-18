@@ -1,13 +1,11 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { ArrowRight, KeyRound, Handshake, FolderOpen } from 'lucide-react';
+import { KeyRound, Handshake, FolderOpen } from 'lucide-react';
 import { PageHeader } from '@/components/page-header';
 import { Section } from '@/components/section';
 import { StepsList } from '@/components/steps-list';
 import { FeatureGlowGrid } from '@/components/feature-glow-grid';
 import { VerdictLine } from '@/components/verdict-line';
-import { RoutingPillGroups, toolRoutingGroups } from '@/components/routing-pill';
 import { WaitlistForm } from '@/components/waitlist-form';
 import { RevealOnScroll } from '@/components/animations';
 import { APP_URL, CTA, DEMO_HREF, IS_WAITLIST, SITE_URL } from '@/lib/site';
@@ -146,25 +144,6 @@ export default function WaitlistPage() {
           <VerdictLine className="mt-12 max-w-3xl md:mt-16">
             Small batches now, so nothing is half set up later.
           </VerdictLine>
-        </RevealOnScroll>
-      </Section>
-
-      <Section
-        header={<Eyebrow>While you wait</Eyebrow>}
-        title="Six tools, one record, already built."
-        description="Read what each one does. The day your access opens, all of them are there, working from the same cases."
-      >
-        <RoutingPillGroups groups={toolRoutingGroups()} />
-        <RevealOnScroll direction="up" delay={0.15} duration={0.6}>
-          <div className="mt-8">
-            <Link
-              href="/tools"
-              className="group inline-flex items-center gap-2 text-sm font-semibold text-primary"
-            >
-              {CTA.seeAllTools}
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </div>
         </RevealOnScroll>
       </Section>
     </div>
