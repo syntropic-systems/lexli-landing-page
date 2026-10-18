@@ -14,13 +14,15 @@ export const APP_URL = "https://app.lexli.ai/";
  * an account. `waitlist`: entry is gated, the primary CTA sends them to the
  * waitlist instead, and the labels stop promising a free account today.
  *
- * Read from the environment so Vercel can flip it per deployment without a
- * commit; anything other than "waitlist" means open. Only the button labels
- * and targets switch on this — page prose is written per mode by hand.
+ * Waitlist is the default: entry is gated as of October 2026, and a build
+ * that loses its environment should fail toward a closed door, not an open
+ * signup. Set NEXT_PUBLIC_ACCESS_MODE=open (exactly) to reopen, locally or
+ * per Vercel environment; anything else means waitlist. Only the button
+ * labels, targets, and byMode() copy switch on this.
  */
 export type AccessMode = "open" | "waitlist";
 export const ACCESS_MODE: AccessMode =
-  process.env.NEXT_PUBLIC_ACCESS_MODE === "waitlist" ? "waitlist" : "open";
+  process.env.NEXT_PUBLIC_ACCESS_MODE === "open" ? "open" : "waitlist";
 export const IS_WAITLIST = ACCESS_MODE === "waitlist";
 
 /** Where the waitlist lives once it exists. Only reached in waitlist mode. */
