@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/lib/site";
+import { IS_WAITLIST, SITE_URL, WAITLIST_HREF } from "@/lib/site";
 import { tools } from "@/data/tools";
 import { solutionPages } from "@/data/solutions";
 
@@ -14,6 +14,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/company", priority: 0.6 },
     { path: "/faq", priority: 0.6 },
     { path: "/contact", priority: 0.6 },
+    // The waitlist is only a page while entry is gated; open mode redirects it.
+    ...(IS_WAITLIST ? [{ path: WAITLIST_HREF, priority: 0.8 }] : []),
   ];
 
   return [

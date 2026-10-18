@@ -6,6 +6,7 @@
  */
 
 import { KeyRound, LockKeyhole, Server, Shield } from 'lucide-react';
+import { byMode } from '@/lib/site';
 
 export type PlatformFeature = { title: string; description: string };
 
@@ -273,6 +274,8 @@ export const integrations = {
 
 export const platformCta = {
   headline: 'Start on Lexli.',
-  subhead:
-    'Create a free account and bring your first case in today, or talk to us about your team.',
+  subhead: byMode({
+    open: 'Create a free account and bring your first case in today, or talk to us about your team.',
+    waitlist: 'Join the waitlist and we will write when your batch opens, or talk to us about your team.',
+  }),
 };

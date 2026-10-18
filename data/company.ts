@@ -11,6 +11,7 @@
  */
 
 import { Compass, DoorOpen, Eye, FileStack, KeyRound, Scale } from 'lucide-react';
+import { byMode } from '@/lib/site';
 
 export const companyHero = {
   eyebrow: 'About Lexli',
@@ -166,5 +167,9 @@ export const team = {
 
 export const companyCta = {
   headline: 'Come and test the claim.',
-  subhead: 'Create a free account and bring one case in, or talk to us about your practice.',
+  subhead: byMode({
+    open: 'Create a free account and bring one case in, or talk to us about your practice.',
+    waitlist:
+      'Join the waitlist and bring one case in when your access opens, or talk to us about your practice.',
+  }),
 };

@@ -12,6 +12,7 @@ import { allTools } from '@/data/navigation';
 import { getTool } from '@/data/tools';
 import { ScrollLink } from '@/components/scroll-link';
 import { StaggerChildren, StaggerItem } from '@/components/animations';
+import { byMode, IS_WAITLIST } from '@/lib/site';
 
 /**
  * Tool glyphs come from the nav's single icon source. Platform-section links
@@ -41,7 +42,7 @@ export function RoutingPill({ link }: { link: { label: string; href: string; fre
           can't see that through a local capital-case binding. */}
       {createElement(routingIcon(link.href), { className: 'h-4 w-4 text-primary' })}
       {link.label}
-      {link.free && (
+      {link.free && !IS_WAITLIST && (
         // The tools index's "Free on Lexli" badge, sized down to ride
         // inside a pill.
         <span className="inline-flex items-center rounded-full border border-primary/40 bg-primary/5 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-primary">
@@ -107,7 +108,7 @@ export function toolRoutingGroups(): RoutingPillGroup[] {
         .map((tool) => ({ label: tool.label, href: tool.href })),
     },
     {
-      label: 'Free on Lexli',
+      label: byMode({ open: 'Free on Lexli', waitlist: 'Start here' }),
       links: allTools
         .filter((tool) => isFrontDoor(tool.href))
         .map((tool) => ({ label: tool.label, href: tool.href, free: true })),

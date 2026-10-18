@@ -19,7 +19,7 @@ import {
 import { homepageFaqs } from "@/data/faqs";
 import { commitments } from "@/data/company";
 import { StaggerChildren, StaggerItem, RevealOnScroll } from "@/components/animations";
-import { CTA, PRIMARY_HREF, DEMO_HREF } from "@/lib/site";
+import { byMode, CTA, DEMO_HREF, IS_WAITLIST, PRIMARY_HREF } from "@/lib/site";
 
 /** The interior pages' eyebrow register, verbatim. */
 function Eyebrow({ children }: { children: string }) {
@@ -62,6 +62,11 @@ export default function Home() {
         ]}
         primaryCta={{ text: CTA.startFree, href: PRIMARY_HREF }}
         secondaryCta={{ text: CTA.explorePlatform, href: "/platform" }}
+        note={
+          IS_WAITLIST
+            ? "Access is opening in small batches. Join the list and we will write when it is your turn."
+            : undefined
+        }
       />
 
       {/* The record, shown — the hub diagram is the site's one artifact that
@@ -227,7 +232,11 @@ export default function Home() {
       {/* Final CTA */}
       <CTASection
         title="Bring your practice onto one record."
-        description="Create a free account and start with a single case, or book a demo and walk through the whole workspace."
+        description={byMode({
+          open: "Create a free account and start with a single case, or book a demo and walk through the whole workspace.",
+          waitlist:
+            "We are opening access in small batches so every practice gets set up properly. Join the waitlist, or book a demo and walk through the whole workspace.",
+        })}
         primaryCta={{ text: CTA.startFree, href: PRIMARY_HREF }}
         secondaryCta={{ text: CTA.bookDemo, href: DEMO_HREF }}
       />

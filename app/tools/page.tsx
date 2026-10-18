@@ -8,7 +8,7 @@ import { VerdictLine } from '@/components/verdict-line';
 import { ToolGrid } from '@/components/tool-grid';
 import { RevealOnScroll } from '@/components/animations';
 import { allTools } from '@/data/navigation';
-import { CTA, PRIMARY_HREF, SITE_URL } from '@/lib/site';
+import { byMode, CTA, PRIMARY_HREF, SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Tools - four ways into one workspace',
@@ -67,7 +67,11 @@ export default function ToolsPage() {
 
       <CTASection
         title="Start with the one you need today."
-        description="Create a free account and bring your first case in. The rest is already waiting for it."
+        description={byMode({
+          open: 'Create a free account and bring your first case in. The rest is already waiting for it.',
+          waitlist:
+            'Join the waitlist and tell us which one you need first. The rest will be waiting when your access opens.',
+        })}
         primaryCta={{ text: CTA.startFree, href: PRIMARY_HREF }}
         secondaryCta={{ text: CTA.explorePlatform, href: '/platform' }}
       />

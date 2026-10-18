@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/navbar-menu";
 import { scrollToId, setScrollTarget } from "@/components/scroll-to-section";
 import { cn } from "@/lib/utils";
-import { CTA, DEMO_HREF, IS_WAITLIST, PRIMARY_HREF } from "@/lib/site";
+import { APP_URL, CTA, DEMO_HREF, IS_WAITLIST, PRIMARY_HREF } from "@/lib/site";
 import { allTools, companyLinks, platformSections, solutions } from "@/data/navigation";
 import { motion } from "framer-motion";
 
@@ -378,6 +378,15 @@ export function SiteHeader() {
                     {/* Right side actions */}
                     <div className="flex items-center gap-2">
                         <div className="hidden lg:flex items-center gap-2">
+                            {/* While gated, people who already have access
+                                need their own door next to the waitlist. */}
+                            {IS_WAITLIST && (
+                                <Button variant="ghost" asChild>
+                                    <a href={APP_URL} target="_blank" rel="noopener noreferrer">
+                                        {CTA.signIn}
+                                    </a>
+                                </Button>
+                            )}
                             <Button variant="secondary" asChild>
                                 <a href={DEMO_HREF}>
                                     {CTA.bookDemo}
@@ -471,6 +480,18 @@ export function SiteHeader() {
                                     ))}
                                 </nav>
                                 <SheetFooter className="border-t pt-4 flex flex-col gap-2">
+                                    {IS_WAITLIST && (
+                                        <Button variant="ghost" className="w-full justify-center" asChild>
+                                            <a
+                                                href={APP_URL}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                onClick={closeMobile}
+                                            >
+                                                {CTA.signIn}
+                                            </a>
+                                        </Button>
+                                    )}
                                     <Button variant="secondary" className="w-full justify-center" asChild>
                                         <a
                                             href={DEMO_HREF}

@@ -20,6 +20,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import type { PlatformSection } from '@/data/platform';
+import { byMode } from '@/lib/site';
 
 export type SolutionBlock =
   | { kind: 'scenes'; eyebrow?: string; title: string; scenes: string[]; closer?: string }
@@ -74,7 +75,11 @@ export const solutionPages: SolutionPage[] = [
     seo: {
       title: 'Lexli for advocates - the workspace for a litigation practice',
       description:
-        "For solo advocates and small chambers: tomorrow's board builds itself, case files live in one record, and drafts arrive with the details filled in. Start free.",
+        byMode({
+          open: "For solo advocates and small chambers: tomorrow's board builds itself, case files live in one record, and drafts arrive with the details filled in. Start free.",
+          waitlist:
+            "For solo advocates and small chambers: tomorrow's board builds itself, case files live in one record, and drafts arrive with the details filled in. Join the waitlist.",
+        }),
     },
     hero: {
       eyebrow: 'For advocates & lawyers',
@@ -126,7 +131,10 @@ export const solutionPages: SolutionPage[] = [
       {
         kind: 'routing',
         eyebrow: 'Where to start',
-        title: 'Start free. The rest is already there.',
+        title: byMode({
+          open: 'Start free. The rest is already there.',
+          waitlist: 'Where you will start. The rest is already there.',
+        }),
         // Sequence = the advocate's on-ramp: the front doors first in the
         // order the day meets them, the record they feed, then depth, with
         // the Assistant last as the "or just ask" exit.
@@ -175,13 +183,19 @@ export const solutionPages: SolutionPage[] = [
         ],
         // The former "Plans" prose block, folded in as the section's lead-in —
         // it answers the question the two rows raise.
-        intro:
-          'Start free, alone: the front-door tools and your first cases. When a junior or a clerk joins the practice, add them to the same workspace with their own role. Nothing migrates; the record just gains readers.',
+        intro: byMode({
+          open: 'Start free, alone: the front-door tools and your first cases. When a junior or a clerk joins the practice, add them to the same workspace with their own role. Nothing migrates; the record just gains readers.',
+          waitlist:
+            'Start alone: the front-door tools and your first cases. When a junior or a clerk joins the practice, add them to the same workspace with their own role. Nothing migrates; the record just gains readers.',
+        }),
       },
     ],
     finalCta: {
       headline: "Tomorrow's calendar is a good place to start.",
-      subhead: 'Create a free account, add your name, and see it built.',
+      subhead: byMode({
+        open: 'Create a free account, add your name, and see it built.',
+        waitlist: 'Join the waitlist. When your access opens, add your name and see it built.',
+      }),
     },
   },
 
@@ -388,8 +402,11 @@ export const accounts: PlatformSection = {
       description: 'Desk, court, and phone, same workspace.',
     },
     {
-      title: 'Free and paid plans',
-      description: 'Sign in with Google or email; start free.',
+      title: byMode({ open: 'Free and paid plans', waitlist: 'Access in batches' }),
+      description: byMode({
+        open: 'Sign in with your email; start free.',
+        waitlist: 'Join the waitlist; we onboard practices a few at a time.',
+      }),
     },
     {
       title: 'Seat-based accounts',

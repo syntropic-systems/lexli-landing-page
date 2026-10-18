@@ -9,6 +9,8 @@
  * no pricing page. An answer that says nothing is worse than no question.
  */
 
+import { byMode, IS_WAITLIST } from '@/lib/site';
+
 export type Faq = { question: string; answer: string };
 export type FaqGroup = { title: string; faqs: Faq[] };
 
@@ -16,19 +18,42 @@ export const faqGroups: FaqGroup[] = [
   {
     title: 'Getting started',
     faqs: [
+      // Waitlist mode leads with the access questions; they disappear when
+      // the door opens so the page never describes a queue that is not there.
+      ...(IS_WAITLIST
+        ? [
+            {
+              question: 'How do I get access?',
+              answer:
+                'Join the waitlist with your name, email, and the courts you practise in. We open access in small batches so each practice gets set up properly, and we write to you when your turn comes. If you already have an account, sign in as usual.',
+            },
+            {
+              question: 'How long is the wait?',
+              answer:
+                'It depends on the batch ahead of you, so we do not quote a date. You hear from us by email when your access opens. Firms that want to move faster can book a demo.',
+            },
+          ]
+        : []),
       {
         question: 'Is Lexli free?',
         // conservative: no case counts or usage limits stated — they are
         // undefined site-wide.
-        answer:
-          // "Front-door tools" was internal jargon that no longer appears
-          // anywhere on the site now the tools grid is one list.
-          'There is a free account, and it is where everyone starts. It covers Case Status, Legal Translator, and Document Scanner. Paid plans add the rest of the workspace and team access.',
+        // "Front-door tools" was internal jargon that no longer appears
+        // anywhere on the site now the tools grid is one list.
+        answer: byMode({
+          open: 'There is a free account, and it is where everyone starts. It covers Case Status, Legal Translator, and Document Scanner. Paid plans add the rest of the workspace and team access.',
+          waitlist:
+            'There will be a free account when access opens, and it is where everyone starts. It covers Case Status, Legal Translator, and Document Scanner. Paid plans add the rest of the workspace and team access.',
+        }),
       },
       {
         question: 'What do I need to start?',
-        answer:
-          'An email address or a Google account. There is nothing to install, and nothing has to be migrated first. Your existing files, diaries, and templates stay where they are.',
+        // Email and password only: Google sign-in is not enabled in the app.
+        answer: byMode({
+          open: 'An email address. There is nothing to install, and nothing has to be migrated first. Your existing files, diaries, and templates stay where they are.',
+          waitlist:
+            'A place on the waitlist, then an email address. There is nothing to install, and nothing has to be migrated first. Your existing files, diaries, and templates stay where they are.',
+        }),
       },
       {
         question: 'Do I have to move my old cases in before Lexli is useful?',
@@ -140,7 +165,7 @@ export const allFaqs: Faq[] = faqGroups.flatMap((group) => group.faqs);
  * question text so the answers stay single-sourced above.
  */
 const HOMEPAGE_QUESTIONS = [
-  'Is Lexli free?',
+  byMode({ open: 'Is Lexli free?', waitlist: 'How do I get access?' }),
   'Which courts does Lexli cover?',
   'Does Lexli file cases for me?',
   'What languages does it work in?',

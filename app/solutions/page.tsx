@@ -8,7 +8,7 @@ import { PlatformSection } from '@/components/platform-section';
 import { PlatformHub } from '@/components/platform-hub';
 import { RevealOnScroll } from '@/components/animations';
 import { accounts } from '@/data/solutions';
-import { CTA, PRIMARY_HREF, DEMO_HREF, SITE_URL } from '@/lib/site';
+import { byMode, CTA, DEMO_HREF, PRIMARY_HREF, SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Solutions - for advocates, firms, and the staff who keep them running',
@@ -78,7 +78,11 @@ export default function SolutionsPage() {
 
       <CTASection
         title="Start with your own day."
-        description="Create a free account and bring in one case, or talk to us about the team around it."
+        description={byMode({
+          open: 'Create a free account and bring in one case, or talk to us about the team around it.',
+          waitlist:
+            'Join the waitlist with your own day in mind, or talk to us about the team around it.',
+        })}
         primaryCta={{ text: CTA.startFree, href: PRIMARY_HREF }}
         secondaryCta={{ text: CTA.bookDemo, href: DEMO_HREF }}
       />

@@ -6,7 +6,7 @@ import { RevealOnScroll, StaggerChildren, StaggerItem } from '@/components/anima
 import { ScrollLink } from '@/components/scroll-link';
 import { ThemeAwareImage } from '@/components/theme-aware-image';
 import { allTools, companyLinks, platformSections, solutions } from '@/data/navigation';
-import { APP_URL, CTA, DEMO_HREF, LINKEDIN_URL, PRIMARY_HREF } from '@/lib/site';
+import { APP_URL, byMode, CTA, DEMO_HREF, LINKEDIN_URL, PRIMARY_HREF } from '@/lib/site';
 
 type FooterLink = { name: string; href: string };
 
@@ -41,7 +41,7 @@ const footerSections: { title: string; links: FooterLink[] }[] = [
         links: companyLinks.map((link) => ({ name: link.label, href: link.href })),
     },
     {
-        title: 'Get started',
+        title: byMode({ open: 'Get started', waitlist: 'Get access' }),
         links: [
             { name: CTA.startFree, href: PRIMARY_HREF },
             { name: CTA.signIn, href: APP_URL },

@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/accordion';
 import { StaggerChildren, StaggerItem, RevealOnScroll } from '@/components/animations';
 import { allFaqs, faqGroups } from '@/data/faqs';
-import { CTA, PRIMARY_HREF, SITE_URL } from '@/lib/site';
+import { byMode, CTA, PRIMARY_HREF, SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'FAQ - questions about Lexli',
@@ -78,7 +78,11 @@ export default function FaqPage() {
 
       <CTASection
         title="Still deciding?"
-        description="Create a free account and test it against your own cases, or ask us the question this page did not answer."
+        description={byMode({
+          open: 'Create a free account and test it against your own cases, or ask us the question this page did not answer.',
+          waitlist:
+            'Join the waitlist and we will write when your batch opens, or ask us the question this page did not answer.',
+        })}
         primaryCta={{ text: CTA.startFree, href: PRIMARY_HREF }}
         secondaryCta={{ text: CTA.talkToUs, href: '/contact' }}
       />

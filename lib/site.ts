@@ -82,6 +82,14 @@ const CTA_BY_MODE = {
   },
 } as const;
 
+/** Pick the copy for the current access mode. Used wherever page prose
+ * names the door ("Create a free account and…" vs "Join the waitlist and…")
+ * so a mode flip keeps the words and the buttons in agreement. Keep both
+ * variants complete sentences; never splice a fragment. */
+export function byMode<T>(copy: { open: T; waitlist: T }): T {
+  return copy[ACCESS_MODE];
+}
+
 export const CTA = {
   ...CTA_BY_MODE[ACCESS_MODE],
   signIn: "Sign in",

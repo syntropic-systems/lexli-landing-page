@@ -29,6 +29,7 @@ import {
   Smartphone,
   Upload,
 } from 'lucide-react';
+import { byMode } from '@/lib/site';
 
 export type ToolKind = 'front-door' | 'inside';
 
@@ -145,7 +146,10 @@ export const tools: ToolPage[] = [
     },
     finalCta: {
       headline: 'The case is on record. Get it on yours.',
-      subhead: 'Create a free account and search.',
+      subhead: byMode({
+        open: 'Create a free account and search.',
+        waitlist: 'Join the waitlist, and search the day your access opens.',
+      }),
     },
   },
 
@@ -245,7 +249,10 @@ export const tools: ToolPage[] = [
     },
     finalCta: {
       headline: 'The document is ready when your reader is.',
-      subhead: 'Create a free account and translate the first one.',
+      subhead: byMode({
+        open: 'Create a free account and translate the first one.',
+        waitlist: 'Join the waitlist, and translate the first one when your access opens.',
+      }),
     },
   },
 
@@ -328,7 +335,10 @@ export const tools: ToolPage[] = [
     },
     finalCta: {
       headline: 'The file cabinet is retiring.',
-      subhead: 'Create a free account and scan the first page.',
+      subhead: byMode({
+        open: 'Create a free account and scan the first page.',
+        waitlist: 'Join the waitlist, and scan the first page when your access opens.',
+      }),
     },
   },
 

@@ -13,6 +13,8 @@ interface HeroSectionProps {
     badge?: string;
     /** Short proof points under the description — keep to three, a few words each. */
     pointers?: string[];
+    /** One quiet line under the buttons: the access policy, a caveat. */
+    note?: string;
     children?: ReactNode;
     primaryCta?: {
         text: string;
@@ -34,6 +36,7 @@ export function HeroSection({
     description,
     badge,
     pointers,
+    note,
     children,
     primaryCta,
     secondaryCta,
@@ -102,6 +105,12 @@ export function HeroSection({
                                         </Button>
                                     )}
                                 </div>
+                            </RevealOnScroll>
+                        )}
+
+                        {note && (
+                            <RevealOnScroll direction="up" delay={0.5} duration={0.5}>
+                                <p className="text-sm text-foreground/60 max-w-xl">{note}</p>
                             </RevealOnScroll>
                         )}
 

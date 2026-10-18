@@ -3,6 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { StaggerChildren, StaggerItem } from '@/components/animations';
 import { getTool } from '@/data/tools';
 import type { NavLink } from '@/data/navigation';
+import { byMode } from '@/lib/site';
 
 /**
  * The tools-index card grid, shared with the homepage so both render the
@@ -41,7 +42,8 @@ export function ToolGrid({ items }: { items: NavLink[] }) {
               <span className="mt-auto flex items-center justify-between pt-6">
                 {isFrontDoor ? (
                   <span className="inline-flex items-center rounded-full border border-primary/40 bg-primary/5 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
-                    Free on Lexli
+                    {/* No pricing promise while entry is gated. */}
+                    {byMode({ open: 'Free on Lexli', waitlist: 'Start here' })}
                   </span>
                 ) : (
                   <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
