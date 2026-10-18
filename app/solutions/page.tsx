@@ -5,7 +5,7 @@ import { CTASection } from '@/components/cta-section';
 import { VerdictLine } from '@/components/verdict-line';
 import { SolutionCards } from '@/components/solution-cards';
 import { PlatformSection } from '@/components/platform-section';
-import { PlatformHub } from '@/components/platform-hub';
+import { PlatformHub, capture } from '@/components/platform-hub';
 import { RevealOnScroll } from '@/components/animations';
 import { accounts } from '@/data/solutions';
 import { byMode, CTA, DEMO_HREF, PRIMARY_HREF, SITE_URL } from '@/lib/site';
@@ -66,8 +66,8 @@ export default function SolutionsPage() {
               activeSlug=""
               frameOnly
               imageOverride={{
-                light: '/pages/solutions_light.png',
-                dark: '/pages/solutions_dark.png',
+                light: capture('/pages/solutions_light.png'),
+                dark: capture('/pages/solutions_dark.png'),
                 title: 'A case on Lexli',
                 alt: 'A case record on Lexli: parties, acts, and hearing history on one page',
               }}

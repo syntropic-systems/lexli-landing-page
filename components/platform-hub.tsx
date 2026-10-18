@@ -36,20 +36,31 @@ const HUB_TOOLS: HubTool[] = allTools.map((tool) => ({
 }));
 
 /**
+ * Bump on every recapture. The captures keep their filenames, and next/image
+ * caches its optimised copies by URL (locally in dist/cache/images, on Vercel
+ * at the edge), so a new file under an old name keeps serving the old pixels
+ * until the URL changes.
+ */
+export const CAPTURES_VERSION = '2026-10-19';
+
+/** A /public capture path with the cache-busting version attached. */
+export const capture = (path: string) => `${path}?v=${CAPTURES_VERSION}`;
+
+/**
  * slug → light/dark screenshot paths under /public/tools. A tool without an
  * entry falls back to the skeleton.
  */
 const TOOL_IMAGES: Record<string, { light: string; dark: string }> = {
-  calendar: { light: '/tools/calendar_light.png', dark: '/tools/calendar_dark.png' },
-  'smart-drafting': { light: '/tools/drafting_light.png', dark: '/tools/drafting_dark.png' },
-  'efiling-assembly': { light: '/tools/efiling_light.png', dark: '/tools/efiling_dark.png' },
-  'case-status': { light: '/tools/case_status_light.png', dark: '/tools/case_status_dark.png' },
-  'legal-translator': { light: '/tools/translator_light.png', dark: '/tools/translator_dark.png' },
-  'document-scanner': { light: '/tools/scanner_light.png', dark: '/tools/scanner_dark.png' },
+  calendar: { light: capture('/tools/calendar_light.png'), dark: capture('/tools/calendar_dark.png') },
+  'smart-drafting': { light: capture('/tools/drafting_light.png'), dark: capture('/tools/drafting_dark.png') },
+  'efiling-assembly': { light: capture('/tools/efiling_light.png'), dark: capture('/tools/efiling_dark.png') },
+  'case-status': { light: capture('/tools/case_status_light.png'), dark: capture('/tools/case_status_dark.png') },
+  'legal-translator': { light: capture('/tools/translator_light.png'), dark: capture('/tools/translator_dark.png') },
+  'document-scanner': { light: capture('/tools/scanner_light.png'), dark: capture('/tools/scanner_dark.png') },
 };
 
 /** The frame's capture when no tool is active (the homepage hub): the workspace itself. */
-const PLATFORM_IMAGE = { light: '/pages/home_light.png', dark: '/pages/home_dark.png' };
+const PLATFORM_IMAGE = { light: capture('/pages/home_light.png'), dark: capture('/pages/home_dark.png') };
 
 /** Nodes per row: half the tools above the frame, the rest below. */
 const PER_ROW = Math.ceil(HUB_TOOLS.length / 2);
