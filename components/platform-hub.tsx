@@ -36,11 +36,13 @@ const HUB_TOOLS: HubTool[] = allTools.map((tool) => ({
 }));
 
 /**
- * slug → light/dark screenshot paths under /public/tools. Smart Drafting and
- * eFiling Assembly have no captures yet and fall back to the skeleton.
+ * slug → light/dark screenshot paths under /public/tools. A tool without an
+ * entry falls back to the skeleton.
  */
 const TOOL_IMAGES: Record<string, { light: string; dark: string }> = {
   calendar: { light: '/tools/calendar_light.png', dark: '/tools/calendar_dark.png' },
+  'smart-drafting': { light: '/tools/drafting_light.png', dark: '/tools/drafting_dark.png' },
+  'efiling-assembly': { light: '/tools/efiling_light.png', dark: '/tools/efiling_dark.png' },
   'case-status': { light: '/tools/case_status_light.png', dark: '/tools/case_status_dark.png' },
   'legal-translator': { light: '/tools/translator_light.png', dark: '/tools/translator_dark.png' },
   'document-scanner': { light: '/tools/scanner_light.png', dark: '/tools/scanner_dark.png' },
