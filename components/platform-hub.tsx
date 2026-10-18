@@ -36,13 +36,12 @@ const HUB_TOOLS: HubTool[] = allTools.map((tool) => ({
 }));
 
 /**
- * slug → light/dark screenshot paths under /public/tools. Smart Drafting, Calendar,
- * and eFiling Assembly have no captures yet and fall back to the skeleton. The Case Status captures
- * predate its rename from Case Finder (the files keep the old name; case_finder2_*
- * is an alternate, kept on disk, not wired) — retake them.
+ * slug → light/dark screenshot paths under /public/tools. Smart Drafting and
+ * eFiling Assembly have no captures yet and fall back to the skeleton.
  */
 const TOOL_IMAGES: Record<string, { light: string; dark: string }> = {
-  'case-status': { light: '/tools/case_finder_light.png', dark: '/tools/case_finder_dark.png' },
+  calendar: { light: '/tools/calendar_light.png', dark: '/tools/calendar_dark.png' },
+  'case-status': { light: '/tools/case_status_light.png', dark: '/tools/case_status_dark.png' },
   'legal-translator': { light: '/tools/translator_light.png', dark: '/tools/translator_dark.png' },
   'document-scanner': { light: '/tools/scanner_light.png', dark: '/tools/scanner_dark.png' },
 };
