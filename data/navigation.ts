@@ -9,12 +9,12 @@
 
 import {
   Building2,
-  CalendarClock,
+  CalendarDays,
   ClipboardList,
-  FileUp,
+  FilePen,
   Landmark,
   Languages,
-  PenLine,
+  NotebookPen,
   ScanLine,
   UserRound,
   type LucideIcon,
@@ -57,19 +57,19 @@ export const platformSections: NavLink[] = [
 export const allTools: NavLink[] = [
   {
     label: "Calendar",
-    icon: CalendarClock,
+    icon: CalendarDays,
     href: "/tools/calendar",
     description: "Your cases, the cause list, and the display board, for any day.",
   },
   {
     label: "Smart Drafting",
-    icon: PenLine,
+    icon: NotebookPen,
     href: "/tools/smart-drafting",
     description: "Asked for in chat, written from the case papers, revised by you.",
   },
   {
     label: "eFiling Assembly",
-    icon: FileUp,
+    icon: FilePen,
     href: "/tools/efiling-assembly",
     description: "The packet assembled, indexed, and reviewed by you before it goes.",
   },
