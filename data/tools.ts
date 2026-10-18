@@ -106,7 +106,7 @@ export const tools: ToolPage[] = [
       {
         title: 'Read the day',
         description:
-          'Your cases by court date and where each sits on the list. On the day, the display board shows which item each court room is hearing now.',
+          'Your cases by court date, where each sits on the list, and the item each court room is hearing now.',
         image: '/tools/steps/daily_board_03.png',
       },
       {
@@ -482,13 +482,13 @@ export const tools: ToolPage[] = [
       {
         title: 'Ask, and it drafts',
         description:
-          "In chat, with the case in focus: say what you need. The draft is written from the case's own files and opens as a Word document beside the chat.",
+          "Say what you need in chat. The draft is written from the case's files and opens beside the chat.",
         image: '/tools/steps/drafting_01.png',
       },
       {
         title: 'Revise it in conversation',
         description:
-          '"Make paragraph 4 firmer." "Put the hearing dates in a table." Each change arrives as a tracked suggestion: accept it, reject it, or switch on Auto edits.',
+          '"Make paragraph 4 firmer." Each change arrives as a tracked suggestion for you to accept or reject.',
         image: '/tools/steps/drafting_02.png',
       },
       {
