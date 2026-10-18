@@ -28,7 +28,7 @@ export function CaseFinderShowcase({ frozen }: { frozen?: number } = {}) {
 
   return (
     <div ref={ref}>
-      <ShowcaseFrame title="Case Finder">
+      <ShowcaseFrame title="Case Status">
         <div className="flex flex-col gap-3 p-4">
           {/* Search bar */}
           <div className="flex items-center gap-2 rounded-lg border border-border/60 bg-background/60 px-3 py-2">

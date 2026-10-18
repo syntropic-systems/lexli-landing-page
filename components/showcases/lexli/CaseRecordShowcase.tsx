@@ -23,9 +23,9 @@ const STEP_DELAYS = [0, 500, 900, 900, 700, 700, 900, 900, 1000];
 const RESET_DELAY = 4200;
 
 const CASE_FILES = [
-  { name: "order_14-Jul_certified.pdf", source: "via Case Finder" },
+  { name: "order_14-Jul_certified.pdf", source: "via Case Status" },
   { name: "annexure-A_scan.pdf", source: "via Scanner" },
-  { name: "reply-draft.docx", source: "via Drafting" },
+  { name: "reply-draft.docx", source: "via AI Assistant" },
 ];
 
 export function CaseRecordShowcase({ frozen }: { frozen?: number } = {}) {

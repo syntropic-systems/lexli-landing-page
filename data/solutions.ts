@@ -104,7 +104,7 @@ export const solutionPages: SolutionPage[] = [
           {
             icon: MoonStar,
             label: 'The evening before.',
-            text: 'The board has already built itself from the published cause lists: every court, with the last orders attached. You read it; you do not assemble it.',
+            text: 'The calendar has already built tomorrow from the published cause lists: every court, with the last orders attached. You read it; you do not assemble it.',
           },
           {
             icon: Sunrise,
@@ -127,20 +127,14 @@ export const solutionPages: SolutionPage[] = [
         kind: 'routing',
         eyebrow: 'Where to start',
         title: 'Start free. The rest is already there.',
-        // Sequence = the advocate's on-ramp: the free doors first in the
+        // Sequence = the advocate's on-ramp: the front doors first in the
         // order the day meets them, the record they feed, then depth, with
         // the Assistant last as the "or just ask" exit.
         links: [
           {
-            label: 'Daily Board',
-            description: 'Tomorrow’s hearings, built for you. Free.',
-            href: '/tools/daily-board',
-            free: true,
-          },
-          {
-            label: 'Case Finder',
-            description: 'Any case, found and kept. Free.',
-            href: '/tools/case-finder',
+            label: 'Case Status',
+            description: 'Any case, found and kept.',
+            href: '/tools/case-status',
             free: true,
           },
           {
@@ -161,17 +155,17 @@ export const solutionPages: SolutionPage[] = [
             href: '/platform#case-management',
           },
           {
-            label: 'eFiling Support',
-            href: '/tools/efiling-support',
+            label: 'Calendar',
+            description: 'Tomorrow’s hearings, built for you.',
+            href: '/platform#calendar',
           },
           {
-            label: 'Drafting',
-            description: 'The details filled in before you begin.',
-            href: '/tools/drafting',
+            label: 'eFiling Assembly',
+            href: '/tools/efiling-assembly',
           },
           {
             label: 'AI Assistant',
-            description: 'The whole platform, asked a question.',
+            description: 'The whole platform, asked a question. Drafts included.',
             href: '/platform#ai-assistant',
           },
           {
@@ -186,7 +180,7 @@ export const solutionPages: SolutionPage[] = [
       },
     ],
     finalCta: {
-      headline: "Tomorrow's board is a good place to start.",
+      headline: "Tomorrow's calendar is a good place to start.",
       subhead: 'Create a free account, add your name, and see it built.',
     },
   },
@@ -234,7 +228,7 @@ export const solutionPages: SolutionPage[] = [
           {
             title: 'Every tool, same record',
             description:
-              "The board for every advocate in the firm, drafting from the firm's case files, research grounded in the firm's own record.",
+              "The calendar for every advocate in the firm, drafting from the firm's case files, research grounded in the firm's own record.",
           },
         ],
         closer: 'Nothing migrates first.',
@@ -255,7 +249,7 @@ export const solutionPages: SolutionPage[] = [
           {
             icon: FolderSearch,
             label: 'Businesses without lawyers on staff.',
-            text: 'A company does not need a legal department to be in court. Case Finder and Case Management give a business its own record of every case it is party to: status, hearing history, orders as they publish, without calling anyone to ask.',
+            text: 'A company does not need a legal department to be in court. Case Status and Case Management give a business its own record of every case it is party to: status, hearing history, orders as they publish, without calling anyone to ask.',
           },
           {
             icon: Handshake,
@@ -324,7 +318,7 @@ export const solutionPages: SolutionPage[] = [
           {
             icon: CalendarClock,
             label: 'Keeping the board',
-            text: 'The Daily Board builds itself from the published cause lists; your clerk confirms it instead of assembling it.',
+            text: 'The Calendar builds tomorrow from the published cause lists; your clerk confirms it instead of assembling it.',
           },
           {
             icon: ScanLine,

@@ -1,14 +1,17 @@
 "use client";
 
-import { CalendarClock, FileText, Loader2 } from "lucide-react";
+import { CalendarClock, Loader2, Radio } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { AnimatedItem } from "../AnimatedItem";
 import { useInView } from "../useInView";
 import { useStepAnimation } from "../useStepAnimation";
 import { ShowcaseFrame } from "../ShowcaseFrame";
 
-// 0=idle, 1=pulling lists, 2..5=entries landing one per court, 6=export row
+// 0=idle, 1=reading lists, 2..5=entries landing one per court, 6=display board row
 const STEP_DELAYS = [0, 400, 1100, 800, 800, 800, 900];
 const RESET_DELAY = 4000;
+
+const tabs = ["Cases", "Cause List", "Display Board"];
 
 const entries = [
   {
@@ -38,18 +41,35 @@ const entries = [
 ];
 
 /**
- * The board assembling itself from published cause lists — the Daily Board's
- * whole claim, shown rather than asserted.
+ * The day assembling itself: the cause list read in, then the court's live
+ * display board answering "how far off is mine" — the Calendar's claim,
+ * shown rather than asserted. The tab strip names the three views.
  */
-export function DailyBoardShowcase({ frozen }: { frozen?: number } = {}) {
+export function CalendarShowcase({ frozen }: { frozen?: number } = {}) {
   const { ref, inView } = useInView();
   const step = useStepAnimation(STEP_DELAYS, RESET_DELAY, frozen, !inView);
 
   return (
     <div ref={ref}>
-      <ShowcaseFrame title="Daily Board · Wednesday, 12 August">
+      <ShowcaseFrame title="Calendar · Wednesday, 12 August">
         <div className="flex flex-col gap-2 p-4">
-          {/* Status line: pulling → built */}
+          <div className="flex gap-1 pb-1">
+            {tabs.map((tab) => (
+              <span
+                key={tab}
+                className={cn(
+                  "rounded-md px-2 py-1 text-[10px] font-medium",
+                  tab === "Cause List"
+                    ? "bg-primary/10 text-primary"
+                    : "text-muted-foreground"
+                )}
+              >
+                {tab}
+              </span>
+            ))}
+          </div>
+
+          {/* Status line: reading → built */}
           <div className="flex items-center gap-2 pb-1 text-[11px] text-muted-foreground">
             {step < 2 ? (
               <>
@@ -83,8 +103,8 @@ export function DailyBoardShowcase({ frozen }: { frozen?: number } = {}) {
 
           <AnimatedItem visible={step >= 6}>
             <div className="mt-1 flex items-center gap-2 rounded-lg border border-dashed border-primary/40 bg-primary/5 px-2.5 py-2 text-[11px] text-primary">
-              <FileText className="h-3 w-3" />
-              <span>Exported: board-12-Aug.pdf, with the last orders attached</span>
+              <Radio className="h-3 w-3" />
+              <span>Display board: Court 21 is on item 9. Yours is 12.</span>
             </div>
           </AnimatedItem>
         </div>

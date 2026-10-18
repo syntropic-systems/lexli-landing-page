@@ -1,8 +1,7 @@
 import type { ReactNode } from 'react';
 import { createElement } from 'react';
-import { DailyBoardShowcase } from './lexli/DailyBoardShowcase';
+import { CalendarShowcase } from './lexli/CalendarShowcase';
 import { TranslationShowcase } from './lexli/TranslationShowcase';
-import { DraftingShowcase } from './lexli/DraftingShowcase';
 import { AssistantShowcase } from './lexli/AssistantShowcase';
 import { CaseFinderShowcase } from './lexli/CaseFinderShowcase';
 import { ScannerShowcase } from './lexli/ScannerShowcase';
@@ -14,9 +13,8 @@ import { CaseRecordShowcase } from './lexli/CaseRecordShowcase';
 export { ShowcaseFrame } from './ShowcaseFrame';
 export { AnimatedItem } from './AnimatedItem';
 export {
-  DailyBoardShowcase,
+  CalendarShowcase,
   TranslationShowcase,
-  DraftingShowcase,
   AssistantShowcase,
   CaseFinderShowcase,
   ScannerShowcase,
@@ -29,17 +27,13 @@ export {
 /** Hero visual per tool — every tool page now carries one. */
 export function getToolVisual(slug: string): ReactNode | undefined {
   switch (slug) {
-    case 'daily-board':
-      return createElement(DailyBoardShowcase);
-    case 'case-finder':
+    case 'case-status':
       return createElement(CaseFinderShowcase);
     case 'legal-translator':
       return createElement(TranslationShowcase);
     case 'document-scanner':
       return createElement(ScannerShowcase);
-    case 'drafting':
-      return createElement(DraftingShowcase);
-    case 'efiling-support':
+    case 'efiling-assembly':
       return createElement(EfilingShowcase);
     default:
       return undefined;

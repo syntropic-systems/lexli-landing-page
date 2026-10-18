@@ -28,7 +28,7 @@ export const platformHero = {
 /** The thesis strip under the hero. No heading on the page — this is the argument. */
 export const platformThesis = [
   'Point tools make you re-upload the same file and re-type the same party names. The parties are already in the file. Lexli takes them from there.',
-  "Tomorrow's board updates itself because the platform already tracks your cases. Drafts arrive pre-filled because it knows the case type and the parties. eFiling packets assemble because the scanned pages are already OCR'd, merged, and indexed.",
+  "Tomorrow's calendar fills itself because the platform already tracks your cases. Drafts arrive pre-filled because it knows the case type and the parties. eFiling packets assemble because the scanned pages are already OCR'd, merged, and indexed.",
   'That is the difference between a bundle of tools and a workspace.',
 ];
 
@@ -53,7 +53,7 @@ export const spine: PlatformSection = {
     {
       title: 'Start from anywhere',
       description:
-        'Create a case with your own details, or find it once in Case Finder and add it with its court record attached.',
+        'Create a case with your own details, or find it once in Case Status and add it with its court record attached.',
     },
     {
       title: 'Your numbering, not ours',
@@ -68,6 +68,46 @@ export const spine: PlatformSection = {
   ],
 };
 
+/**
+ * Calendar — what the Daily Board grew into (October 2026): the cases, the
+ * cause list, and the court's display board for a day, in one view. Sits
+ * beside the spine because it reads the same case record.
+ */
+export const calendar: PlatformSection = {
+  id: 'calendar',
+  eyebrow: 'Calendar — the day before the court',
+  headline: 'Everything before the court, for any day.',
+  body: [
+    'The Daily Board used to be a list you opened. It is now the Calendar: your own cases by their court date, the cause list for every advocate you follow, and, on the day itself, the court’s display board, all in one place. It reads the same case record as everything else, so a case you add today shows up on its next date.',
+  ],
+  features: [
+    {
+      title: 'Your cases, by court date',
+      description: 'Every case on its next date, across the week or the month.',
+    },
+    {
+      title: 'The cause list, built nightly',
+      description:
+        'From the lists courts publish, for every advocate you add: High Courts, District Courts, and the MAT, CAT, and DRT.',
+    },
+    {
+      // conservative: display boards are read for the Bombay High Court's
+      // benches only, so the claim names them.
+      title: 'The display board, live',
+      description:
+        'On the day, which item each court room is hearing now, read from the court’s own board. Bombay High Court benches today.',
+    },
+    {
+      title: 'Court holidays, marked',
+      description: 'Closed days are greyed out, with the reason the court gave.',
+    },
+    {
+      title: 'Pins and notes on the day',
+      description: 'Pin a case and note it on its card; the note stays with the case.',
+    },
+  ],
+};
+
 export const intelligenceTransition =
   'A record is only useful if you can ask it questions. This is the layer that reads and answers.';
 
@@ -77,7 +117,7 @@ export const intelligenceLayer: PlatformSection[] = [
     eyebrow: 'AI Assistant — the orchestrator',
     headline: 'One assistant that can use every tool.',
     body: [
-      'The AI Assistant is where daily work happens. Ask about a case and it answers from that case’s actual files. Ask for a draft or a translation and it runs the right Lexli tool itself, inside the same conversation. You ask once; it brings the tool to you.',
+      'The AI Assistant is where daily work happens. Ask about a case and it answers from that case’s actual files. Ask for a draft and it writes one from the record, beside the chat. Ask for a translation and it runs the right Lexli tool itself, inside the same conversation. You ask once; it brings the tool to you.',
     ],
     features: [
       {
@@ -86,9 +126,16 @@ export const intelligenceLayer: PlatformSection[] = [
           'Point it at a case and it works from the record: files, orders, hearing history.',
       },
       {
+        // Drafting was a tool page until October 2026; in the product it is
+        // asked for in chat, so it lives here now.
+        title: 'Drafts from the record',
+        description:
+          'Ask for the application or the reply and it arrives with the parties, the court, and the case details already in it, open beside the chat for you to edit.',
+      },
+      {
         title: 'Runs the tools for you',
         description:
-          'Drafting, Legal Translator, Case Finder, and the rest, called from inside your chat, output handed back to you.',
+          'Legal Translator, Document Scanner, Case Status, and the rest, called from inside your chat, output handed back to you.',
       },
       {
         title: 'Upload and ask',
@@ -112,7 +159,7 @@ export const intelligenceLayer: PlatformSection[] = [
     // Prose only, no bullets — this is the moat argument, not a checklist.
     body: [
       'Legal files do not arrive clean. They arrive as scanned annexures, stamped pages, tables inside affidavits, and hundred-page executed agreements, with a stamp across the signature block. Lexli’s document intelligence is built for exactly this. It reads text, tables, images and stamps, and long legal content from PDFs, forms, contracts, and amendments, and turns them into clean, structured data the software can actually use.',
-      'This is the layer everything else stands on. The board updates itself because your cases are already understood. Drafts arrive pre-filled because the platform knows the case type and the parties. eFiling packets assemble because the scanned pages are already OCR’d, merged, and indexed.',
+      'This is the layer everything else stands on. The calendar fills itself because your cases are already understood. Drafts arrive pre-filled because the platform knows the case type and the parties. eFiling packets assemble because the scanned pages are already OCR’d, merged, and indexed.',
     ],
   },
   {
@@ -215,8 +262,8 @@ export const integrations = {
   body: [
     'Lexli connects to the official systems your practice already depends on, so nothing has to be rebuilt to start.',
     // conservative: coverage narrowed to what is confirmed available today.
-    'Case status, orders, hearing history, and party details come from official court records, by case number or advocate name, across High Courts and District Courts. Supreme Court and Tribunal coverage, and search by CNR or party name, are scheduled.',
-    'Cause lists are pulled as courts publish them, so tomorrow’s board is built from the real list rather than yesterday’s copy of it.',
+    'Case status, orders, hearing history, and party details come from official court records, by case number or advocate name, across High Courts, District Courts, and Tribunals (MAT, CAT, and DRT). Supreme Court coverage, and search by CNR or party name, are scheduled.',
+    'Cause lists are pulled as courts publish them, so tomorrow’s calendar is built from the real list rather than yesterday’s copy of it. The Bombay High Court’s display boards are read live.',
     'eFiling packets are prepared to the format each portal expects and submitted through your own credentials. The eDraft is reviewed and approved by you before anything leaves the platform.',
   ],
   consentLine: 'Lexli prepares. You decide.',

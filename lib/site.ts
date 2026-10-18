@@ -88,5 +88,5 @@ export const CTA = {
   bookDemo: "Book a demo",
   talkToUs: "Talk to us",
   explorePlatform: "Explore the platform",
-  seeAllTools: "See all six tools",
+  seeAllTools: "See all four tools",
 } as const;

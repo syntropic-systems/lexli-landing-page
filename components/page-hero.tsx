@@ -23,7 +23,7 @@ function CtaLink({ href, children, ...rest }: { href: string; children: ReactNod
 interface PageHeroProps {
     title: ReactNode;
     description?: ReactNode;
-    /** Small uppercase label above the title — "Daily Board · Free on Lexli". */
+    /** Small uppercase label above the title — "Case Status · A Lexli tool". */
     eyebrow?: string;
     primaryCta?: { text: string; href: string };
     secondaryCta?: { text: string; href: string };

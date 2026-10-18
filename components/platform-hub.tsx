@@ -7,9 +7,9 @@ import { allTools } from '@/data/navigation';
 
 /**
  * The tool-in-the-platform diagram: a 16:9 product frame at the centre (the
- * active tool's screen), three tool nodes above and three below, connector
+ * active tool's screen), half the tool nodes above and half below, connector
  * lines running into the frame. The active node keeps the marching-dash line;
- * the other five link across — the tool pages' only cross-navigation.
+ * the others link across — the tool pages' only cross-navigation.
  *
  * Screenshots: light/dark 16:9 captures live in /public/tools and are
  * registered in TOOL_IMAGES (per tool) and PLATFORM_IMAGE (homepage, no
@@ -26,7 +26,7 @@ type HubTool = {
 /**
  * Derived from the site-wide tool order (data/navigation) so the hub can never
  * drift out of sequence with the nav, footer, and grids — icons included.
- * First three render above the frame, last three below.
+ * First half render above the frame, the rest below.
  */
 const HUB_TOOLS: HubTool[] = allTools.map((tool) => ({
   slug: tool.href.split('/').pop() ?? '',
@@ -36,13 +36,13 @@ const HUB_TOOLS: HubTool[] = allTools.map((tool) => ({
 }));
 
 /**
- * slug → light/dark screenshot paths under /public/tools. Drafting and eFiling
- * have no captures yet and fall back to the skeleton. (case_finder2_* is an
- * alternate Case Finder capture, kept on disk, not wired.)
+ * slug → light/dark screenshot paths under /public/tools. eFiling Assembly has
+ * no capture yet and falls back to the skeleton. The Case Status captures
+ * predate its rename from Case Finder (the files keep the old name; case_finder2_*
+ * is an alternate, kept on disk, not wired) — retake them.
  */
 const TOOL_IMAGES: Record<string, { light: string; dark: string }> = {
-  'daily-board': { light: '/tools/daily_board_light.png', dark: '/tools/daily_board_dark.png' },
-  'case-finder': { light: '/tools/case_finder_light.png', dark: '/tools/case_finder_dark.png' },
+  'case-status': { light: '/tools/case_finder_light.png', dark: '/tools/case_finder_dark.png' },
   'legal-translator': { light: '/tools/translator_light.png', dark: '/tools/translator_dark.png' },
   'document-scanner': { light: '/tools/scanner_light.png', dark: '/tools/scanner_dark.png' },
 };
@@ -50,9 +50,15 @@ const TOOL_IMAGES: Record<string, { light: string; dark: string }> = {
 /** The frame's capture when no tool is active (the homepage hub): the workspace itself. */
 const PLATFORM_IMAGE = { light: '/pages/home_light.png', dark: '/pages/home_dark.png' };
 
-/** Node centres and frame attach points, in % of the connector strip width. */
-const NODE_X = [16.66, 50, 83.33];
-const FRAME_X = [32, 50, 68];
+/** Nodes per row: half the tools above the frame, the rest below. */
+const PER_ROW = Math.ceil(HUB_TOOLS.length / 2);
+
+/** Node centres (the middle of each equal grid column) and frame attach
+ * points (spread across the frame's middle 36%), in % of the strip width. */
+const NODE_X = Array.from({ length: PER_ROW }, (_, i) => ((i + 0.5) * 100) / PER_ROW);
+const FRAME_X = Array.from({ length: PER_ROW }, (_, i) =>
+  PER_ROW === 1 ? 50 : 32 + (36 * i) / (PER_ROW - 1)
+);
 
 function ConnectorStrip({
   tools,
@@ -99,7 +105,7 @@ function ConnectorStrip({
 
 function NodeRow({ tools, activeSlug }: { tools: HubTool[]; activeSlug: string }) {
   return (
-    <div className="grid grid-cols-3">
+    <div className="grid" style={{ gridTemplateColumns: `repeat(${PER_ROW}, minmax(0, 1fr))` }}>
       {tools.map((tool) => {
         const isActive = tool.slug === activeSlug;
         const node = (
@@ -172,8 +178,8 @@ export function PlatformHub({
    * should show something other than the workspace hub or a tool. */
   imageOverride?: { light: string; dark: string; title: string; alt: string };
 }) {
-  const topTools = HUB_TOOLS.slice(0, 3);
-  const bottomTools = HUB_TOOLS.slice(3);
+  const topTools = HUB_TOOLS.slice(0, PER_ROW);
+  const bottomTools = HUB_TOOLS.slice(PER_ROW);
   // No active tool → the platform capture; a tool without a capture → skeleton.
   const image = imageOverride ?? (activeSlug ? TOOL_IMAGES[activeSlug] : PLATFORM_IMAGE);
   const activeTool = HUB_TOOLS.find((tool) => tool.slug === activeSlug);
@@ -266,7 +272,7 @@ export function PlatformHub({
             href="/tools"
             className="inline-flex items-center gap-1 text-sm font-semibold text-primary"
           >
-            One record, six tools. See the rest
+            One record, four tools. See the rest
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         )}

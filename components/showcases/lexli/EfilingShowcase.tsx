@@ -23,7 +23,7 @@ export function EfilingShowcase({ frozen }: { frozen?: number } = {}) {
 
   return (
     <div ref={ref}>
-      <ShowcaseFrame title="eFiling Support">
+      <ShowcaseFrame title="eFiling Assembly">
         <div className="flex flex-col gap-3 p-4">
           <AnimatedItem visible={step >= 1}>
             <div className="inline-flex items-center gap-1.5 rounded-md bg-secondary px-2 py-1 text-[10px] font-medium text-secondary-foreground">

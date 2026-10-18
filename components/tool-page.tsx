@@ -10,7 +10,7 @@ import { CTA, PRIMARY_HREF, DEMO_HREF } from '@/lib/site';
 import type { ToolPage as ToolPageContent } from '@/data/tools';
 
 /**
- * One composition for all six tool pages. The two kinds differ only in how they
+ * One composition for all four tool pages. The two kinds differ only in how they
  * ask for the next step: a front door sells a free account, an inside tool sells
  * the workspace.
  */

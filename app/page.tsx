@@ -56,9 +56,9 @@ export default function Home() {
         description="Lexli holds your cases, hearings, files, and drafts in one place, organised by case, connected to the courts. Ask anything of your own record, and the AI assistant answers with citations you can check."
         pointers={[
           "Case Management",
-          "eFiling & Drafting Support",
-          "Research with AI",
-          "Everyday tools",
+          "Court calendar",
+          "eFiling Assembly",
+          "Drafting & research with AI",
         ]}
         primaryCta={{ text: CTA.startFree, href: PRIMARY_HREF }}
         secondaryCta={{ text: CTA.explorePlatform, href: "/platform" }}
@@ -69,7 +69,7 @@ export default function Home() {
       <Section
         header={<Eyebrow>The platform</Eyebrow>}
         title="One case record, underneath everything."
-        description="The platform holds the cases, files, hearings, and context. Every tool draws from it, which is why the board knows your day, drafts arrive filled in, and a scan is ready for filing before filing comes up."
+        description="The platform holds the cases, files, hearings, and context. Every tool draws from it, which is why the calendar knows your day, drafts arrive filled in, and a scan is ready for filing before filing comes up."
       >
         <RevealOnScroll direction="up" delay={0.1} duration={0.7}>
           <PlatformHub activeSlug="" frameOnly />
@@ -98,12 +98,12 @@ export default function Home() {
         </RevealOnScroll>
       </Section>
 
-      {/* The lineup in two rows: the platform tools first, the free doors
-          under them with their badges. */}
+      {/* The lineup in two rows: the platform tool first, the front doors
+          under it. */}
       <Section
         header={<Eyebrow>The tools</Eyebrow>}
-        title="Six tools. Start with the one you need."
-        description="Drafting and eFiling run on the platform's record. The other four are free: a free account and the tool you needed anyway."
+        title="Four tools. Start with the one you need."
+        description="Each works on its own, and each works from the same case record. Drafting lives in the AI Assistant: ask for it in chat."
       >
         <RoutingPillGroups groups={toolRoutingGroups()} />
         <RevealOnScroll direction="up" delay={0.15} duration={0.6}>

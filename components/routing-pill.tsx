@@ -92,7 +92,7 @@ export function RoutingPillGroups({ groups }: { groups: RoutingPillGroup[] }) {
 }
 
 /**
- * The six-tool roll-call as pill groups, shared by the homepage and the
+ * The tool roll-call as pill groups, shared by the homepage and the
  * platform closing: platform tools first, the free front doors under them
  * with their badges — same split the copy on both pages narrates.
  */

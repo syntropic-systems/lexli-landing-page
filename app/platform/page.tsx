@@ -12,10 +12,12 @@ import { RevealOnScroll } from '@/components/animations';
 import {
   AdvancedSearchShowcase,
   AssistantShowcase,
+  CalendarShowcase,
   CaseRecordShowcase,
   DocumentIntelligenceShowcase,
 } from '@/components/showcases';
 import {
+  calendar,
   integrations,
   intelligenceLayer,
   intelligenceTransition,
@@ -89,6 +91,10 @@ export default function PlatformPage() {
         variant="muted"
         visual={<CaseRecordShowcase />}
       />
+
+      {/* The spine's daily face — the same record, read by court date.
+          reverse: visual left, alternating with the spine above. */}
+      <PlatformSection section={calendar} visual={<CalendarShowcase />} reverse />
 
       {/* Group 2 — the intelligence layer. The transition line is an intro to
           the group that follows, so its section drops the bottom padding and
@@ -218,7 +224,7 @@ export default function PlatformPage() {
           descriptions and badges; this is the roll-call that cashes out the
           page's argument, in the hub's node-tile language. */}
       <Section
-        title="And six tools that live inside it."
+        title="And four tools that live inside it."
         description="Each one works on its own. Each one works better here, because it shares the platform's cases, files, and context."
         header={
           <RevealOnScroll direction="up" duration={0.6}>

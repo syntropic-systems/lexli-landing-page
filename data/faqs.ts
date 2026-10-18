@@ -23,7 +23,7 @@ export const faqGroups: FaqGroup[] = [
         answer:
           // "Front-door tools" was internal jargon that no longer appears
           // anywhere on the site now the tools grid is one list.
-          'There is a free account, and it is where everyone starts. It covers Daily Board, Case Finder, Legal Translator, and Document Scanner. Paid plans add the rest of the workspace and team access.',
+          'There is a free account, and it is where everyone starts. It covers Case Status, Legal Translator, and Document Scanner. Paid plans add the rest of the workspace and team access.',
       },
       {
         question: 'What do I need to start?',
@@ -33,7 +33,7 @@ export const faqGroups: FaqGroup[] = [
       {
         question: 'Do I have to move my old cases in before Lexli is useful?',
         answer:
-          "No. Add one case and the workspace is useful for that case. Most people start with tomorrow's board, because it takes a name and a court and nothing else.",
+          "No. Add one case and the workspace is useful for that case. Most people start with tomorrow's calendar, because it takes a name and a court and nothing else.",
       },
       {
         question: 'Which devices does it work on?',
@@ -49,12 +49,12 @@ export const faqGroups: FaqGroup[] = [
         question: 'Which courts does Lexli cover?',
         // conservative: matches the site-wide coverage claim exactly.
         answer:
-          'Case records come from official court records across High Courts and District Courts, searchable by case number or advocate name: status, parties, acts, orders and judgements, and hearing history. Supreme Court and Tribunal coverage, and search by CNR or party name, are scheduled.',
+          'Case records come from official court records across High Courts, District Courts, and Tribunals (MAT, CAT, and DRT), searchable by case number or advocate name: status, parties, acts, orders and judgements, and hearing history. Supreme Court coverage, and search by CNR or party name, are scheduled.',
       },
       {
-        question: 'Where does the Daily Board get its data?',
+        question: 'Where does the Calendar get its data?',
         answer:
-          'From the cause lists the courts publish. The board builds itself daily and covers multiple advocates and multiple courts together.',
+          'From the cause lists the courts publish, built nightly for every advocate you add, across multiple courts together. On the day, it also reads the Bombay High Court’s display boards live.',
       },
       {
         question: 'Does Lexli file cases for me?',
@@ -84,7 +84,7 @@ export const faqGroups: FaqGroup[] = [
       {
         question: 'What languages does it work in?',
         answer:
-          'Documents translate between English, Hindi, and Marathi, with nine more Indian languages scheduled: Bengali, Gujarati, Tamil, Telugu, Kannada, Malayalam, Punjabi, Odia, and Assamese. Drafting works in English, Hindi, and Marathi.',
+          'Documents translate between English, Hindi, and Marathi, with nine more Indian languages scheduled: Bengali, Gujarati, Tamil, Telugu, Kannada, Malayalam, Punjabi, Odia, and Assamese.',
       },
     ],
   },

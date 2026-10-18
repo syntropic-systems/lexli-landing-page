@@ -8,8 +8,6 @@
 
 import type { ComponentType } from 'react';
 import {
-  CalendarClock,
-  CalendarDays,
   Clock,
   Columns2,
   FileCheck,
@@ -18,7 +16,6 @@ import {
   FilePenLine,
   FileStack,
   FileText,
-  Fingerprint,
   FolderInput,
   FolderOpen,
   FolderPlus,
@@ -26,18 +23,11 @@ import {
   KeyRound,
   Landmark,
   Layers,
-  LayoutTemplate,
   Languages,
   MessagesSquare,
-  Mic,
-  Paperclip,
-  ScrollText,
   Search,
   Smartphone,
-  SpellCheck,
   Upload,
-  UserRound,
-  Users,
 } from 'lucide-react';
 
 export type ToolKind = 'front-door' | 'inside';
@@ -71,126 +61,28 @@ export type ToolPage = {
 
 export const tools: ToolPage[] = [
   {
-    slug: 'daily-board',
-    name: 'Daily Board',
+    slug: 'case-status',
+    name: 'Case Status',
     kind: 'front-door',
-    eyebrow: 'Daily Board · Free on Lexli',
+    eyebrow: 'Case Status · A Lexli tool',
     seo: {
-      title: "Daily Board - tomorrow's cause list",
+      title: "Case Status - check a case's status",
       description:
-        "Your board for tomorrow, built from official cause lists: every court you appear in, every advocate in your office, with the latest orders attached. Free on Lexli.",
-    },
-    hero: {
-      headline: "Tomorrow's board, ready before you are.",
-      // conservative: draft claimed continuous verification as lists change —
-      // reduced to what the board is built from until reconciliation is confirmed.
-      subhead:
-        'Lexli builds your board from the cause lists courts publish: every court you appear in, every advocate in your office. Which case, which court, which item.',
-    },
-    steps: [
-      {
-        title: 'Add names and courts',
-        description:
-          'One advocate or the whole office: every court any of you appears in, on a single board.',
-        image: '/tools/steps/daily_board_01.png',
-      },
-      {
-        title: 'The board runs itself',
-        description:
-          'Auto-scheduled, daily, built from the official cause lists, so you are not rebuilding it each evening.',
-        image: '/tools/steps/daily_board_02.png',
-      },
-      {
-        title: 'Open any entry',
-        description:
-          "The case's latest orders, the opposition advocate's details, and the timetable: which case, where, when.",
-        image: '/tools/steps/daily_board_03.png',
-      },
-      {
-        title: 'Take it with you',
-        description:
-          'Export as PDF or doc, order files attached, or ask the AI Assistant for it in chat.',
-        image: '/tools/steps/daily_board_04.png',
-      },
-    ],
-    features: [
-      {
-        icon: CalendarClock,
-        title: 'Auto-run, every day',
-        description: 'The board schedules itself; you do not rebuild it each evening.',
-      },
-      {
-        icon: Users,
-        title: 'Multiple advocates, multiple courts',
-        description: "One board for the whole office's appearances.",
-      },
-      {
-        icon: ScrollText,
-        title: 'Built from official cause lists',
-        description: 'The board reflects what the court published, not a copy of a copy.',
-      },
-      {
-        icon: Paperclip,
-        title: 'Latest orders, attached',
-        description: "Each entry carries the case's most recent orders.",
-      },
-      {
-        icon: UserRound,
-        title: 'Opposition details',
-        description: 'The advocate on the other side, named on the entry.',
-      },
-      {
-        icon: CalendarDays,
-        title: 'Case timetable',
-        description: 'Which case, where, and when, in one view.',
-      },
-      {
-        icon: FileDown,
-        title: 'Export with order files',
-        description: 'PDF or doc, including the last orders, ready to print or forward.',
-      },
-      {
-        icon: MessagesSquare,
-        title: 'Available through the AI Assistant',
-        description: '"What is my board for tomorrow" is a question, not a task.',
-      },
-    ],
-    platform: {
-      paragraphs: [
-        'On its own, the Daily Board tells you where to be. Inside Lexli, every entry is a door: tap a case and you are in its record: files, hearing history, notes from the last date. A case you do not have yet can be found in Case Finder and added, court record attached, before tomorrow’s hearing.',
-        'Your evening prep and tomorrow’s board stop being two separate documents.',
-      ],
-      line: 'The board knows your cases because the platform already does.',
-    },
-    finalCta: {
-      headline: "Tomorrow's board is already forming.",
-      subhead: 'Create a free account, add your name, and see it.',
-    },
-  },
-
-  {
-    slug: 'case-finder',
-    name: 'Case Finder',
-    kind: 'front-door',
-    eyebrow: 'Case Finder · Free on Lexli',
-    seo: {
-      title: "Case Finder - check a case's status",
-      description:
-        'Find a case by case number or advocate name across High Courts and District Courts, see its status, parties, hearing history, orders and judgements, and keep its record on Lexli. Free.',
+        'Find a case by case number or advocate name across High Courts, District Courts, and Tribunals, see its status, parties, hearing history, orders and judgements, and keep its record on Lexli.',
     },
     hero: {
       headline: 'Find the case. Keep the record.',
-      // conservative: the draft's own fallback subhead. The wide claim (Supreme
-      // Court, Tribunals, CNR and party-name search) is unconfirmed — those
-      // appear below as scheduled rather than available.
+      // conservative: Tribunals means the three the product reads (MAT, CAT,
+      // DRT). Supreme Court and CNR/party-name search are still unbuilt —
+      // they appear below as scheduled rather than available.
       subhead:
-        'Search by case number or advocate name across High Courts and District Courts, and open the full record: status, parties, acts, orders and judgements, hearing history.',
+        'Search by case number or advocate name across High Courts, District Courts, and Tribunals, and open the full record: status, parties, acts, orders and judgements, hearing history.',
     },
     steps: [
       {
         title: 'Find the case',
         description:
-          'Case number or advocate name, across High Courts and District Courts, whichever detail you have.',
+          'Case number or advocate name, across High Courts, District Courts, and Tribunals, whichever detail you have.',
         image: '/tools/steps/finder_01.png',
       },
       {
@@ -208,7 +100,7 @@ export const tools: ToolPage[] = [
       {
         title: 'Or ask the Assistant',
         description:
-          '"Find the case where…" works. The AI Assistant runs Case Finder from inside a conversation.',
+          '"Find the case where…" works. The AI Assistant runs Case Status from inside a conversation.',
         image: '/tools/steps/finder_04.png',
       },
     ],
@@ -216,13 +108,13 @@ export const tools: ToolPage[] = [
       {
         icon: Search,
         title: 'Search by case number or advocate name',
-        description: 'Across High Courts and District Courts.',
+        description:
+          'Across High Courts, District Courts, and Tribunals: MAT, CAT, and DRT.',
       },
       {
         icon: Clock,
         title: 'CNR and party-name search',
-        description:
-          'Scheduled, along with Supreme Court and Tribunal coverage.',
+        description: 'Scheduled, along with Supreme Court coverage.',
       },
       {
         icon: FileText,
@@ -247,7 +139,7 @@ export const tools: ToolPage[] = [
     ],
     platform: {
       paragraphs: [
-        "Checking a case's status answers today's question. Saving it answers the next hundred: the case joins your workspace, tomorrow's Daily Board picks it up, research starts from its record, and every order that follows lands in its file.",
+        "Checking a case's status answers today's question. Saving it answers the next hundred: the case joins your workspace, your Calendar puts it on its next date, research starts from its record, and every order that follows lands in its file.",
       ],
       line: 'No one should have to find the same case twice.',
     },
@@ -261,11 +153,11 @@ export const tools: ToolPage[] = [
     slug: 'legal-translator',
     name: 'Legal Translator',
     kind: 'front-door',
-    eyebrow: 'Legal Translator · Free on Lexli',
+    eyebrow: 'Legal Translator · A Lexli tool',
     seo: {
       title: 'Legal Translator - judgements in English, Hindi, Marathi',
       description:
-        'Upload or scan a legal document and translate it between English, Hindi, and Marathi, reviewed side by side with the original and exported clean as .doc or .pdf. Free on Lexli.',
+        'Upload or scan a legal document and translate it between English, Hindi, and Marathi, reviewed side by side with the original and exported clean as .doc or .pdf.',
     },
     hero: {
       headline: 'The judgement is in English. Your client reads Marathi.',
@@ -361,11 +253,11 @@ export const tools: ToolPage[] = [
     slug: 'document-scanner',
     name: 'Document Scanner',
     kind: 'front-door',
-    eyebrow: 'Document Scanner · Free on Lexli',
+    eyebrow: 'Document Scanner · A Lexli tool',
     seo: {
       title: 'Document Scanner - from paper to working file',
       description:
-        'Scan from your phone or laptop, digitise the pages into an editable .doc or .pdf, and save it straight to the case. Free on Lexli.',
+        'Scan from your phone or laptop, digitise the pages into an editable .doc or .pdf, and save it straight to the case.',
     },
     hero: {
       headline: 'Paper in, working file out.',
@@ -441,109 +333,12 @@ export const tools: ToolPage[] = [
   },
 
   {
-    slug: 'drafting',
-    name: 'Drafting',
+    slug: 'efiling-assembly',
+    name: 'eFiling Assembly',
     kind: 'inside',
-    eyebrow: 'Drafting · A Lexli platform tool',
+    eyebrow: 'eFiling Assembly · A Lexli platform tool',
     seo: {
-      title: 'Drafting - drafts with the case details already in them',
-      description:
-        'Start from a pre-filled template or a blank page, dictate or type, keep your own drafting conventions, with the parties and case type filled in from the case file.',
-    },
-    hero: {
-      headline: 'Drafts that arrive with the case details already in them.',
-      subhead:
-        'Start from a template or a blank page. If the case is on Lexli, the parties, the court, and the case type are filled in before you begin. You write the argument. The re-typing is over.',
-    },
-    steps: [
-      {
-        title: 'Start the draft',
-        description:
-          "A pre-filled template by case type, or a blank page, with the case's details drawn in from its file.",
-        image: '/tools/steps/drafting_01.png',
-      },
-      {
-        title: 'Write it your way',
-        description:
-          'Type, or dictate with voice-to-text. Auto-correct is backed by a legal dictionary, so "vakalatnama" survives it.',
-        image: '/tools/steps/drafting_02.png',
-      },
-      {
-        title: 'Edit with history',
-        description:
-          'Every version is kept as you go: compare drafts, revert to an earlier one, carry on writing.',
-        image: '/tools/steps/drafting_03.png',
-      },
-      {
-        title: 'Export or file it',
-        description:
-          'Download as .doc or .pdf, or assign it straight to the case file, ready for the record.',
-        image: '/tools/steps/drafting_04.png',
-      },
-    ],
-    features: [
-      {
-        icon: LayoutTemplate,
-        title: 'Pre-filled templates for case types',
-        description: 'The clerical part of a draft done before you open it.',
-      },
-      {
-        icon: Fingerprint,
-        title: 'Your drafting pattern',
-        description: 'Lexli follows how you draft: your structure, your phrasing, your conventions.',
-      },
-      {
-        icon: Languages,
-        title: 'Multilingual drafting',
-        description: 'Draft in English, Hindi, or Marathi.',
-      },
-      {
-        icon: Mic,
-        title: 'Voice-to-text transcription',
-        description: 'Dictate the draft; edit the text.',
-      },
-      {
-        icon: SpellCheck,
-        title: 'Auto-correct with a legal dictionary',
-        description: 'Legal vocabulary treated as vocabulary, not typos.',
-      },
-      {
-        icon: History,
-        title: 'Version history',
-        description: 'Every draft, every revision, kept with the case.',
-      },
-      {
-        icon: FileDown,
-        title: 'Export as .doc or .pdf',
-        description: 'Courts and clients get the format they expect.',
-      },
-      {
-        icon: MessagesSquare,
-        title: 'Available through the AI Assistant',
-        description: 'Ask for a draft in chat; the assistant runs Drafting and hands it back.',
-      },
-    ],
-    platform: {
-      paragraphs: [
-        'Drafting alone saves typing. Drafting inside Lexli saves the part before the typing: the platform has already read the case file, so the parties, the case type, and the court arrive in the draft without being asked for. The finished draft saves to the case, versioned. If it is headed for a portal, eFiling Support takes it from there.',
-        'Nothing is filed until you have read it and said yes.',
-      ],
-      line: 'Lexli prepares. You decide.',
-    },
-    finalCta: {
-      headline: 'The next draft starts half-done.',
-      subhead:
-        "Bring a case onto Lexli and ask for a draft, or talk to us about your team's templates.",
-    },
-  },
-
-  {
-    slug: 'efiling-support',
-    name: 'eFiling Support',
-    kind: 'inside',
-    eyebrow: 'eFiling Support · A Lexli platform tool',
-    seo: {
-      title: 'eFiling Support - from case file to portal-ready packet',
+      title: 'eFiling Assembly - from case file to portal-ready packet',
       description:
         "eDrafts filled from the case file, documents OCR'd, merged and indexed to portal format. Reviewed and approved by you, filed through your own credentials.",
     },
@@ -613,7 +408,7 @@ export const tools: ToolPage[] = [
     ],
     platform: {
       paragraphs: [
-        "eFiling Support is where the rest of the platform's work converges. The scan you took in Document Scanner is already prepared. The draft you wrote in Drafting is already in the case file. The party details the eDraft needs were extracted when the case record was built. The packet assembles because the platform has been preparing it since the case arrived.",
+        "eFiling Assembly is where the rest of the platform's work converges. The scan you took in Document Scanner is already prepared. The draft the AI Assistant prepared with you is already in the case file. The party details the eDraft needs were extracted when the case record was built. The packet assembles because the platform has been preparing it since the case arrived.",
         'What never changes: nothing is submitted until you have read it and approved it.',
       ],
       line: 'Lexli prepares. You decide.',

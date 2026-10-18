@@ -9,12 +9,10 @@
 
 import {
   Building2,
-  CalendarClock,
   ClipboardList,
   FileUp,
   Landmark,
   Languages,
-  PenLine,
   ScanLine,
   UserRound,
   type LucideIcon,
@@ -33,6 +31,7 @@ export type NavLink = {
  * Accounts and profiles lives on /solutions#accounts, not here. */
 export const platformSections: NavLink[] = [
   { label: "Case management", href: "/platform#case-management" },
+  { label: "Calendar", href: "/platform#calendar" },
   { label: "AI Assistant", href: "/platform#ai-assistant" },
   { label: "Document intelligence", href: "/platform#document-intelligence" },
   { label: "Legal research", href: "/platform#legal-research" },
@@ -42,32 +41,25 @@ export const platformSections: NavLink[] = [
 ];
 
 /**
- * All six tools, in the order the settled "IA — Website" sitemap lists them:
- * the deepest platform work first, the citizen-grade front doors last.
+ * All four tools: the deepest platform work first, the citizen-grade front
+ * doors last.
+ *
+ * Calendar (which absorbed the Daily Board) and Drafting (now asked for in the
+ * AI Assistant's chat) were tools here until October 2026 and are platform
+ * sections now, matching the product's own navigation. Their old /tools URLs
+ * redirect in next.config.ts.
  *
  * Presented as one list, not split by tier. The free/paid distinction still
- * exists — it drives each tool page's eyebrow and CTA through `kind` in
- * `data/tools.ts` — but it is no longer a grouping the reader is shown, because
- * the free-tier scope that would justify the split is undefined.
+ * exists — it drives each tool page's CTA through `kind` in `data/tools.ts` —
+ * but it is not a grouping the reader is shown, because the free-tier scope
+ * that would justify the split is undefined.
  */
 export const allTools: NavLink[] = [
   {
-    label: "eFiling Support",
+    label: "eFiling Assembly",
     icon: FileUp,
-    href: "/tools/efiling-support",
+    href: "/tools/efiling-assembly",
     description: "The packet assembled, indexed, and reviewed by you before it goes.",
-  },
-  {
-    label: "Drafting",
-    icon: PenLine,
-    href: "/tools/drafting",
-    description: "Drafts arrive with the case details already in them.",
-  },
-  {
-    label: "Daily Board",
-    icon: CalendarClock,
-    href: "/tools/daily-board",
-    description: "Tomorrow's board, built from the cause lists courts publish.",
   },
   {
     label: "Legal Translator",
@@ -82,9 +74,9 @@ export const allTools: NavLink[] = [
     description: "A phone photo becomes a working file, saved to its case.",
   },
   {
-    label: "Case Finder",
+    label: "Case Status",
     icon: Landmark,
-    href: "/tools/case-finder",
+    href: "/tools/case-status",
     description: "Any case, by number or advocate name. Found once, kept for good.",
   },
 ];
