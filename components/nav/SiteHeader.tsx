@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/navbar-menu";
 import { scrollToId, setScrollTarget } from "@/components/scroll-to-section";
 import { cn } from "@/lib/utils";
-import { APP_URL, CTA, DEMO_HREF } from "@/lib/site";
+import { CTA, DEMO_HREF, IS_WAITLIST, PRIMARY_HREF } from "@/lib/site";
 import { allTools, companyLinks, platformSections, solutions } from "@/data/navigation";
 import { motion } from "framer-motion";
 
@@ -263,6 +263,11 @@ function DropdownContent({
 
 export function SiteHeader() {
     const pathname = usePathname();
+    // The primary button opens the app in a new tab while access is open;
+    // the waitlist is an internal route and stays in this one.
+    const primaryLinkProps = IS_WAITLIST
+        ? {}
+        : { target: "_blank", rel: "noopener noreferrer" };
     const [isOpen, setIsOpen] = React.useState(false);
     const [isNearTop, setIsNearTop] = React.useState(true);
     const [activeDropdown, setActiveDropdown] = React.useState<string | null>(null);
@@ -379,7 +384,7 @@ export function SiteHeader() {
                                 </a>
                             </Button>
                             <Button variant="default" asChild>
-                                <a href={APP_URL} target="_blank" rel="noopener noreferrer">
+                                <a href={PRIMARY_HREF} {...primaryLinkProps}>
                                     {CTA.startFreeShort}
                                 </a>
                             </Button>
@@ -476,9 +481,8 @@ export function SiteHeader() {
                                     </Button>
                                     <Button className="w-full justify-center" asChild>
                                         <a
-                                            href={APP_URL}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
+                                            href={PRIMARY_HREF}
+                                            {...primaryLinkProps}
                                             onClick={closeMobile}
                                         >
                                             {CTA.startFreeShort}

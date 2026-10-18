@@ -8,7 +8,7 @@ import { VerdictLine } from '@/components/verdict-line';
 import { ToolGrid } from '@/components/tool-grid';
 import { RevealOnScroll } from '@/components/animations';
 import { allTools } from '@/data/navigation';
-import { APP_URL, CTA, SITE_URL } from '@/lib/site';
+import { CTA, PRIMARY_HREF, SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Tools - six ways into one workspace',
@@ -24,7 +24,7 @@ export default function ToolsPage() {
         eyebrow="Lexli tools"
         title="Six tools. One case record."
         description="Each of these works on its own. All of them share the platform's cases, files, and context, which is why the board knows your cases, drafts arrive pre-filled, and a scan is ready for filing before filing comes up."
-        primaryCta={{ text: CTA.startFree, href: APP_URL }}
+        primaryCta={{ text: CTA.startFree, href: PRIMARY_HREF }}
         secondaryCta={{ text: CTA.explorePlatform, href: '/platform' }}
       />
 
@@ -68,7 +68,7 @@ export default function ToolsPage() {
       <CTASection
         title="Start with the one you need today."
         description="Create a free account and bring your first case in. The rest is already waiting for it."
-        primaryCta={{ text: CTA.startFree, href: APP_URL }}
+        primaryCta={{ text: CTA.startFree, href: PRIMARY_HREF }}
         secondaryCta={{ text: CTA.explorePlatform, href: '/platform' }}
       />
     </div>

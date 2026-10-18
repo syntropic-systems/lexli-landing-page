@@ -25,7 +25,7 @@ import {
   security,
   spine,
 } from '@/data/platform';
-import { APP_URL, CTA, DEMO_HREF, SITE_URL } from '@/lib/site';
+import { CTA, PRIMARY_HREF, DEMO_HREF, SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Platform - the AI workspace for Indian legal practice',
@@ -50,7 +50,7 @@ export default function PlatformPage() {
         eyebrow={platformHero.eyebrow}
         title={platformHero.headline}
         description={platformHero.subhead}
-        primaryCta={{ text: CTA.startFree, href: APP_URL }}
+        primaryCta={{ text: CTA.startFree, href: PRIMARY_HREF }}
         secondaryCta={{ text: CTA.bookDemo, href: DEMO_HREF }}
       />
 
@@ -245,7 +245,7 @@ export default function PlatformPage() {
       <CTASection
         title={platformCta.headline}
         description={platformCta.subhead}
-        primaryCta={{ text: CTA.startFree, href: APP_URL }}
+        primaryCta={{ text: CTA.startFree, href: PRIMARY_HREF }}
         secondaryCta={{ text: CTA.bookDemo, href: DEMO_HREF }}
       />
     </div>

@@ -19,7 +19,7 @@ import {
 import { homepageFaqs } from "@/data/faqs";
 import { commitments } from "@/data/company";
 import { StaggerChildren, StaggerItem, RevealOnScroll } from "@/components/animations";
-import { APP_URL, CTA, DEMO_HREF } from "@/lib/site";
+import { CTA, PRIMARY_HREF, DEMO_HREF } from "@/lib/site";
 
 /** The interior pages' eyebrow register, verbatim. */
 function Eyebrow({ children }: { children: string }) {
@@ -60,7 +60,7 @@ export default function Home() {
           "Research with AI",
           "Everyday tools",
         ]}
-        primaryCta={{ text: CTA.startFree, href: APP_URL }}
+        primaryCta={{ text: CTA.startFree, href: PRIMARY_HREF }}
         secondaryCta={{ text: CTA.explorePlatform, href: "/platform" }}
       />
 
@@ -228,7 +228,7 @@ export default function Home() {
       <CTASection
         title="Bring your practice onto one record."
         description="Create a free account and start with a single case, or book a demo and walk through the whole workspace."
-        primaryCta={{ text: CTA.startFree, href: APP_URL }}
+        primaryCta={{ text: CTA.startFree, href: PRIMARY_HREF }}
         secondaryCta={{ text: CTA.bookDemo, href: DEMO_HREF }}
       />
     </div>

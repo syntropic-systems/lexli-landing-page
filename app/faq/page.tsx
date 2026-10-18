@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/accordion';
 import { StaggerChildren, StaggerItem, RevealOnScroll } from '@/components/animations';
 import { allFaqs, faqGroups } from '@/data/faqs';
-import { APP_URL, CTA, SITE_URL } from '@/lib/site';
+import { CTA, PRIMARY_HREF, SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'FAQ - questions about Lexli',
@@ -79,7 +79,7 @@ export default function FaqPage() {
       <CTASection
         title="Still deciding?"
         description="Create a free account and test it against your own cases, or ask us the question this page did not answer."
-        primaryCta={{ text: CTA.startFree, href: APP_URL }}
+        primaryCta={{ text: CTA.startFree, href: PRIMARY_HREF }}
         secondaryCta={{ text: CTA.talkToUs, href: '/contact' }}
       />
     </div>

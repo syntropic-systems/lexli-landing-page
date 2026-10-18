@@ -6,7 +6,7 @@ import { HowItWorksSteps } from '@/components/how-it-works-steps';
 import { FeatureGlowGrid } from '@/components/feature-glow-grid';
 import { PlatformHub } from '@/components/platform-hub';
 import { RevealOnScroll } from '@/components/animations';
-import { APP_URL, CTA, DEMO_HREF } from '@/lib/site';
+import { CTA, PRIMARY_HREF, DEMO_HREF } from '@/lib/site';
 import type { ToolPage as ToolPageContent } from '@/data/tools';
 
 /**
@@ -24,8 +24,8 @@ export function ToolPage({
   const isFrontDoor = tool.kind === 'front-door';
 
   const heroPrimary = isFrontDoor
-    ? { text: `Try ${tool.name} free`, href: APP_URL }
-    : { text: CTA.startOnLexli, href: APP_URL };
+    ? { text: CTA.tryTool(tool.name), href: PRIMARY_HREF }
+    : { text: CTA.startOnLexli, href: PRIMARY_HREF };
   const heroSecondary = isFrontDoor
     ? { text: 'How it works', href: '#how-it-works' }
     : { text: CTA.bookDemo, href: DEMO_HREF };
@@ -116,7 +116,7 @@ export function ToolPage({
         description={tool.finalCta.subhead}
         primaryCta={{
           text: isFrontDoor ? CTA.startFree : CTA.startOnLexli,
-          href: APP_URL,
+          href: PRIMARY_HREF,
         }}
         secondaryCta={
           isFrontDoor

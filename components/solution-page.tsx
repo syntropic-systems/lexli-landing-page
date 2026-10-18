@@ -7,7 +7,7 @@ import { VerdictLine } from '@/components/verdict-line';
 import { FeatureList } from '@/components/platform-section';
 import { GlowCard } from '@/components/feature-glow-grid';
 import { StaggerChildren, StaggerItem, RevealOnScroll } from '@/components/animations';
-import { APP_URL, CTA, DEMO_HREF } from '@/lib/site';
+import { CTA, PRIMARY_HREF, DEMO_HREF } from '@/lib/site';
 import type { SolutionBlock, SolutionPage as SolutionPageContent } from '@/data/solutions';
 
 /**
@@ -22,11 +22,11 @@ export function SolutionPage({ page }: { page: SolutionPageContent }) {
   const leadsFree = page.ctaLead === 'free';
 
   const primaryCta = leadsFree
-    ? { text: CTA.startFree, href: APP_URL }
+    ? { text: CTA.startFree, href: PRIMARY_HREF }
     : { text: CTA.bookDemo, href: DEMO_HREF };
   const secondaryCta = leadsFree
     ? { text: CTA.explorePlatform, href: '/platform' }
-    : { text: CTA.startFreeShort, href: APP_URL };
+    : { text: CTA.startFreeShort, href: PRIMARY_HREF };
 
   return (
     <div>

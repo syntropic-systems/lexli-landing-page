@@ -8,7 +8,7 @@ import { PlatformSection } from '@/components/platform-section';
 import { PlatformHub } from '@/components/platform-hub';
 import { RevealOnScroll } from '@/components/animations';
 import { accounts } from '@/data/solutions';
-import { APP_URL, CTA, DEMO_HREF, SITE_URL } from '@/lib/site';
+import { CTA, PRIMARY_HREF, DEMO_HREF, SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Solutions - for advocates, firms, and the staff who keep them running',
@@ -30,7 +30,7 @@ export default function SolutionsPage() {
         eyebrow="Solutions"
         title="Same record. Different hands."
         description="A solo litigator, a firm with partners and juniors, and the staff who keep both moving all need the same case record, and a different view of it. Pick the one that describes your day."
-        primaryCta={{ text: CTA.startFree, href: APP_URL }}
+        primaryCta={{ text: CTA.startFree, href: PRIMARY_HREF }}
         secondaryCta={{ text: CTA.bookDemo, href: DEMO_HREF }}
       />
 
@@ -79,7 +79,7 @@ export default function SolutionsPage() {
       <CTASection
         title="Start with your own day."
         description="Create a free account and bring in one case, or talk to us about the team around it."
-        primaryCta={{ text: CTA.startFree, href: APP_URL }}
+        primaryCta={{ text: CTA.startFree, href: PRIMARY_HREF }}
         secondaryCta={{ text: CTA.bookDemo, href: DEMO_HREF }}
       />
     </div>

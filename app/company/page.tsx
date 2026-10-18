@@ -15,7 +15,7 @@ import {
   whyNow,
   whyWeExist,
 } from '@/data/company';
-import { APP_URL, CTA, SITE_URL } from '@/lib/site';
+import { CTA, PRIMARY_HREF, SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'About - why we built a workspace for Indian legal practice',
@@ -310,7 +310,7 @@ export default function CompanyPage() {
       <CTASection
         title={companyCta.headline}
         description={companyCta.subhead}
-        primaryCta={{ text: CTA.startFree, href: APP_URL }}
+        primaryCta={{ text: CTA.startFree, href: PRIMARY_HREF }}
         secondaryCta={{ text: CTA.talkToUs, href: '/contact' }}
       />
     </div>
