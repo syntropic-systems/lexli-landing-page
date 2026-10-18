@@ -1,13 +1,16 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { KeyRound, Handshake, FolderOpen } from 'lucide-react';
+import { ArrowRight, KeyRound, Handshake, FolderOpen } from 'lucide-react';
 import { PageHeader } from '@/components/page-header';
 import { Section } from '@/components/section';
+import { StepsList } from '@/components/steps-list';
 import { FeatureGlowGrid } from '@/components/feature-glow-grid';
+import { VerdictLine } from '@/components/verdict-line';
 import { RoutingPillGroups, toolRoutingGroups } from '@/components/routing-pill';
 import { WaitlistForm } from '@/components/waitlist-form';
-import { StaggerChildren, StaggerItem, RevealOnScroll } from '@/components/animations';
-import { APP_URL, DEMO_HREF, IS_WAITLIST, SITE_URL } from '@/lib/site';
+import { RevealOnScroll } from '@/components/animations';
+import { APP_URL, CTA, DEMO_HREF, IS_WAITLIST, SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Join the waitlist',
@@ -16,27 +19,32 @@ export const metadata: Metadata = {
   alternates: { canonical: `${SITE_URL}/waitlist` },
 };
 
+/** The interior pages' eyebrow register, verbatim. */
 function Eyebrow({ children }: { children: string }) {
   return (
-    <span className="inline-flex items-center px-3 py-1 rounded-full border border-primary/40 bg-primary/5 text-primary font-semibold tracking-wider uppercase text-[11px] md:text-xs">
-      {children}
-    </span>
+    <RevealOnScroll direction="up" duration={0.6}>
+      <p className="text-[11px] md:text-xs font-semibold uppercase tracking-wider text-primary mb-3">
+        {children}
+      </p>
+    </RevealOnScroll>
   );
 }
 
 /** What a new entry can expect. Written so none of it needs a date. */
 const nextSteps = [
   {
-    label: 'You join',
-    text: 'Name, email, and the courts you appear in. Two minutes, no card, no call.',
+    title: 'You join',
+    description: 'Name, email, and the courts you appear in. Two minutes, no card, no call.',
   },
   {
-    label: 'We open your batch',
-    text: 'Access goes out a few practices at a time. You hear from us by email the day yours opens.',
+    title: 'We open your batch',
+    description:
+      'Access goes out a few practices at a time. You hear from us by email the day yours opens.',
   },
   {
-    label: 'You bring one case',
-    text: 'Add your name, see tomorrow built, bring a case in. The rest of the record is already waiting.',
+    title: 'You bring one case',
+    description:
+      'Add your name, see tomorrow built, bring a case in. The rest of the record is already waiting.',
   },
 ];
 
@@ -70,14 +78,14 @@ export default function WaitlistPage() {
 
   return (
     <div>
-      {/* Tertiary header, like FAQ and Contact: this page is the destination,
-          so the form comes first and the reassurance follows. */}
       <PageHeader
         title="Your seat is next. Put your practice on the list."
         description="Lexli holds your cases, hearings, files, and drafts in one record, connected to the courts. We are opening it to practices a few at a time, so every one gets set up properly. The list is the way in, and it takes two minutes to join."
       />
 
-      <Section disableDefaultHeader id="join">
+      {/* Same two-column shape as Contact: the sequence on the left, the
+          form on the right, each under its own in-section serif heading. */}
+      <Section id="join" disableDefaultHeader>
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-14 items-start">
           <div>
             <RevealOnScroll direction="up" duration={0.6}>
@@ -85,26 +93,9 @@ export default function WaitlistPage() {
                 What happens next
               </h2>
             </RevealOnScroll>
-            <StaggerChildren className="space-y-4" stagger={0.1}>
-              {nextSteps.map((step, index) => (
-                <StaggerItem key={step.label}>
-                  <div className="flex gap-4 rounded-xl border border-border/60 bg-card p-5 shadow-sm">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 font-serif text-base font-semibold text-primary">
-                      {index + 1}
-                    </span>
-                    <div>
-                      <p className="text-[11px] font-semibold uppercase tracking-wider text-primary mb-1.5">
-                        {step.label}
-                      </p>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{step.text}</p>
-                    </div>
-                  </div>
-                </StaggerItem>
-              ))}
-            </StaggerChildren>
-
+            <StepsList steps={nextSteps} />
             <RevealOnScroll direction="up" delay={0.2} duration={0.6}>
-              <div className="mt-8 space-y-2 text-sm text-muted-foreground leading-relaxed">
+              <div className="mt-10 space-y-2 text-sm text-muted-foreground leading-relaxed">
                 <p>
                   Already have access?{' '}
                   <a
@@ -113,7 +104,7 @@ export default function WaitlistPage() {
                     rel="noopener noreferrer"
                     className="font-medium text-foreground underline-offset-4 hover:underline"
                   >
-                    Sign in
+                    {CTA.signIn}
                   </a>
                   .
                 </p>
@@ -123,7 +114,7 @@ export default function WaitlistPage() {
                     href={DEMO_HREF}
                     className="font-medium text-foreground underline-offset-4 hover:underline"
                   >
-                    Book a demo
+                    {CTA.bookDemo}
                   </a>{' '}
                   instead and we set the whole team up together.
                 </p>
@@ -145,11 +136,17 @@ export default function WaitlistPage() {
       </Section>
 
       <Section
+        variant="muted"
         header={<Eyebrow>Why a list</Eyebrow>}
         title="A short queue, on purpose."
         description="We could open the door to everyone tomorrow. We would rather every practice that comes in finds its courts covered, its first cases in the record, and someone who answers."
       >
         <FeatureGlowGrid features={reasons} />
+        <RevealOnScroll direction="up" delay={0.15} duration={0.6}>
+          <VerdictLine className="mt-12 max-w-3xl md:mt-16">
+            Small batches now, so nothing is half set up later.
+          </VerdictLine>
+        </RevealOnScroll>
       </Section>
 
       <Section
@@ -158,6 +155,17 @@ export default function WaitlistPage() {
         description="Read what each one does. The day your access opens, all of them are there, working from the same cases."
       >
         <RoutingPillGroups groups={toolRoutingGroups()} />
+        <RevealOnScroll direction="up" delay={0.15} duration={0.6}>
+          <div className="mt-8">
+            <Link
+              href="/tools"
+              className="group inline-flex items-center gap-2 text-sm font-semibold text-primary"
+            >
+              {CTA.seeAllTools}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
+        </RevealOnScroll>
       </Section>
     </div>
   );
