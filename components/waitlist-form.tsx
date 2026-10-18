@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { track } from '@vercel/analytics';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -41,7 +42,7 @@ function entryMessage(data: typeof EMPTY): string {
   return [
     'WAITLIST REQUEST',
     `Role: ${role}`,
-    `City: ${data.city}`,
+    data.city ? `City: ${data.city}` : null,
     `Courts: ${data.courts}`,
     data.note ? `Note: ${data.note}` : null,
   ]
@@ -128,15 +129,28 @@ export function WaitlistForm() {
       <Card>
         <CardContent className="pt-6">
           <div className="py-4">
-            <h3 className="font-serif text-2xl font-semibold mb-3">You are on the list.</h3>
+            <h3 className="font-serif text-2xl font-semibold mb-3">
+              Your seat is on the list.
+            </h3>
             <p className="text-muted-foreground leading-relaxed mb-6">
-              We have your entry. When your batch opens we write to{' '}
-              <span className="font-medium text-foreground">{formData.email}</span> with
-              your access and the first thing to try.
+              Thank you. The day your batch opens, we write to{' '}
+              <span className="font-medium text-foreground">{formData.email}</span> with your
+              access and the first thing worth trying.
             </p>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>Nothing to install, and nothing to migrate before then.</li>
+              <li>There is nothing to install and nothing to prepare before then.</li>
               <li>Your files, diaries, and templates stay where they are.</li>
+              <li>
+                Meanwhile, the{' '}
+                <Link href="/tools" className="font-medium text-foreground underline-offset-4 hover:underline">
+                  tools
+                </Link>{' '}
+                and the{' '}
+                <Link href="/platform" className="font-medium text-foreground underline-offset-4 hover:underline">
+                  platform
+                </Link>{' '}
+                pages show what is waiting.
+              </li>
               <li>
                 Already have an account?{' '}
                 <a
@@ -217,7 +231,7 @@ export function WaitlistForm() {
             </div>
             <div>
               <label htmlFor="city" className="block text-sm font-medium mb-2">
-                City
+                City <span className="text-muted-foreground">(optional)</span>
               </label>
               <Input
                 id="city"
@@ -227,7 +241,6 @@ export function WaitlistForm() {
                 placeholder="Where you practise"
                 value={formData.city}
                 onChange={handleChange}
-                required
               />
             </div>
           </div>
@@ -288,10 +301,10 @@ export function WaitlistForm() {
           )}
 
           <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-            {isSubmitting ? 'Sending…' : 'Join the waitlist'}
+            {isSubmitting ? 'Saving your seat…' : 'Put my practice on the list'}
           </Button>
           <p className="text-xs text-muted-foreground text-center">
-            We use this only to write to you about your access.
+            No card, no call. We use this only to write to you about your access.
           </p>
         </form>
       </CardContent>
