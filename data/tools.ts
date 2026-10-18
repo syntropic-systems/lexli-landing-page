@@ -476,24 +476,27 @@ export const tools: ToolPage[] = [
     },
     steps: [
       {
-        title: 'Ask for the draft',
+        title: 'Ask, and it drafts',
         description:
-          'In chat, with the case in focus: say what you need, the way you would brief a junior.',
-      },
-      {
-        title: 'It drafts from the case papers',
-        description:
-          "Written from the case's own files, not a blank template, and opened as a Word document beside the chat.",
+          "In chat, with the case in focus: say what you need. The draft is written from the case's own files and opens as a Word document beside the chat.",
+        image: '/tools/steps/drafting_01.png',
       },
       {
         title: 'Revise it in conversation',
         description:
           '"Make paragraph 4 firmer." "Put the hearing dates in a table." Each change arrives as a tracked suggestion: accept it, reject it, or switch on Auto edits.',
+        image: '/tools/steps/drafting_02.png',
+      },
+      {
+        title: 'Every version kept',
+        description:
+          'Original, edited, restored: each saved as its own version, and any one can be brought back.',
+        image: '/tools/steps/drafting_03.png',
       },
       {
         title: 'Download it',
-        description:
-          'Every version is kept and any one can be restored. Download the .docx when it is ready.',
+        description: 'Take the .docx when it is ready, to finish in the format your court expects.',
+        image: '/tools/steps/drafting_04.png',
       },
     ],
     features: [
