@@ -42,12 +42,12 @@ export const platformSections: NavLink[] = [
 ];
 
 /**
- * All six tools: the deepest platform work first, the citizen-grade front
- * doors last.
+ * All six tools, in the order the team set (October 2026): Calendar,
+ * Smart Drafting, eFiling Assembly, then the front doors.
  *
- * Calendar is what the Daily Board grew into (October 2026), and Drafting is
- * the chat's drafting flow given its own page — in the product it is asked
- * for in the AI Assistant.
+ * Calendar is what the Daily Board grew into, and Smart Drafting is the
+ * chat's drafting flow given its own page — in the product it is asked for in
+ * the AI Assistant.
  *
  * Presented as one list, not split by tier. The free/paid distinction still
  * exists — it drives each tool page's CTA through `kind` in `data/tools.ts` —
@@ -56,22 +56,22 @@ export const platformSections: NavLink[] = [
  */
 export const allTools: NavLink[] = [
   {
-    label: "eFiling Assembly",
-    icon: FileUp,
-    href: "/tools/efiling-assembly",
-    description: "The packet assembled, indexed, and reviewed by you before it goes.",
-  },
-  {
-    label: "Drafting",
-    icon: PenLine,
-    href: "/tools/drafting",
-    description: "Asked for in chat, written from the case papers, revised by you.",
-  },
-  {
     label: "Calendar",
     icon: CalendarClock,
     href: "/tools/calendar",
     description: "Your cases, the cause list, and the display board, for any day.",
+  },
+  {
+    label: "Smart Drafting",
+    icon: PenLine,
+    href: "/tools/smart-drafting",
+    description: "Asked for in chat, written from the case papers, revised by you.",
+  },
+  {
+    label: "eFiling Assembly",
+    icon: FileUp,
+    href: "/tools/efiling-assembly",
+    description: "The packet assembled, indexed, and reviewed by you before it goes.",
   },
   {
     label: "Legal Translator",

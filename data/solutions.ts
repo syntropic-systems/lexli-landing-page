@@ -173,9 +173,9 @@ export const solutionPages: SolutionPage[] = [
             href: '/tools/efiling-assembly',
           },
           {
-            label: 'Drafting',
+            label: 'Smart Drafting',
             description: 'Written from the case papers, revised by you.',
-            href: '/tools/drafting',
+            href: '/tools/smart-drafting',
           },
           {
             label: 'AI Assistant',

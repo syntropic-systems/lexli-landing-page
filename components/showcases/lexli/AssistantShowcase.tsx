@@ -94,7 +94,7 @@ export function AssistantShowcase({ frozen }: { frozen?: number } = {}) {
           <AnimatedItem visible={step >= 5}>
             <div className="inline-flex items-center gap-1.5 rounded-md border border-primary/30 bg-primary/5 px-2 py-1 text-[10px] font-medium text-primary">
               <PenLine className="h-2.5 w-2.5" />
-              Running Drafting
+              Running Smart Drafting
             </div>
           </AnimatedItem>
 

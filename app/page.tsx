@@ -108,7 +108,7 @@ export default function Home() {
       <Section
         header={<Eyebrow>The tools</Eyebrow>}
         title="Six tools. Start with the one you need."
-        description="Each works on its own, and each works from the same case record. Drafting and eFiling go deepest; the other four are where most people start."
+        description="Each works on its own, and each works from the same case record. Smart Drafting and eFiling go deepest; the other four are where most people start."
       >
         <RoutingPillGroups groups={toolRoutingGroups()} />
         <RevealOnScroll direction="up" delay={0.15} duration={0.6}>

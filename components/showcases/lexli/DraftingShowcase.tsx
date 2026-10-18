@@ -21,7 +21,7 @@ export function DraftingShowcase({ frozen }: { frozen?: number } = {}) {
 
   return (
     <div ref={ref}>
-      <ShowcaseFrame title="Drafting · Deshmukh v. State of Maharashtra">
+      <ShowcaseFrame title="Smart Drafting · Deshmukh v. State of Maharashtra">
         <div className="flex flex-col gap-2.5 p-4">
           <AnimatedItem visible={step >= 1}>
             <div className="flex justify-end">

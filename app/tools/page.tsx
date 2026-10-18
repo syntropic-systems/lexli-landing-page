@@ -13,7 +13,7 @@ import { byMode, CTA, PRIMARY_HREF, SITE_URL } from '@/lib/site';
 export const metadata: Metadata = {
   title: 'Tools - six ways into one workspace',
   description:
-    'eFiling Assembly, Drafting, Calendar, Legal Translator, Document Scanner, and Case Status: each works on its own, and all of them share one case record.',
+    'Calendar, Smart Drafting, eFiling Assembly, Legal Translator, Document Scanner, and Case Status: each works on its own, and all of them share one case record.',
   alternates: { canonical: `${SITE_URL}/tools` },
 };
 

@@ -36,7 +36,7 @@ const HUB_TOOLS: HubTool[] = allTools.map((tool) => ({
 }));
 
 /**
- * slug → light/dark screenshot paths under /public/tools. Drafting, Calendar,
+ * slug → light/dark screenshot paths under /public/tools. Smart Drafting, Calendar,
  * and eFiling Assembly have no captures yet and fall back to the skeleton. The Case Status captures
  * predate its rename from Case Finder (the files keep the old name; case_finder2_*
  * is an alternate, kept on disk, not wired) — retake them.

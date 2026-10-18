@@ -458,16 +458,16 @@ export const tools: ToolPage[] = [
   },
 
   {
-    slug: 'drafting',
-    name: 'Drafting',
+    slug: 'smart-drafting',
+    name: 'Smart Drafting',
     kind: 'inside',
-    eyebrow: 'Drafting · A Lexli platform tool',
+    eyebrow: 'Smart Drafting · A Lexli platform tool',
     seo: {
-      title: 'Drafting - the first draft, from the case papers',
+      title: 'Smart Drafting - the first draft, from the case papers',
       description:
         'Ask for a draft in chat and Lexli writes it from the case papers, opens it as a Word document beside the conversation, and revises it through tracked changes you accept or reject.',
     },
-    // Drafting runs through the AI Assistant's chat (the product's /draft
+    // Smart Drafting runs through the AI Assistant's chat (the product's /draft
     // command); the standalone drafting screens are not shipped. Everything
     // below describes the chat flow.
     // conservative: no Hindi/Marathi drafting, no legal-dictionary
@@ -549,7 +549,7 @@ export const tools: ToolPage[] = [
     ],
     platform: {
       paragraphs: [
-        'Drafting alone saves typing. Drafting inside Lexli saves the part before the typing: the assistant already has the case papers, so the draft starts from them instead of asking for them. If it is headed for a portal, eFiling Assembly takes it from there.',
+        'Drafting alone saves typing. Smart Drafting inside Lexli saves the part before the typing: the assistant already has the case papers, so the draft starts from them instead of asking for them. If it is headed for a portal, eFiling Assembly takes it from there.',
         'Nothing is filed until you have read it and said yes.',
       ],
       line: 'Lexli prepares. You decide.',

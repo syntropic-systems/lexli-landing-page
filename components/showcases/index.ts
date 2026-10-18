@@ -37,7 +37,7 @@ export function getToolVisual(slug: string): ReactNode | undefined {
       return createElement(TranslationShowcase);
     case 'document-scanner':
       return createElement(ScannerShowcase);
-    case 'drafting':
+    case 'smart-drafting':
       return createElement(DraftingShowcase);
     case 'efiling-assembly':
       return createElement(EfilingShowcase);

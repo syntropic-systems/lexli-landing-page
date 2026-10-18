@@ -89,7 +89,7 @@ export const intelligenceLayer: PlatformSection[] = [
       {
         title: 'Runs the tools for you',
         description:
-          'Drafting, Legal Translator, Case Status, and the rest, called from inside your chat, output handed back to you.',
+          'Smart Drafting, Legal Translator, Case Status, and the rest, called from inside your chat, output handed back to you.',
       },
       {
         title: 'Upload and ask',
