@@ -53,12 +53,12 @@ export default function Home() {
             tool on the same record.
           </>
         }
-        description="Lexli holds your cases, hearings, files, and drafts in one place, organised by case, connected to the courts. Ask anything of your own record, and the AI assistant answers with citations you can check."
+        description="Lexli holds your cases, hearings, files, and drafts in one place, organised by case, connected to the courts. Ask anything of your own record, and the AI Assistant answers with citations you can check."
         pointers={[
           "Case Management",
           "Court calendar",
           "eFiling Assembly",
-          "Drafting & research with AI",
+          "Smart Drafting & research",
         ]}
         primaryCta={{ text: CTA.startFree, href: PRIMARY_HREF }}
         secondaryCta={{ text: CTA.explorePlatform, href: "/platform" }}

@@ -59,7 +59,7 @@ export const allTools: NavLink[] = [
     label: "Calendar",
     icon: CalendarClock,
     href: "/tools/calendar",
-    description: "Your cases, the cause list, and the display board, for any day.",
+    description: "Your hearings by date, the cause list, and the live court board.",
   },
   {
     label: "Smart Drafting",

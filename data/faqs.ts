@@ -79,7 +79,7 @@ export const faqGroups: FaqGroup[] = [
       {
         question: 'Where does the Calendar get its data?',
         answer:
-          'From the cause lists the courts publish, built nightly for every advocate you add, across multiple courts together. On the day, it also reads the Bombay High Court’s display boards live.',
+          'From the cause lists the courts publish, checked every evening for every advocate you add, with each entry linked to the page it came from. On the day, it follows the court’s display board live.',
       },
       {
         question: 'Does Lexli file cases for me?',

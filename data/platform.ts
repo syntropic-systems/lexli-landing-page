@@ -217,7 +217,7 @@ export const integrations = {
     'Lexli connects to the official systems your practice already depends on, so nothing has to be rebuilt to start.',
     // conservative: coverage narrowed to what is confirmed available today.
     'Case status, orders, hearing history, and party details come from official court records, by case number or advocate name, across High Courts, District Courts, and Tribunals (MAT, CAT, and DRT). Supreme Court coverage, and search by CNR or party name, are scheduled.',
-    'Cause lists are pulled as courts publish them, so tomorrow’s calendar is built from the real list rather than yesterday’s copy of it. The Bombay High Court’s display boards are read live.',
+    'Cause lists are pulled as courts publish them, so tomorrow’s calendar is built from the real list rather than yesterday’s copy of it. Display boards are read live, wherever a court publishes one.',
     'eFiling packets are prepared to the format each portal expects and submitted through your own credentials. The eDraft is reviewed and approved by you before anything leaves the platform.',
   ],
   consentLine: 'Lexli prepares. You decide.',
