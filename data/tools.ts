@@ -88,28 +88,32 @@ export const tools: ToolPage[] = [
       subhead:
         'Your own cases by their court date, the cause list for every advocate you follow, and, on the day itself, the court’s display board. One view, built from what the courts publish.',
     },
-    // Step images retired with the Daily Board's captures — the numeral
-    // vignettes stand in until Calendar is captured.
+    // The Daily Board's step illustrations carry over — they are generic
+    // vignettes, not captures of the retired screen.
     steps: [
       {
         title: 'Add names and courts',
         description:
           'One advocate or the whole office: every court any of you appears in, on one calendar.',
+        image: '/tools/steps/daily_board_01.png',
       },
       {
         title: 'The cause list builds itself',
         description:
           'Nightly, from the lists courts publish, so you are not rebuilding tomorrow each evening.',
+        image: '/tools/steps/daily_board_02.png',
       },
       {
         title: 'Read the day',
         description:
-          'Your cases by court date, where each sits on the cause list, and the last orders attached.',
+          'Your cases by court date and where each sits on the list. On the day, the display board shows which item each court room is hearing now.',
+        image: '/tools/steps/daily_board_03.png',
       },
       {
-        title: 'Watch the court',
+        title: 'Take it with you',
         description:
-          'On the day, the display board shows which item each court room is hearing now, against yours.',
+          'Download the cause list as a PDF, with or without the orders, or ask the AI Assistant for it in chat.',
+        image: '/tools/steps/daily_board_04.png',
       },
     ],
     features: [
@@ -148,7 +152,7 @@ export const tools: ToolPage[] = [
       {
         icon: FileDown,
         title: 'Download the day',
-        description: 'The day’s board as a file, ready to print or forward.',
+        description: 'The cause list as a PDF, with the orders or without, ready to print or forward.',
       },
       {
         icon: MessagesSquare,
