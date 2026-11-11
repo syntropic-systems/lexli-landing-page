@@ -129,7 +129,10 @@ export function Footer() {
                             ))}
                         </div>
                         <p className="text-sm text-muted-foreground">
-                            © {new Date().getFullYear()} Lexli. All rights reserved.
+                            © {new Date().getFullYear()} Lexli. All rights reserved.{' '}
+                            <Link href="/privacy" className="underline-offset-4 hover:text-foreground hover:underline">
+                                Privacy policy
+                            </Link>
                         </p>
                     </div>
                 </div>

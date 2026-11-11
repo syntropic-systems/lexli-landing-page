@@ -5,6 +5,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Card, CardContent } from './ui/card';
 import { CONTACT_EMAIL, emailjsConfig } from '@/lib/site';
+import { capture, identifyVisitor } from '@/lib/analytics';
 
 export function ContactForm() {
     const [formData, setFormData] = useState({
@@ -44,6 +45,8 @@ export function ContactForm() {
                 },
                 emailjsConfig.publicKey
             );
+            identifyVisitor(formData.email);
+            capture('contact_submitted');
 
             setShowSuccess(true);
             setFormData({

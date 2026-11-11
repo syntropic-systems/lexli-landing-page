@@ -7,6 +7,7 @@ import { ScrollToSection } from "@/components/scroll-to-section";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { AnalyticsTracker } from "@/components/analytics-tracker";
 
 // App-wide sans (Manrope — variable font). Matches the Lexli product app.
 const manrope = Manrope({
@@ -166,6 +167,7 @@ export default function RootLayout({
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />
+        <AnalyticsTracker />
       </body>
     </html>
   );

@@ -7,6 +7,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Card, CardContent } from './ui/card';
 import { APP_URL, CONTACT_EMAIL, emailjsConfig } from '@/lib/site';
+import { capture, identifyVisitor } from '@/lib/analytics';
 
 /**
  * Who is asking. Kept to the personas the site already addresses so the
@@ -107,6 +108,8 @@ export function WaitlistForm() {
         config.publicKey
       );
       track('waitlist_submit', { role: formData.role || 'unspecified' });
+      identifyVisitor(formData.email);
+      capture('waitlist_joined', { role: formData.role || 'unspecified' });
       setIsDone(true);
     } catch (error) {
       console.error('Failed to submit waitlist entry:', error);

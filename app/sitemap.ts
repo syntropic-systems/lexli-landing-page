@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/company", priority: 0.6 },
     { path: "/faq", priority: 0.6 },
     { path: "/contact", priority: 0.6 },
+    { path: "/privacy", priority: 0.3 },
     // The waitlist is only a page while entry is gated; open mode redirects it.
     ...(IS_WAITLIST ? [{ path: WAITLIST_HREF, priority: 0.8 }] : []),
   ];
