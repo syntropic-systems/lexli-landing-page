@@ -39,6 +39,10 @@ export default function PrivacyPage() {
         <div className="mx-auto max-w-3xl space-y-12">
           <Block title="What this policy covers">
             <p>
+              The website at lexli.ai is operated by LEXLI AI LEGAL TECHNOLOGY PRIVATE LIMITED
+              (&quot;Lexli&quot;, &quot;we&quot;).
+            </p>
+            <p>
               This policy covers the public website at lexli.ai. The Lexli application, where you
               keep cases and documents, is covered separately by the terms you accept when you
               create an account.
