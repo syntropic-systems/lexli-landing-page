@@ -6,7 +6,7 @@ import { CONTACT_EMAIL, SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Privacy policy - Lexli',
-  description: 'What the lexli.ai website collects, why, who processes it, and how to have it deleted.',
+  description: 'What the lexli.ai website collects, why, and how to have it deleted.',
   alternates: { canonical: `${SITE_URL}/privacy` },
 };
 
@@ -51,18 +51,17 @@ export default function PrivacyPage() {
 
           <Block title="What we collect">
             <p>
-              <strong className="text-foreground">How you use the website.</strong> We use PostHog to
-              understand how visitors use the site: which pages you open, which sections you scroll
-              to, which links and buttons you click, how long you stay, the page that referred you,
-              any campaign tags in the link, your browser, device and screen size, and your
-              approximate location (city and country), worked out from your IP address. PostHog also
-              records how the page moves while you use it so we can replay a visit. Anything you type
-              into a form is masked in these recordings.
+              <strong className="text-foreground">How you use the website.</strong> We record how
+              visitors use the site: which pages you open, how far you scroll, which links and
+              buttons you click, how long you stay, the website or link that brought you here, the
+              kind of device and browser you use, and your approximate location (city and country).
+              We may also record a replay of your visit to see where the site is unclear. Anything
+              you type into a form is hidden in these replays.
             </p>
             <p>
-              <strong className="text-foreground">Aggregate traffic.</strong> Vercel, which hosts the
-              site, gives us counts of page views, referrers, countries and devices, and page-speed
-              measurements. These are not tied to you as a person.
+              <strong className="text-foreground">Overall traffic.</strong> We also see overall counts
+              of visits, where they come from, countries and devices, and how fast pages load. These
+              are not tied to you as a person.
             </p>
             <p>
               <strong className="text-foreground">What you send us.</strong> If you join the waitlist,
@@ -76,9 +75,9 @@ export default function PrivacyPage() {
 
           <Block title="Cookies">
             <p>
-              PostHog stores a first-party cookie and browser-storage entry on lexli.ai holding a
-              random identifier, so a returning visit is recognised as the same visitor. We do not
-              use advertising cookies or cross-site tracking. You can delete or block cookies in your
+              We use a cookie on lexli.ai so that when you come back, we can tell it is a returning
+              visit. It does not contain your name or contact details. We do not use advertising
+              cookies or follow you across other websites. You can delete or block cookies in your
               browser settings at any time; the site works without them.
             </p>
           </Block>
@@ -91,18 +90,10 @@ export default function PrivacyPage() {
             </p>
           </Block>
 
-          <Block title="Who processes it">
-            <ul className="list-disc space-y-2 pl-5">
-              <li>PostHog, for website analytics. Data is stored in PostHog&apos;s EU region (Frankfurt, Germany).</li>
-              <li>Vercel, which hosts the website and provides the aggregate traffic and speed figures.</li>
-              <li>EmailJS, which delivers contact-form and waitlist submissions to our inbox.</li>
-            </ul>
-          </Block>
-
           <Block title="How long we keep it">
             <p>
-              Website analytics events are kept for up to one year and visit recordings for up to 30
-              days, after which they are deleted. Messages and waitlist entries are kept for as long
+              Records of how the site is used are kept for up to one year, and visit replays for up
+              to 30 days, after which they are deleted. Messages and waitlist entries are kept for as long
               as we need them to respond to you or to give you access, and deleted when you ask.
             </p>
           </Block>
@@ -110,7 +101,7 @@ export default function PrivacyPage() {
           <Block title="Your choices and rights">
             <p>
               You can ask us to show you, correct or delete the information we hold about you, or
-              withdraw your consent to analytics, by writing to {mail}. We reply within 30 days.
+              ask us to stop recording your visits, by writing to {mail}. We reply within 30 days.
             </p>
           </Block>
 
