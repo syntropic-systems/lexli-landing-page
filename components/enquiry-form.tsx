@@ -309,7 +309,6 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
                 name="email"
                 type="email"
                 autoComplete="email"
-                placeholder={isWaitlist ? 'Where we write when your access opens' : 'Where we reply'}
                 value={fields.email}
                 onChange={onText}
                 required
