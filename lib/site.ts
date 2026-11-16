@@ -44,8 +44,10 @@ export const CONTACT_EMAIL = "contact@lexli.ai";
  * env vars against Lexli's own emailjs account and the form returns.
  *
  * The template must accept: firstName, lastName, email, company, message,
- * to_email — and its "To" field must be {{to_email}}, or the recipient set in
- * the template wins and `to_email` is ignored.
+ * to_email. Lexli's template fixes its "To" at contact@lexli.ai rather than
+ * {{to_email}}: the public key ships in the page, and a recipient taken from
+ * the request would let anyone send mail anywhere through our account. So
+ * `to_email` is ignored there; CONTACT_EMAIL changes need the template changed.
  */
 const emailjsServiceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
 const emailjsTemplateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
