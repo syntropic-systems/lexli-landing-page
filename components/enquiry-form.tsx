@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from 'react';
 import Link from 'next/link';
-import { Check, Loader2 } from 'lucide-react';
+import { ArrowRight, Check, Loader2 } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
@@ -139,7 +139,7 @@ function Confirmation({
     <Card data-confirmation className="scroll-mt-24">
       <CardContent className="pt-6">
         <div className="py-4">
-          <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-full bg-accent text-accent-foreground">
+          <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground">
             <Check className="h-5 w-5" strokeWidth={2.25} />
           </div>
           {/* Focusable so focus can land here after sending; outline-none since it is not a control. */}
@@ -318,6 +318,14 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
           <span className="font-medium text-foreground">{sent.email}</span> with your access and the first thing worth
           trying.
         </p>
+        {/* What was sent, so a wrong role or city is caught here rather than at the batch. */}
+        <p className="mb-6 rounded-md bg-muted px-3 py-2 text-sm text-muted-foreground">
+          <span className="font-medium text-foreground">{labelOf(ROLES, sent.role)}</span>
+          {' · '}
+          {sent.city}
+          {' · '}
+          {sent.courts.map((c) => labelOf(COURT_LEVELS, c)).join(', ')}
+        </p>
         {DEMO_FIRST.includes(sent.role) && (
           <div className="mb-6 rounded-md border bg-muted/50 p-4">
             <p className="mb-3 text-sm leading-relaxed text-muted-foreground">
@@ -328,26 +336,26 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
             </Button>
           </div>
         )}
-        <ul className="space-y-2 text-sm text-muted-foreground">
-          <li>
-            Meanwhile, the{' '}
-            <Link href="/tools" className={linkClass}>
-              tools
-            </Link>{' '}
-            and the{' '}
-            <Link href="/platform" className={linkClass}>
-              platform
-            </Link>{' '}
-            pages show what is waiting.
-          </li>
-          <li>
-            Already have an account?{' '}
-            <a href={APP_URL} target="_blank" rel="noopener noreferrer" className={linkClass}>
-              Sign in
-            </a>
-            .
-          </li>
-        </ul>
+        <p className="mb-3 text-[11px] font-semibold tracking-wider text-primary uppercase">While you wait</p>
+        {/* Full-width rows: the card is often too narrow for two buttons side by side. */}
+        <div className="grid gap-2">
+          <Button variant="outline" className="w-full justify-between" asChild>
+            <Link href="/tools">
+              Explore the tools <ArrowRight className="h-4 w-4" />
+            </Link>
+          </Button>
+          <Button variant="outline" className="w-full justify-between" asChild>
+            <Link href="/platform">
+              See the platform <ArrowRight className="h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
+        <p className="mt-6 border-t pt-4 text-sm text-muted-foreground">
+          Already have an account?{' '}
+          <a href={APP_URL} target="_blank" rel="noopener noreferrer" className={linkClass}>
+            Sign in
+          </a>
+        </p>
       </Confirmation>
     ) : (
       <Confirmation title="Message received." headingRef={headingRef}>
