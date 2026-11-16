@@ -43,8 +43,8 @@ export const CONTACT_EMAIL = "contact@lexli.ai";
  * form is not rendered at all — direct email is offered instead. Set all three
  * env vars against Lexli's own emailjs account and the form returns.
  *
- * The template must accept: firstName, lastName, email, company, message,
- * to_email. Lexli's template fixes its "To" at contact@lexli.ai rather than
+ * The template must accept: kind ("Waitlist" or "Message"), firstName, lastName,
+ * email, company, message, to_email. Both forms send the whole name as firstName. Lexli's template fixes its "To" at contact@lexli.ai rather than
  * {{to_email}}: the public key ships in the page, and a recipient taken from
  * the request would let anyone send mail anywhere through our account. So
  * `to_email` is ignored there; CONTACT_EMAIL changes need the template changed.

@@ -94,8 +94,8 @@ const labelOf = <T extends { value: string; label: string }>(list: readonly T[],
 
 /**
  * The email body a waitlist entry arrives as. Both variants share one EmailJS template
- * (firstName, lastName, email, company, message, to_email); the first line flags waitlist
- * entries so they can be filtered in the inbox.
+ * (kind, firstName, lastName, email, company, message, to_email); `kind` names the form in
+ * the subject, and the first line here flags waitlist entries in the body too.
  */
 function waitlistMessage(f: Fields): string {
   return [
@@ -311,6 +311,8 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
           config.serviceId,
           config.templateId,
           {
+            // Which form, for the subject ("lexli.ai Waitlist: …") and inbox filters.
+            kind: isWaitlist ? 'Waitlist' : 'Message',
             // One name field: it travels as firstName, which the template prints first.
             firstName: fields.name.trim(),
             lastName: '',
