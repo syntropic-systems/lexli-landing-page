@@ -2,11 +2,15 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { Check, Loader2 } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
+import { NativeSelect } from './ui/native-select';
+import { Textarea } from './ui/textarea';
 import { Card, CardContent } from './ui/card';
 import { APP_URL, CONTACT_EMAIL, emailjsConfig } from '@/lib/site';
 import { capture, identifyVisitor } from '@/lib/analytics';
+import { fakeSend, type FormPreview } from '@/lib/form-preview';
 
 /**
  * Who is asking. Kept to the personas the site already addresses so the
@@ -33,6 +37,16 @@ const EMPTY = {
   note: '',
 };
 
+const SAMPLE = {
+  name: 'Rohan Kulkarni',
+  email: 'rohan.kulkarni@gmail.com',
+  role: 'advocate' as Role | '',
+  firm: 'Kulkarni Chambers',
+  city: 'Nagpur',
+  courts: 'Bombay High Court, Nagpur Bench',
+  note: 'Calendar first; I lose an hour a day to cause lists.',
+};
+
 /** The message body the waitlist entry arrives as. The contact template is
  * reused as-is (firstName, lastName, email, company, message, to_email) so
  * the waitlist works wherever the contact form works, with no new emailjs
@@ -50,19 +64,20 @@ function entryMessage(data: typeof EMPTY): string {
     .join('\n');
 }
 
-const fieldClass =
-  'flex w-full rounded-md border border-input bg-muted px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm';
+/** Lets a preview render the form without EmailJS set up; never used to send. */
+const PREVIEW_CONFIG = { serviceId: '', templateId: '', publicKey: '' };
 
-export function WaitlistForm() {
-  const [formData, setFormData] = useState(EMPTY);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isDone, setIsDone] = useState(false);
-  const [hasFailed, setHasFailed] = useState(false);
+/** `preview` is for /dev/forms only: it seeds a state and fakes the send. */
+export function WaitlistForm({ preview }: { preview?: FormPreview } = {}) {
+  const [formData, setFormData] = useState(preview && preview !== 'empty' ? SAMPLE : EMPTY);
+  const [isSubmitting, setIsSubmitting] = useState(preview === 'sending');
+  const [isDone, setIsDone] = useState(preview === 'sent');
+  const [hasFailed, setHasFailed] = useState(preview === 'error');
 
   // Same rule as the contact form: no fallback credentials, and no form that
   // pretends to send. Without config, the page asks for an email instead.
   // (Bound to a local so the submit handler below sees it narrowed.)
-  const config = emailjsConfig;
+  const config = preview === 'unconfigured' ? null : preview ? PREVIEW_CONFIG : emailjsConfig;
   if (!config) {
     const subject = encodeURIComponent('Waitlist request');
     const body = encodeURIComponent(
@@ -92,6 +107,12 @@ export function WaitlistForm() {
     setHasFailed(false);
 
     try {
+      if (preview) {
+        await fakeSend();
+        setIsDone(true);
+        return;
+      }
+
       const emailjs = (await import('@emailjs/browser')).default;
       await emailjs.send(
         config.serviceId,
@@ -130,6 +151,9 @@ export function WaitlistForm() {
       <Card>
         <CardContent className="pt-6">
           <div className="py-4">
+            <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-full bg-accent text-accent-foreground">
+              <Check className="h-5 w-5" strokeWidth={2.25} />
+            </div>
             <h3 className="font-serif text-2xl font-semibold mb-3">
               Your seat is on the list.
             </h3>
@@ -174,139 +198,142 @@ export function WaitlistForm() {
   return (
     <Card>
       <CardContent className="pt-6">
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium mb-2">
-              Name
-            </label>
-            <Input
-              id="name"
-              name="name"
-              type="text"
-              autoComplete="name"
-              placeholder="Your name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium mb-2">
-              Email
-            </label>
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              autoComplete="email"
-              placeholder="Where we write when your access opens"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <form onSubmit={handleSubmit}>
+          {/* Disabled as one while sending, so nothing changes under an entry in flight. */}
+          <fieldset disabled={isSubmitting} className="space-y-6">
             <div>
-              <label htmlFor="role" className="block text-sm font-medium mb-2">
-                You are
-              </label>
-              <select
-                id="role"
-                name="role"
-                value={formData.role}
-                onChange={handleChange}
-                required
-                className={fieldClass}
-              >
-                <option value="" disabled>
-                  Choose one
-                </option>
-                {ROLES.map((role) => (
-                  <option key={role.value} value={role.value}>
-                    {role.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label htmlFor="city" className="block text-sm font-medium mb-2">
-                City <span className="text-muted-foreground">(optional)</span>
+              <label htmlFor="name" className="block text-sm font-medium mb-2">
+                Name
               </label>
               <Input
-                id="city"
-                name="city"
+                id="name"
+                name="name"
                 type="text"
-                autoComplete="address-level2"
-                placeholder="Where you practise"
-                value={formData.city}
+                autoComplete="name"
+                placeholder="Your name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium mb-2">
+                Email
+              </label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                placeholder="Where we write when your access opens"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="role" className="block text-sm font-medium mb-2">
+                  You are
+                </label>
+                <NativeSelect
+                  id="role"
+                  name="role"
+                  value={formData.role}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="" disabled>
+                    Choose one
+                  </option>
+                  {ROLES.map((role) => (
+                    <option key={role.value} value={role.value}>
+                      {role.label}
+                    </option>
+                  ))}
+                </NativeSelect>
+              </div>
+              <div>
+                <label htmlFor="city" className="block text-sm font-medium mb-2">
+                  City <span className="text-muted-foreground">(optional)</span>
+                </label>
+                <Input
+                  id="city"
+                  name="city"
+                  type="text"
+                  autoComplete="address-level2"
+                  placeholder="Your city"
+                  value={formData.city}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="courts" className="block text-sm font-medium mb-2">
+                Courts you appear in
+              </label>
+              <Input
+                id="courts"
+                name="courts"
+                type="text"
+                placeholder="Bombay High Court, Nagpur District Court…"
+                value={formData.courts}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="firm" className="block text-sm font-medium mb-2">
+                Firm or practice <span className="text-muted-foreground">(optional)</span>
+              </label>
+              <Input
+                id="firm"
+                name="firm"
+                type="text"
+                autoComplete="organization"
+                value={formData.firm}
                 onChange={handleChange}
               />
             </div>
-          </div>
 
-          <div>
-            <label htmlFor="courts" className="block text-sm font-medium mb-2">
-              Courts you appear in
-            </label>
-            <Input
-              id="courts"
-              name="courts"
-              type="text"
-              placeholder="Bombay High Court, Nagpur District Court…"
-              value={formData.courts}
-              onChange={handleChange}
-              required
-            />
-          </div>
+            <div>
+              <label htmlFor="note" className="block text-sm font-medium mb-2">
+                Anything else <span className="text-muted-foreground">(optional)</span>
+              </label>
+              <Textarea
+                id="note"
+                name="note"
+                placeholder="The tool you need first, the size of your team, a question."
+                value={formData.note}
+                onChange={handleChange}
+                rows={3}
+              />
+            </div>
 
-          <div>
-            <label htmlFor="firm" className="block text-sm font-medium mb-2">
-              Firm or practice <span className="text-muted-foreground">(optional)</span>
-            </label>
-            <Input
-              id="firm"
-              name="firm"
-              type="text"
-              autoComplete="organization"
-              placeholder="Firm or practice"
-              value={formData.firm}
-              onChange={handleChange}
-            />
-          </div>
+            {hasFailed && (
+              <p
+                role="alert"
+                className="rounded-md border border-destructive-foreground/30 bg-destructive px-3 py-2 text-sm text-destructive-foreground">
+                The entry did not send. Try again, or write to us directly at{' '}
+                <a href={`mailto:${CONTACT_EMAIL}`} className="underline">
+                  {CONTACT_EMAIL}
+                </a>
+                .
+              </p>
+            )}
 
-          <div>
-            <label htmlFor="note" className="block text-sm font-medium mb-2">
-              Anything else <span className="text-muted-foreground">(optional)</span>
-            </label>
-            <textarea
-              id="note"
-              name="note"
-              placeholder="The tool you need first, the size of your team, a question."
-              value={formData.note}
-              onChange={handleChange}
-              rows={3}
-              className={`${fieldClass} min-h-[88px]`}
-            />
-          </div>
-
-          {hasFailed && (
-            <p className="rounded-md border border-destructive-foreground/30 bg-destructive px-3 py-2 text-sm text-destructive-foreground">
-              The entry did not send. Try again, or write to us directly at{' '}
-              <a href={`mailto:${CONTACT_EMAIL}`} className="underline">
-                {CONTACT_EMAIL}
-              </a>
-              .
+            <Button type="submit" size="lg" className="w-full">
+              {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}
+              {isSubmitting ? 'Saving your seat…' : 'Put my practice on the list'}
+            </Button>
+            <p className="text-xs text-muted-foreground text-center">
+              No card, no call. We use this only to write to you about your access.
             </p>
-          )}
-
-          <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-            {isSubmitting ? 'Saving your seat…' : 'Put my practice on the list'}
-          </Button>
-          <p className="text-xs text-muted-foreground text-center">
-            No card, no call. We use this only to write to you about your access.
-          </p>
+          </fieldset>
         </form>
       </CardContent>
     </Card>
