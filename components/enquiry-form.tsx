@@ -48,7 +48,7 @@ const COURT_LEVELS = [
 /** The optional organisation field, named for who is filling it in. */
 const FIRM_LABEL: Record<Role | '', string> = {
   advocate: 'Chamber or firm',
-  clerk: 'Advocate or firm you work with',
+  clerk: 'Advocate or firm',
   firm: 'Firm name',
   business: 'Company name',
   other: 'Firm or organisation',
@@ -146,6 +146,10 @@ const linkClass = 'font-medium text-foreground underline underline-offset-4';
  * The site's one form, in two variants: `contact` (a question for us) and `waitlist`
  * (a request for access, with role, city and courts). Both send through the same EmailJS
  * template and share every state: sending, error, and a confirmation that stays.
+ *
+ * Copy voice: field labels are neutral nouns (Name, Role, Courts); helper text and
+ * placeholders speak to the visitor; buttons name the action, in the words the rest of the
+ * site uses for it (the header says Join the waitlist, so the button does too).
  *
  * `preview` is for /dev/forms only: it seeds a state and fakes the send.
  */
@@ -316,7 +320,7 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
               <>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div>
-                    <FieldLabel htmlFor={ids('role')}>You are</FieldLabel>
+                    <FieldLabel htmlFor={ids('role')}>Role</FieldLabel>
                     <Select value={fields.role} onValueChange={(v) => set('role', v as Role)}>
                       <SelectTrigger
                         id={ids('role')}
@@ -344,7 +348,7 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
                 </div>
 
                 <div>
-                  <FieldLabel id={ids('courts-label')}>Courts you appear in</FieldLabel>
+                  <FieldLabel id={ids('courts-label')}>Courts</FieldLabel>
                   <div
                     id={ids('courts')}
                     role="group"
@@ -378,7 +382,7 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
                   {missing.courts ? (
                     <FieldError id={ids('courts-error')}>Choose at least one.</FieldError>
                   ) : (
-                    <p className="mt-2 text-xs text-muted-foreground">Choose all that apply.</p>
+                    <p className="mt-2 text-xs text-muted-foreground">Where you appear. Choose all that apply.</p>
                   )}
                 </div>
               </>
@@ -429,8 +433,8 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
               {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}
               {isWaitlist
                 ? isSubmitting
-                  ? 'Saving your seat…'
-                  : 'Put my practice on the list'
+                  ? 'Joining…'
+                  : 'Join the waitlist'
                 : isSubmitting
                   ? 'Sending…'
                   : 'Send message'}
