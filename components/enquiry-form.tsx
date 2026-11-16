@@ -14,6 +14,7 @@ import { CONTACT_EMAIL, DEMO_HREF, emailjsConfig } from '@/lib/site';
 import { PRACTICE_CITIES } from '@/lib/practice-cities';
 import { capture, identifyVisitor } from '@/lib/analytics';
 import { fakeSend, type FormPreview } from '@/lib/form-preview';
+import { scrollToId } from './scroll-to-section';
 import { suggestEmail } from '@/lib/email-typo';
 
 export type EnquiryVariant = 'contact' | 'waitlist';
@@ -166,6 +167,32 @@ const linkClass = 'font-medium text-foreground underline underline-offset-4';
 
 /** The small heading over each part of a confirmation. */
 const sectionLabel = 'mb-3 text-[11px] font-semibold tracking-wider text-primary uppercase';
+
+/** The tinted strip that repeats what was sent. */
+const summaryClass = 'space-y-0.5 rounded-md bg-muted px-3 py-2 text-sm text-muted-foreground';
+
+/** The browsing links at the foot of both confirmations. */
+function WhileYouWait() {
+  return (
+    <div>
+      <p className={sectionLabel}>While you wait</p>
+      {/* Full-width rows: the card is often too narrow for two buttons side by side. */}
+      <div className="grid gap-2">
+        {/* Platform first, as in the site's navigation: the overview, then the parts. */}
+        <Button variant="outline" className="w-full justify-between" asChild>
+          <Link href="/platform">
+            See the platform <ArrowRight className="h-4 w-4" />
+          </Link>
+        </Button>
+        <Button variant="outline" className="w-full justify-between" asChild>
+          <Link href="/tools">
+            Explore the tools <ArrowRight className="h-4 w-4" />
+          </Link>
+        </Button>
+      </div>
+    </div>
+  );
+}
 
 /**
  * Character limits. They keep an entry readable and the email small (each send is one of
@@ -322,7 +349,7 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
           trying.
         </p>
         {/* What was sent, so a wrong role or city is caught here rather than at the batch. */}
-        <div className="mb-6 space-y-0.5 rounded-md bg-muted px-3 py-2 text-sm text-muted-foreground">
+        <div className={cn(summaryClass, 'mb-6')}>
           <p>
             <span className="font-medium text-foreground">{labelOf(ROLES, sent.role)}</span> · {sent.city}
           </p>
@@ -341,30 +368,44 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
             </Button>
           </div>
         )}
-        <p className={sectionLabel}>While you wait</p>
-        {/* Full-width rows: the card is often too narrow for two buttons side by side. */}
-        <div className="grid gap-2">
-          {/* Platform first, as in the site's navigation: the overview, then the parts. */}
-          <Button variant="outline" className="w-full justify-between" asChild>
-            <Link href="/platform">
-              See the platform <ArrowRight className="h-4 w-4" />
-            </Link>
-          </Button>
-          <Button variant="outline" className="w-full justify-between" asChild>
-            <Link href="/tools">
-              Explore the tools <ArrowRight className="h-4 w-4" />
-            </Link>
-          </Button>
-        </div>
+        <WhileYouWait />
       </Confirmation>
     ) : (
       <Confirmation title="Message received." headingRef={headingRef}>
         <p className="mb-6 leading-relaxed text-muted-foreground">
           {thanks} We will reply to <span className="font-medium text-foreground">{sent.email}</span>.
         </p>
-        <Button variant="outline" onClick={() => setSent(null)}>
-          Send another message
-        </Button>
+        {/* What was sent, clipped: enough to recognise it, not a second copy of the form. */}
+        <div className={cn(summaryClass, 'mb-6')}>
+          <p className="line-clamp-3 whitespace-pre-line text-foreground">{sent.message}</p>
+          {sent.firm.trim() && <p>{sent.firm.trim()}</p>}
+        </div>
+        <div className="mb-6">
+          <p className={sectionLabel}>Rather talk it through?</p>
+          <p className="mb-3 text-sm leading-relaxed text-muted-foreground">
+            Book half an hour and we will answer it on a call, with your own cases on screen.
+          </p>
+          {/* The calendar is at the top of the contact page; elsewhere this goes there. */}
+          <Button asChild>
+            <Link
+              href={`${DEMO_HREF}#book-a-demo`}
+              onClick={(e) => {
+                if (!document.getElementById('book-a-demo')) return;
+                e.preventDefault();
+                scrollToId('book-a-demo');
+              }}
+            >
+              Book a demo
+            </Link>
+          </Button>
+        </div>
+        <WhileYouWait />
+        <p className="mt-6 border-t pt-4 text-sm text-muted-foreground">
+          Something to add?{' '}
+          <button type="button" className={linkClass} onClick={() => setSent(null)}>
+            Send another message
+          </button>
+        </p>
       </Confirmation>
     );
   }
