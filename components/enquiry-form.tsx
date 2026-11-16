@@ -403,7 +403,7 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
 
             <div>
               <FieldLabel htmlFor={ids('message')} optional={isWaitlist}>
-                {isWaitlist ? 'Anything else' : 'Message'}
+                {isWaitlist ? 'Additional details' : 'Message'}
               </FieldLabel>
               <Textarea
                 id={ids('message')}
