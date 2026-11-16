@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { PageHeader } from '@/components/page-header';
 import { Section } from '@/components/section';
-import { ContactForm } from '@/components/contact-form';
+import { EnquiryForm } from '@/components/enquiry-form';
 import { DemoScheduler } from '@/components/demo-scheduler';
 import { StaggerChildren, StaggerItem, RevealOnScroll } from '@/components/animations';
 import { contactChannels } from '@/data/contact';
@@ -90,7 +90,7 @@ export default function ContactPage() {
                 </h2>
               </RevealOnScroll>
               <RevealOnScroll direction="up" delay={0.2} duration={0.7}>
-                <ContactForm />
+                <EnquiryForm variant="contact" />
               </RevealOnScroll>
             </div>
           )}

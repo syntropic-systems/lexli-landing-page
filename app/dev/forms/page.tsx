@@ -2,8 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { PageHeader } from '@/components/page-header';
 import { Section } from '@/components/section';
-import { ContactForm } from '@/components/contact-form';
-import { WaitlistForm } from '@/components/waitlist-form';
+import { EnquiryForm } from '@/components/enquiry-form';
 import type { FormPreview } from '@/lib/form-preview';
 
 export const metadata: Metadata = {
@@ -32,7 +31,7 @@ function Frame({ label, note, children }: { label: string; note: string; childre
 }
 
 /**
- * Every state of the contact and waitlist forms, side by side, for working on
+ * Every state of EnquiryForm's contact and waitlist variants, side by side, for working on
  * their design. Development only: production builds answer 404. Sends here are
  * faked, so nothing reaches EmailJS or PostHog; submitting any form shows the
  * sent state after a moment.
@@ -44,14 +43,14 @@ export default function FormsPreviewPage() {
     <div>
       <PageHeader
         title="Forms"
-        description="Every state of the contact and waitlist forms. Development only; sends are faked."
+        description="Every state of EnquiryForm's two variants. Development only; sends are faked."
       />
 
       <Section title="Contact form" description="/contact, beside the booking calendar.">
         <div className="grid gap-10 md:grid-cols-2 xl:grid-cols-3">
           {STATES.map(({ state, label, note }) => (
             <Frame key={state} label={label} note={note}>
-              <ContactForm preview={state} />
+              <EnquiryForm variant="contact" preview={state} />
             </Frame>
           ))}
         </div>
@@ -61,11 +60,11 @@ export default function FormsPreviewPage() {
         <div className="grid gap-10 md:grid-cols-2 xl:grid-cols-3">
           {STATES.map(({ state, label, note }) => (
             <Frame key={state} label={label} note={note}>
-              <WaitlistForm preview={state} />
+              <EnquiryForm variant="waitlist" preview={state} />
             </Frame>
           ))}
           <Frame label="No EmailJS" note="Shown when the EmailJS values are missing.">
-            <WaitlistForm preview="unconfigured" />
+            <EnquiryForm variant="waitlist" preview="unconfigured" />
           </Frame>
         </div>
       </Section>

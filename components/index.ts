@@ -7,7 +7,7 @@ export { VerdictLine } from './verdict-line';
 export { PageHeader } from './page-header';
 
 // Form components
-export { ContactForm } from './contact-form';
+export { EnquiryForm } from './enquiry-form';
 
 // Navigation components
 export { Footer } from './footer';

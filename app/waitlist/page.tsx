@@ -6,7 +6,7 @@ import { Section } from '@/components/section';
 import { StepsList } from '@/components/steps-list';
 import { FeatureGlowGrid } from '@/components/feature-glow-grid';
 import { VerdictLine } from '@/components/verdict-line';
-import { WaitlistForm } from '@/components/waitlist-form';
+import { EnquiryForm } from '@/components/enquiry-form';
 import { RevealOnScroll } from '@/components/animations';
 import { APP_URL, CTA, DEMO_HREF, IS_WAITLIST, SITE_URL } from '@/lib/site';
 
@@ -127,7 +127,7 @@ export default function WaitlistPage() {
               </h2>
             </RevealOnScroll>
             <RevealOnScroll direction="up" delay={0.2} duration={0.7}>
-              <WaitlistForm />
+              <EnquiryForm variant="waitlist" />
             </RevealOnScroll>
           </div>
         </div>
