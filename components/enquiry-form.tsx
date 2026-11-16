@@ -1,6 +1,6 @@
 'use client';
 
-import { useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Check, Loader2 } from 'lucide-react';
 import { Button } from './ui/button';
@@ -10,10 +10,11 @@ import { Card, CardContent } from './ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { CitySelect } from './ui/city-select';
 import { cn } from '@/lib/utils';
-import { APP_URL, CONTACT_EMAIL, emailjsConfig } from '@/lib/site';
+import { APP_URL, CONTACT_EMAIL, DEMO_HREF, emailjsConfig } from '@/lib/site';
 import { PRACTICE_CITIES } from '@/lib/practice-cities';
 import { capture, identifyVisitor } from '@/lib/analytics';
 import { fakeSend, type FormPreview } from '@/lib/form-preview';
+import { suggestEmail } from '@/lib/email-typo';
 
 export type EnquiryVariant = 'contact' | 'waitlist';
 
@@ -124,21 +125,42 @@ function FieldError({ id, children }: { id: string; children: React.ReactNode })
   );
 }
 
-function Confirmation({ title, children }: { title: string; children: React.ReactNode }) {
+function Confirmation({
+  title,
+  headingRef,
+  children,
+}: {
+  title: string;
+  headingRef: React.Ref<HTMLHeadingElement>;
+  children: React.ReactNode;
+}) {
   return (
-    <Card>
+    // scroll-mt clears the sticky header when the card is scrolled into view.
+    <Card data-confirmation className="scroll-mt-24">
       <CardContent className="pt-6">
         <div className="py-4">
           <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-full bg-accent text-accent-foreground">
             <Check className="h-5 w-5" strokeWidth={2.25} />
           </div>
-          <h3 className="mb-3 font-serif text-2xl font-semibold">{title}</h3>
+          {/* Focusable so focus can land here after sending; outline-none since it is not a control. */}
+          <h3 ref={headingRef} tabIndex={-1} className="mb-3 font-serif text-2xl font-semibold outline-none">
+            {title}
+          </h3>
           {children}
         </div>
       </CardContent>
     </Card>
   );
 }
+
+/** Honorifics people put before their name, skipped when picking the name to thank. */
+const HONORIFIC = /^(adv|advocate|dr|mr|mrs|ms|shri|smt|sri|kumari|km)\.?$/i;
+
+/** "Rohan" from "Rohan Kulkarni" or "Adv. Rohan Kulkarni", for the thank-you line. */
+const firstName = (name: string) => name.trim().split(/\s+/).find((word) => !HONORIFIC.test(word)) ?? '';
+
+/** Roles with a team to set up, for whom a demo comes before a batch date. */
+const DEMO_FIRST: readonly (Role | '')[] = ['firm', 'business'];
 
 const linkClass = 'font-medium text-foreground underline underline-offset-4';
 
@@ -160,18 +182,36 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
 
   const [fields, setFields] = useState<Fields>(preview && preview !== 'empty' ? SAMPLE[variant] : EMPTY);
   const [isSubmitting, setIsSubmitting] = useState(preview === 'sending');
-  // The address the entry came from, for the confirmation; null until one is sent.
-  const [sentFrom, setSentFrom] = useState<string | null>(preview === 'sent' ? SAMPLE[variant].email : null);
+  // What was sent, kept for the confirmation; null until something is sent.
+  const [sent, setSent] = useState<Fields | null>(preview === 'sent' ? SAMPLE[variant] : null);
   const [hasFailed, setHasFailed] = useState(preview === 'error');
   // Role, city and courts are not plain inputs, so the browser cannot check them; this does.
   const [missing, setMissing] = useState<{ role?: boolean; city?: boolean; courts?: boolean }>({});
+  // A likely correction for a misspelt email domain, offered once the field is left.
+  const [emailHint, setEmailHint] = useState<string | null>(null);
+
+  // When the form gives way to the confirmation, the card is much shorter, so it can end up
+  // above the screen (the button was at the bottom of a tall form), and the focused button is
+  // gone. Bring the card into view and put focus on its heading, which screen readers announce.
+  // Only after a send, not when a preview starts on the sent state.
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const justSent = useRef(false);
+  useEffect(() => {
+    if (!sent || !justSent.current) return;
+    justSent.current = false;
+    const heading = headingRef.current;
+    heading?.focus({ preventScroll: true });
+    heading?.closest('[data-confirmation]')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [sent]);
 
   const set = <K extends keyof Fields>(key: K, value: Fields[K]) => {
     setFields((f) => ({ ...f, [key]: value }));
     if (key === 'role' || key === 'city' || key === 'courts') setMissing((m) => ({ ...m, [key]: false }));
   };
-  const onText = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+  const onText = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     set(e.target.name as 'name' | 'email' | 'firm' | 'message', e.target.value);
+    if (e.target.name === 'email') setEmailHint(null);
+  };
   const toggleCourt = (court: string) =>
     set('courts', fields.courts.includes(court) ? fields.courts.filter((c) => c !== court) : [...fields.courts, court]);
 
@@ -237,7 +277,8 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
         else capture('contact_submitted');
       }
       // No auto-reset: the confirmation stays until the visitor asks for a new form.
-      setSentFrom(fields.email);
+      justSent.current = true;
+      setSent(fields);
       setFields(EMPTY);
     } catch (error) {
       // A silently dropped entry is worse than a visible failure: the sender walks
@@ -249,17 +290,26 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
     }
   };
 
-  if (sentFrom) {
+  if (sent) {
+    const thanks = firstName(sent.name) ? `Thank you, ${firstName(sent.name)}.` : 'Thank you.';
     return isWaitlist ? (
-      <Confirmation title="Your seat is on the list.">
+      <Confirmation title="Your seat is on the list." headingRef={headingRef}>
         <p className="mb-6 leading-relaxed text-muted-foreground">
-          Thank you. The day your batch opens, we write to{' '}
-          <span className="font-medium text-foreground">{sentFrom}</span> with your access and the first thing worth
+          {thanks} The day your batch opens, we write to{' '}
+          <span className="font-medium text-foreground">{sent.email}</span> with your access and the first thing worth
           trying.
         </p>
+        {DEMO_FIRST.includes(sent.role) && (
+          <div className="mb-6 rounded-md border bg-muted/50 p-4">
+            <p className="mb-3 text-sm leading-relaxed text-muted-foreground">
+              With a team to set up, a demo is the faster way in. We walk through the workspace with your own cases.
+            </p>
+            <Button asChild>
+              <Link href={DEMO_HREF}>Book a demo</Link>
+            </Button>
+          </div>
+        )}
         <ul className="space-y-2 text-sm text-muted-foreground">
-          <li>There is nothing to install and nothing to prepare before then.</li>
-          <li>Your files, diaries, and templates stay where they are.</li>
           <li>
             Meanwhile, the{' '}
             <Link href="/tools" className={linkClass}>
@@ -281,11 +331,11 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
         </ul>
       </Confirmation>
     ) : (
-      <Confirmation title="Message received.">
+      <Confirmation title="Message received." headingRef={headingRef}>
         <p className="mb-6 leading-relaxed text-muted-foreground">
-          Thank you. We will reply to <span className="font-medium text-foreground">{sentFrom}</span>.
+          {thanks} We will reply to <span className="font-medium text-foreground">{sent.email}</span>.
         </p>
-        <Button variant="outline" onClick={() => setSentFrom(null)}>
+        <Button variant="outline" onClick={() => setSent(null)}>
           Send another message
         </Button>
       </Confirmation>
@@ -312,8 +362,27 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
                 autoComplete="email"
                 value={fields.email}
                 onChange={onText}
+                onBlur={() => setEmailHint(suggestEmail(fields.email))}
+                aria-describedby={emailHint ? ids('email-hint') : undefined}
                 required
               />
+              {/* A hint, not a block: they can ignore it and send as typed. */}
+              {emailHint && (
+                <p id={ids('email-hint')} className="mt-2 text-sm text-muted-foreground">
+                  Did you mean{' '}
+                  <button
+                    type="button"
+                    className={linkClass}
+                    onClick={() => {
+                      set('email', emailHint);
+                      setEmailHint(null);
+                    }}
+                  >
+                    {emailHint}
+                  </button>
+                  ?
+                </p>
+              )}
             </div>
 
             {isWaitlist && (
