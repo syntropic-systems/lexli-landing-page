@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { PageHeader } from '@/components/page-header';
 import { Section } from '@/components/section';
 import { ContactForm } from '@/components/contact-form';
+import { DemoScheduler } from '@/components/demo-scheduler';
 import { StaggerChildren, StaggerItem, RevealOnScroll } from '@/components/animations';
 import { contactChannels } from '@/data/contact';
 import { emailjsConfig, SITE_URL } from '@/lib/site';
@@ -21,7 +22,19 @@ export default function ContactPage() {
         description="A demo takes half an hour and your most complicated case. Or just send the question. We would rather answer it than have you guess."
       />
 
-      <Section disableDefaultHeader>
+      {/* The calendar comes first: every "Book a demo" on the site lands here. */}
+      <Section
+        id="book-a-demo"
+        title="Book a demo"
+        description="Pick a time that suits you."
+        className="pb-0 md:pb-0 lg:pb-0"
+      >
+        <RevealOnScroll direction="up" delay={0.1} duration={0.7}>
+          <DemoScheduler />
+        </RevealOnScroll>
+      </Section>
+
+      <Section id="reach-us" disableDefaultHeader>
         <div
           className={
             emailjsConfig

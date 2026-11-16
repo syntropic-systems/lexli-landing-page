@@ -56,8 +56,11 @@ export const emailjsConfig =
     ? { serviceId: emailjsServiceId, templateId: emailjsTemplateId, publicKey: emailjsPublicKey }
     : null;
 
-/** Demo requests. Points at the contact page now that one exists. */
+/** Demo requests. Points at the contact page, which opens on the booking calendar. */
 export const DEMO_HREF = "/contact";
+
+/** Lexli's Calendly page, embedded on the contact page. */
+export const CALENDLY_URL = "https://calendly.com/lexli-ai";
 
 export const LINKEDIN_URL = "https://www.linkedin.com/company/lexli-ai";
 
