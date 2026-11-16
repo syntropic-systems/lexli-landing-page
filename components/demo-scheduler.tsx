@@ -1,78 +1,93 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useSyncExternalStore } from "react";
+import Cal, { getCalApi } from "@calcom/embed-react";
 import { useTheme } from "next-themes";
 import { capture } from "@/lib/analytics";
-import { CALENDLY_URL } from "@/lib/site";
+import { CAL_LINK } from "@/lib/site";
 
-const CALENDLY_ORIGIN = "https://calendly.com";
-const MIN_HEIGHT = 700;
+/** Namespaces with the demo_booked listener; cal("on") adds one per call, so each gets it once. */
+const listening = new Set<string>();
 
 /**
- * --background, --foreground and --primary from styles/globals.css, as the hex
- * Calendly's URL params take. Keep in step with the tokens if they change.
+ * Our tokens from styles/globals.css, as hex, on Cal.com's colour variables.
+ * The booker is an iframe on Cal.com's origin, so it cannot read our CSS
+ * variables; keep these in step with the tokens if they change.
  */
-const COLORS = {
-  light: { background: "fafafa", text: "242424", primary: "a45007" },
-  dark: { background: "0c0c0c", text: "f5f5f5", primary: "af5608" },
+const CAL_COLORS = {
+  light: {
+    "cal-brand": "#a45007", // --primary
+    "cal-brand-text": "#ffffff", // --primary-foreground
+    "cal-bg": "#ffffff", // --card
+    "cal-bg-emphasis": "#eee0d3", // --accent: available dates
+    "cal-border": "#e7e5e2", // --border
+    "cal-border-subtle": "#e7e5e2",
+    "cal-border-booker": "#e7e5e2",
+    "cal-text": "#242424", // --foreground
+    "cal-text-emphasis": "#4a2c16", // --accent-foreground: date numbers (and headings) on --accent
+    "cal-text-subtle": "#737373", // --muted-foreground
+    "cal-text-muted": "#737373",
+  },
+  dark: {
+    "cal-brand": "#af5608",
+    "cal-brand-text": "#ffffff",
+    "cal-bg": "#141414",
+    "cal-bg-emphasis": "#2a211b",
+    "cal-border": "#262626",
+    "cal-border-subtle": "#262626",
+    "cal-border-booker": "#262626",
+    "cal-text": "#f5f5f5",
+    "cal-text-emphasis": "#f5eee8",
+    "cal-text-subtle": "#a3a09c",
+    "cal-text-muted": "#a3a09c",
+  },
 };
 
 const noSubscribe = () => () => {};
 
-function calendlySrc(host: string, theme: keyof typeof COLORS) {
-  const colors = COLORS[theme];
-  const url = new URL(CALENDLY_URL);
-  url.searchParams.set("embed_domain", host);
-  url.searchParams.set("embed_type", "Inline");
-  url.searchParams.set("hide_gdpr_banner", "1");
-  url.searchParams.set("background_color", colors.background);
-  url.searchParams.set("text_color", colors.text);
-  url.searchParams.set("primary_color", colors.primary);
-  return url.toString();
-}
-
 /**
- * Calendly's booking page, embedded inline in the site's own colours. A plain
- * iframe rather than Calendly's widget.js: the embed_domain/embed_type params
- * are what make Calendly post its events to us, and that is all widget.js adds
- * that we use. The colours follow the theme; switching theme reloads the frame.
+ * Cal.com's booker, inline, in the site's theme and colours. Each theme gets its own namespace: Cal.com keeps settings per
+ * namespace, and reusing one across a theme switch left the old theme's
+ * background behind the booker.
  *
- * - calendly.page_height: resize to the page Calendly is showing, so there is
- *   no scrollbar inside a scrollbar
- * - calendly.event_scheduled: a demo was booked; sent to PostHog as demo_booked
- *   (no invitee details: Calendly sends only URIs, and we keep it that way)
+ * A booking is sent to PostHog as demo_booked, with no invitee details.
  */
 export function DemoScheduler() {
-  // The src needs the page's host and the resolved theme; the server render has neither.
-  const host = useSyncExternalStore(noSubscribe, () => window.location.host, () => null);
+  // The theme is only known in the browser, so the server render leaves the space empty.
+  const mounted = useSyncExternalStore(noSubscribe, () => true, () => false);
   const { resolvedTheme } = useTheme();
-  const src = host && resolvedTheme ? calendlySrc(host, resolvedTheme === "dark" ? "dark" : "light") : null;
-  const [height, setHeight] = useState(MIN_HEIGHT);
+  const theme = resolvedTheme === "dark" ? "dark" : "light";
+  const namespace = `demo-${theme}`;
 
   useEffect(() => {
-    const onMessage = (event: MessageEvent) => {
-      if (event.origin !== CALENDLY_ORIGIN) return;
-      const data = event.data as { event?: string; payload?: { height?: string } } | null;
-      if (data?.event === "calendly.page_height") {
-        const next = parseInt(data.payload?.height ?? "", 10);
-        if (next > 0) setHeight(Math.max(next, MIN_HEIGHT));
-      } else if (data?.event === "calendly.event_scheduled") {
-        capture("demo_booked");
+    let cancelled = false;
+    (async () => {
+      const cal = await getCalApi({ namespace });
+      if (cancelled) return;
+      cal("ui", {
+        theme,
+        cssVarsPerTheme: CAL_COLORS,
+        layout: "month_view",
+      });
+      if (!listening.has(namespace)) {
+        listening.add(namespace);
+        cal("on", { action: "bookingSuccessfulV2", callback: () => capture("demo_booked") });
       }
+    })();
+    return () => {
+      cancelled = true;
     };
-    window.addEventListener("message", onMessage);
-    return () => window.removeEventListener("message", onMessage);
-  }, []);
+  }, [namespace, theme]);
 
   return (
-    <div className="mx-auto max-w-4xl" style={{ height }}>
-      {src && (
-        <iframe
-          key={src}
-          src={src}
-          title="Book a demo with Lexli"
-          className="h-full w-full border-0 bg-background"
-          loading="lazy"
+    <div className="mx-auto min-h-[700px] w-full max-w-6xl">
+      {mounted && (
+        <Cal
+          key={namespace}
+          namespace={namespace}
+          calLink={CAL_LINK}
+          config={{ layout: "month_view", theme }}
+          style={{ width: "100%", height: "100%", minHeight: 700 }}
         />
       )}
     </div>
