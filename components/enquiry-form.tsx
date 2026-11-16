@@ -99,7 +99,7 @@ function waitlistMessage(f: Fields): string {
   return [
     'WAITLIST REQUEST',
     `Role: ${labelOf(ROLES, f.role)}`,
-    f.city ? `City: ${f.city}` : null,
+    `City: ${f.city}`,
     `Courts: ${f.courts.map((c) => labelOf(COURT_LEVELS, c)).join(', ')}`,
     f.message ? `Note: ${f.message}` : null,
   ]
@@ -163,12 +163,12 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
   // The address the entry came from, for the confirmation; null until one is sent.
   const [sentFrom, setSentFrom] = useState<string | null>(preview === 'sent' ? SAMPLE[variant].email : null);
   const [hasFailed, setHasFailed] = useState(preview === 'error');
-  // Role and courts are not native inputs, so the browser cannot check them; this does.
-  const [missing, setMissing] = useState<{ role?: boolean; courts?: boolean }>({});
+  // Role, city and courts are not plain inputs, so the browser cannot check them; this does.
+  const [missing, setMissing] = useState<{ role?: boolean; city?: boolean; courts?: boolean }>({});
 
   const set = <K extends keyof Fields>(key: K, value: Fields[K]) => {
     setFields((f) => ({ ...f, [key]: value }));
-    if (key === 'role' || key === 'courts') setMissing((m) => ({ ...m, [key]: false }));
+    if (key === 'role' || key === 'city' || key === 'courts') setMissing((m) => ({ ...m, [key]: false }));
   };
   const onText = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     set(e.target.name as 'name' | 'email' | 'firm' | 'message', e.target.value);
@@ -202,10 +202,11 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isWaitlist) {
-      const gaps = { role: !fields.role, courts: fields.courts.length === 0 };
-      if (gaps.role || gaps.courts) {
+      const gaps = { role: !fields.role, city: !fields.city.trim(), courts: fields.courts.length === 0 };
+      const first = (['role', 'city', 'courts'] as const).find((k) => gaps[k]);
+      if (first) {
         setMissing(gaps);
-        document.getElementById(ids(gaps.role ? 'role' : 'courts'))?.focus();
+        document.getElementById(ids(first))?.focus();
         return;
       }
     }
@@ -339,10 +340,16 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
                     {missing.role && <FieldError id={ids('role-error')}>Choose the one closest to you.</FieldError>}
                   </div>
                   <div>
-                    <FieldLabel htmlFor={ids('city')} optional>
-                      City
-                    </FieldLabel>
-                    <CitySelect id={ids('city')} value={fields.city} onChange={(c) => set('city', c)} groups={PRACTICE_CITIES} />
+                    <FieldLabel htmlFor={ids('city')}>City</FieldLabel>
+                    <CitySelect
+                      id={ids('city')}
+                      value={fields.city}
+                      onChange={(c) => set('city', c)}
+                      groups={PRACTICE_CITIES}
+                      invalid={missing.city}
+                      describedBy={missing.city ? ids('city-error') : undefined}
+                    />
+                    {missing.city && <FieldError id={ids('city-error')}>Choose or type your city.</FieldError>}
                   </div>
                 </div>
 

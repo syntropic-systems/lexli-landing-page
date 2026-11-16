@@ -24,6 +24,8 @@ interface CitySelectProps {
   groups: CityGroup[];
   id?: string;
   invalid?: boolean;
+  /** Id of the error text, when there is one. */
+  describedBy?: string;
 }
 
 /**
@@ -35,7 +37,7 @@ interface CitySelectProps {
  * One change for the website: the list is short, so a search with no exact match offers
  * "Use …" as the last row and the visitor's own city is never refused.
  */
-export function CitySelect({ value, onChange, groups, id, invalid }: CitySelectProps) {
+export function CitySelect({ value, onChange, groups, id, invalid, describedBy }: CitySelectProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
@@ -107,6 +109,7 @@ export function CitySelect({ value, onChange, groups, id, invalid }: CitySelectP
         role="combobox"
         aria-expanded={open}
         aria-invalid={invalid || undefined}
+        aria-describedby={describedBy}
         value={open ? query : value}
         placeholder={open && value ? value : 'Type any city'}
         onFocus={openPanel}
@@ -133,7 +136,7 @@ export function CitySelect({ value, onChange, groups, id, invalid }: CitySelectP
         }}
         autoComplete="one-time-code"
         spellCheck={false}
-        className="pl-9 [&::-webkit-search-cancel-button]:hidden"
+        className={cn('pl-9 [&::-webkit-search-cancel-button]:hidden', invalid && 'border-destructive-foreground')}
       />
       {open && (
         <div
