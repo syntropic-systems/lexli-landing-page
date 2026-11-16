@@ -10,7 +10,7 @@ import { Card, CardContent } from './ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { CitySelect } from './ui/city-select';
 import { cn } from '@/lib/utils';
-import { APP_URL, CONTACT_EMAIL, DEMO_HREF, emailjsConfig } from '@/lib/site';
+import { CONTACT_EMAIL, DEMO_HREF, emailjsConfig } from '@/lib/site';
 import { PRACTICE_CITIES } from '@/lib/practice-cities';
 import { capture, identifyVisitor } from '@/lib/analytics';
 import { fakeSend, type FormPreview } from '@/lib/form-preview';
@@ -356,12 +356,6 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
             </Link>
           </Button>
         </div>
-        <p className="mt-6 border-t pt-4 text-sm text-muted-foreground">
-          Already have an account?{' '}
-          <a href={APP_URL} target="_blank" rel="noopener noreferrer" className={linkClass}>
-            Sign in
-          </a>
-        </p>
       </Confirmation>
     ) : (
       <Confirmation title="Message received." headingRef={headingRef}>
