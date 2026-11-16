@@ -164,6 +164,9 @@ const DEMO_FIRST: readonly (Role | '')[] = ['firm', 'business'];
 
 const linkClass = 'font-medium text-foreground underline underline-offset-4';
 
+/** The small heading over each part of a confirmation. */
+const sectionLabel = 'mb-3 text-[11px] font-semibold tracking-wider text-primary uppercase';
+
 /**
  * Character limits. They keep an entry readable and the email small (each send is one of
  * EmailJS's monthly requests, and it caps an email's size). The browser stops input at the
@@ -327,7 +330,9 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
           {sent.firm.trim() && <p>{sent.firm.trim()}</p>}
         </div>
         {DEMO_FIRST.includes(sent.role) && (
-          <div className="mb-6 rounded-md border bg-muted/50 p-4">
+          // A section like "While you wait", not a box: the card already has the summary strip.
+          <div className="mb-6">
+            <p className={sectionLabel}>For teams</p>
             <p className="mb-3 text-sm leading-relaxed text-muted-foreground">
               With a team to set up, a demo is the faster way in. We walk through the workspace with your own cases.
             </p>
@@ -336,7 +341,7 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
             </Button>
           </div>
         )}
-        <p className="mb-3 text-[11px] font-semibold tracking-wider text-primary uppercase">While you wait</p>
+        <p className={sectionLabel}>While you wait</p>
         {/* Full-width rows: the card is often too narrow for two buttons side by side. */}
         <div className="grid gap-2">
           {/* Platform first, as in the site's navigation: the overview, then the parts. */}
