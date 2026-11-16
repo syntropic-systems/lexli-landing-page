@@ -72,6 +72,7 @@ export default function Home() {
       {/* The record, shown — the hub diagram is the site's one artifact that
           proves the hero's third beat instead of restating it. */}
       <Section
+        id="platform"
         header={<Eyebrow>The platform</Eyebrow>}
         title="One case record, underneath everything."
         description="The platform holds the cases, files, hearings, and context. Every tool draws from it, which is why the calendar knows your day, drafts arrive filled in, and a scan is ready for filing before filing comes up."
@@ -85,6 +86,7 @@ export default function Home() {
           one bento. The platform page keeps the full argument. */}
       <Section
         variant="muted"
+        id="inside-the-platform"
         header={<Eyebrow>Inside the platform</Eyebrow>}
         title="The record, and everything that reads it."
         description="The case record, the assistant that works it, the reading underneath, and search across all of it. Accounts, security, and legal research continue on the platform page."
@@ -106,6 +108,7 @@ export default function Home() {
       {/* The lineup in two rows: the platform tools first, the front doors
           under them. */}
       <Section
+        id="tools"
         header={<Eyebrow>The tools</Eyebrow>}
         title="Six tools. Start with the one you need."
         description="Each works on its own, and each works from the same case record. Smart Drafting and eFiling go deepest; the other four are where most people start."
@@ -127,6 +130,7 @@ export default function Home() {
       {/* Who it's for — the solutions index's three doors, verbatim. */}
       <Section
         variant="muted"
+        id="who-its-for"
         header={<Eyebrow>Who you are</Eyebrow>}
         title="Same record. Different hands."
         description="A solo litigator, a firm, and the staff who keep both moving. Pick the day that looks like yours."
@@ -149,6 +153,7 @@ export default function Home() {
           sceptical first visit meets the promise before the FAQ. The company
           page keeps the full argument around them. */}
       <Section
+        id="commitments"
         header={<Eyebrow>{commitments.eyebrow}</Eyebrow>}
         title={commitments.headline}
         description={commitments.lead}
@@ -194,6 +199,7 @@ export default function Home() {
       {/* The first five questions — answers single-sourced from the FAQ data,
           so the two pages can never disagree. */}
       <Section
+        id="faq"
         header={<Eyebrow>FAQ</Eyebrow>}
         title="Asked before anything else."
         titleAlign="center"

@@ -21,7 +21,7 @@ export function CTASection({
     secondaryCta,
 }: CTASectionProps) {
     return (
-        <section className="py-20 md:py-24 bg-accent/70 shadow-inner">
+        <section id="closing-cta" className="py-20 md:py-24 bg-accent/70 shadow-inner">
             <div className="container">
                 <div className="max-w-7xl mx-auto">
                     <div className="max-w-3xl mx-auto text-center">
