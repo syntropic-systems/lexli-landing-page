@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { track } from '@vercel/analytics';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Card, CardContent } from './ui/card';
@@ -107,7 +106,6 @@ export function WaitlistForm() {
         },
         config.publicKey
       );
-      track('waitlist_submit', { role: formData.role || 'unspecified' });
       identifyVisitor(formData.email);
       capture('waitlist_joined', { role: formData.role || 'unspecified' });
       setIsDone(true);
