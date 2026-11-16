@@ -108,7 +108,7 @@ export function CitySelect({ value, onChange, groups, id, invalid }: CitySelectP
         aria-expanded={open}
         aria-invalid={invalid || undefined}
         value={open ? query : value}
-        placeholder={open && value ? value : 'Search cities'}
+        placeholder={open && value ? value : 'Type any city'}
         onFocus={openPanel}
         onChange={(e) => {
           setQuery(e.target.value);
@@ -142,6 +142,12 @@ export function CitySelect({ value, onChange, groups, id, invalid }: CitySelectP
           onMouseDown={(e) => e.preventDefault()}
           className="absolute right-0 left-0 z-20 mt-1 max-h-64 overflow-y-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md"
         >
+          {/* The list is short; say up front that any city works, before they scroll for theirs. */}
+          {!needle && (
+            <p className="border-b px-2 pt-1 pb-2 mb-1 text-xs text-muted-foreground">
+              Not listed? Type your city to use it.
+            </p>
+          )}
           {shown.map((g, gi) => {
             // Where this group starts in the flat index.
             const start = shown.slice(0, gi).reduce((n, prev) => n + prev.cities.length, 0);
