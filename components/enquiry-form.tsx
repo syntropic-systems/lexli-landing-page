@@ -319,13 +319,13 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
           trying.
         </p>
         {/* What was sent, so a wrong role or city is caught here rather than at the batch. */}
-        <p className="mb-6 rounded-md bg-muted px-3 py-2 text-sm text-muted-foreground">
-          <span className="font-medium text-foreground">{labelOf(ROLES, sent.role)}</span>
-          {' · '}
-          {sent.city}
-          {' · '}
-          {sent.courts.map((c) => labelOf(COURT_LEVELS, c)).join(', ')}
-        </p>
+        <div className="mb-6 space-y-0.5 rounded-md bg-muted px-3 py-2 text-sm text-muted-foreground">
+          <p>
+            <span className="font-medium text-foreground">{labelOf(ROLES, sent.role)}</span> · {sent.city}
+          </p>
+          <p>{sent.courts.map((c) => labelOf(COURT_LEVELS, c)).join(', ')}</p>
+          {sent.firm.trim() && <p>{sent.firm.trim()}</p>}
+        </div>
         {DEMO_FIRST.includes(sent.role) && (
           <div className="mb-6 rounded-md border bg-muted/50 p-4">
             <p className="mb-3 text-sm leading-relaxed text-muted-foreground">
@@ -339,14 +339,15 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
         <p className="mb-3 text-[11px] font-semibold tracking-wider text-primary uppercase">While you wait</p>
         {/* Full-width rows: the card is often too narrow for two buttons side by side. */}
         <div className="grid gap-2">
-          <Button variant="outline" className="w-full justify-between" asChild>
-            <Link href="/tools">
-              Explore the tools <ArrowRight className="h-4 w-4" />
-            </Link>
-          </Button>
+          {/* Platform first, as in the site's navigation: the overview, then the parts. */}
           <Button variant="outline" className="w-full justify-between" asChild>
             <Link href="/platform">
               See the platform <ArrowRight className="h-4 w-4" />
+            </Link>
+          </Button>
+          <Button variant="outline" className="w-full justify-between" asChild>
+            <Link href="/tools">
+              Explore the tools <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>
         </div>
