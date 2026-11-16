@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `${SITE_URL}/privacy` },
 };
 
-const LAST_UPDATED = '11 November 2026';
+const LAST_UPDATED = '16 November 2026';
 
 function Block({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -70,6 +70,13 @@ export default function PrivacyPage() {
               earlier visits on this site to your email address, so we know which pages brought you
               to us.
             </p>
+            <p>
+              <strong className="text-foreground">Demo bookings.</strong> The booking calendar on our
+              contact page is run by a scheduling service. When you book a demo, the details you
+              enter there, such as your name and email address, go to that service and to us, so
+              we can hold the slot and send you the invitation. We record that a booking was made,
+              but not who made it.
+            </p>
             <p>We do not collect payment details, government identifiers or case documents on this website.</p>
           </Block>
 
@@ -77,7 +84,8 @@ export default function PrivacyPage() {
             <p>
               We use a cookie on lexli.ai so that when you come back, we can tell it is a returning
               visit. It does not contain your name or contact details. We do not use advertising
-              cookies or follow you across other websites. You can delete or block cookies in your
+              cookies or follow you across other websites. The booking calendar on our contact page
+              may set its own cookies when it loads. You can delete or block cookies in your
               browser settings at any time; the site works without them.
             </p>
           </Block>
