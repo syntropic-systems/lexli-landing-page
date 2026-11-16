@@ -59,8 +59,8 @@ export const emailjsConfig =
 /** Demo requests. Points at the contact page, which opens on the booking calendar. */
 export const DEMO_HREF = "/contact";
 
-/** Lexli's Calendly page, embedded on the contact page. */
-export const CALENDLY_URL = "https://calendly.com/lexli-ai";
+/** The 30-minute demo on Lexli's Calendly, embedded on the contact page. */
+export const CALENDLY_URL = "https://calendly.com/lexli-ai/30min";
 
 export const LINKEDIN_URL = "https://www.linkedin.com/company/lexli-ai";
 

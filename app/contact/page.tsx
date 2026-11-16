@@ -25,8 +25,6 @@ export default function ContactPage() {
       {/* The calendar comes first: every "Book a demo" on the site lands here. */}
       <Section
         id="book-a-demo"
-        title="Book a demo"
-        description="Pick a time that suits you."
         className="pb-0 md:pb-0 lg:pb-0"
       >
         <RevealOnScroll direction="up" delay={0.1} duration={0.7}>
