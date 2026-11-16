@@ -484,7 +484,6 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
                 }
                 value={fields.message}
                 onChange={onText}
-                rows={isWaitlist ? 3 : 5}
                 className={isWaitlist ? undefined : 'min-h-[120px]'}
                 required={!isWaitlist}
               />
