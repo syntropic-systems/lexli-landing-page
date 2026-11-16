@@ -136,6 +136,8 @@ export function CitySelect({ value, onChange, groups, id, invalid, describedBy }
         }}
         autoComplete="one-time-code"
         spellCheck={false}
+        // A typed city is kept to a city-name length.
+        maxLength={60}
         className={cn('pl-9 [&::-webkit-search-cancel-button]:hidden', invalid && 'border-destructive-foreground')}
       />
       {open && (

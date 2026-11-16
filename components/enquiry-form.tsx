@@ -165,6 +165,25 @@ const DEMO_FIRST: readonly (Role | '')[] = ['firm', 'business'];
 const linkClass = 'font-medium text-foreground underline underline-offset-4';
 
 /**
+ * Character limits. They keep an entry readable and the email small (each send is one of
+ * EmailJS's monthly requests, and it caps an email's size). The browser stops input at the
+ * limit, so there is no error to show; the message boxes show a count as the limit nears.
+ * Email's is the longest an address can be. City's is set in CitySelect.
+ */
+const LIMIT = { name: 100, email: 254, firm: 120, contactMessage: 2000, waitlistMessage: 1000 };
+
+/** The count under a message box, shown from 80% of its limit. */
+function CharCount({ length, max }: { length: number; max: number }) {
+  if (length < max * 0.8) return null;
+  const n = (x: number) => x.toLocaleString('en-IN');
+  return (
+    <p aria-live="polite" className={cn('mt-2 text-right text-xs', length >= max ? 'text-foreground' : 'text-muted-foreground')}>
+      {n(length)} / {n(max)}
+    </p>
+  );
+}
+
+/**
  * The site's one form, in two variants: `contact` (a question for us) and `waitlist`
  * (a request for access, with role, city and courts). Both send through the same EmailJS
  * template and share every state: sending, error, and a confirmation that stays.
@@ -350,7 +369,15 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
           <fieldset disabled={isSubmitting} className="space-y-6">
             <div>
               <FieldLabel htmlFor={ids('name')}>Name</FieldLabel>
-              <Input id={ids('name')} name="name" autoComplete="name" value={fields.name} onChange={onText} required />
+              <Input
+                id={ids('name')}
+                name="name"
+                autoComplete="name"
+                maxLength={LIMIT.name}
+                value={fields.name}
+                onChange={onText}
+                required
+              />
             </div>
 
             <div>
@@ -358,6 +385,7 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
               <Input
                 id={ids('email')}
                 name="email"
+                maxLength={LIMIT.email}
                 type="email"
                 autoComplete="email"
                 value={fields.email}
@@ -467,7 +495,14 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
               <FieldLabel htmlFor={ids('firm')} optional>
                 {isWaitlist ? FIRM_LABEL[fields.role] : FIRM_LABEL['']}
               </FieldLabel>
-              <Input id={ids('firm')} name="firm" autoComplete="organization" value={fields.firm} onChange={onText} />
+              <Input
+                id={ids('firm')}
+                name="firm"
+                autoComplete="organization"
+                maxLength={LIMIT.firm}
+                value={fields.firm}
+                onChange={onText}
+              />
             </div>
 
             <div>
@@ -482,11 +517,13 @@ export function EnquiryForm({ variant, preview }: { variant: EnquiryVariant; pre
                     ? 'The tool you need first, the size of your team, a question.'
                     : 'Your question, or what you would like to see in a demo.'
                 }
+                maxLength={isWaitlist ? LIMIT.waitlistMessage : LIMIT.contactMessage}
                 value={fields.message}
                 onChange={onText}
                 className={isWaitlist ? undefined : 'min-h-[120px]'}
                 required={!isWaitlist}
               />
+              <CharCount length={fields.message.length} max={isWaitlist ? LIMIT.waitlistMessage : LIMIT.contactMessage} />
             </div>
 
             {hasFailed && (
